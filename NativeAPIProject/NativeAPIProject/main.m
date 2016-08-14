@@ -1,16 +1,16 @@
 //
 //  main.m
-//  NativeAPIProject
+//  scrollViewTest
 //
-//  Created by Nir Gaiger on 8/11/16.
-//  Copyright © 2016 Domain Planet Limited. All rights reserved.
+//  Created by Design Webpals on 26/07/2016.
+//  Copyright © 2016 Design Webpals. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
 int main(int argc, char * argv[]) {
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
-    }
+	@autoreleasepool {
+	    return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+	}
 }

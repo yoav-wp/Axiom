@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIStackView *firstStack;
 @property (weak, nonatomic) IBOutlet UITextView *firstWysiwyg;
 @property (weak, nonatomic) IBOutlet UITextView *secondWysiwyg;
+@property (weak, nonatomic) IBOutlet UITabBar *tabBar;
 
 @end
 
@@ -24,6 +25,8 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    
+    self.tabBar.selectedItem= self.tabBar.items[0];
     
     //for the menu
     self.revealViewController.rightViewRevealOverdraw=4;
@@ -115,6 +118,23 @@
     if (item.tag == 1){
         [self.revealViewController rightRevealToggle:self];
     }
+    if (item.tag == 5){
+    }
+    if (item.tag == 3){
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"webviewVC"];
+        
+        SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
+        [segue perform];
+        
+    }
+    if (item.tag == 4){
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"categoryVC"];
+        
+        SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
+        [segue perform];
+    }
 }
 
 
@@ -128,7 +148,6 @@
 
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-
 	if(scrollView.tag == 1){
 		NSLog(@"moving main");
 	}
