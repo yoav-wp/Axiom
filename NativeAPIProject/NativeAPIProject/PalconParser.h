@@ -12,11 +12,11 @@
 @property (nonatomic, strong) NSString *fullURL;
 @property (nonatomic, strong) NSDictionary *pageDataDictionary;
 
-+(PalconParser *)getPP;
 -(void) reinitWithFullURL:(NSString *)fullURL;
 -(NSString *)homepageGetFirstWysiwyg;
 -(NSString *)homepageGetSecondWysiwyg;
 -(NSMutableArray *)categoryGetCarousel;
+-(NSString *)getPageType;
 
 
 

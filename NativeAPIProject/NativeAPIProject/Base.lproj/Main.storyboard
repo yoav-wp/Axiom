@@ -393,6 +393,7 @@
                     </view>
                     <connections>
                         <outlet property="tabBar" destination="bTc-iK-TXu" id="afD-Cz-GQd"/>
+                        <outlet property="testLabel" destination="i7E-XG-aaO" id="ypt-M4-Ylq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bnc-xi-JlB" userLabel="First Responder" sceneMemberID="firstResponder"/>

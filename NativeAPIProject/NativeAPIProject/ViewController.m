@@ -25,7 +25,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    self.pp = [PalconParser getPP];
+    self.pp = [[PalconParser alloc] init];
     [self.pp reinitWithFullURL:@"http://www.onlinecasinos.expert/homepage.js"];
     self.tabBar.selectedItem= self.tabBar.items[0];
     //for the menu
@@ -42,10 +42,10 @@
     [self initFirstWysiwyg];
     [self initSecondWysiwyg];
     [self initCarousel];
-    [self initFirstTableView];
+    [self initTableView];
 }
 
--(void) initFirstTableView{
+-(void) initTableView{
     
 }
 

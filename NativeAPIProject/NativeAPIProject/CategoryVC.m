@@ -12,6 +12,7 @@
 
 @interface CategoryVC ()
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
+@property (weak, nonatomic) IBOutlet UILabel *testLabel;
 
 @end
 
@@ -22,12 +23,22 @@
     
     self.tabBar.selectedItem= self.tabBar.items[1];
     
-    self.pp = [PalconParser getPP];
-    [self.pp reinitWithFullURL:@"http://www.onlinecasinos.expert/yoav_struct_page2"];
+    self.pp = [[PalconParser alloc] init];
+    [self.pp reinitWithFullURL:@"http://www.onlinecasinos.expert/page2.js"];
     // Do any additional setup after loading the view.
     self.revealViewController.rightViewRevealOverdraw=4;
     [self.revealViewController panGestureRecognizer];
     [self.revealViewController tapGestureRecognizer];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [self initTestLabel];
+}
+
+
+-(void) initTestLabel{
+    NSString *pageType = [self.pp getPageType];
+    [self.testLabel setText:pageType];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -11,26 +11,23 @@
 
 @implementation PalconParser
 
-static BOOL initialized = NO;
+//static BOOL initialized = NO;
 static PalconParser *sharedSingleton;
 
 
-
-+(PalconParser *) getPP{
-    @synchronized (self) {
-        if(!initialized){
-            sharedSingleton = [[PalconParser alloc] init];
-        }
-        return sharedSingleton;
-    }
-}
+//
+//-(PalconParser *) getPP{
+//    @synchronized (self) {
+//        if(!initialized){
+//            sharedSingleton = [[PalconParser alloc] init];
+//        }
+//        return sharedSingleton;
+//    }
+//}
 
 -(void) reinitWithFullURL:(NSString *)fullURL{
-    if(!initialized){
         self.fullURL = fullURL;
         [self initDataDictionary];
-        initialized = YES;
-    }
 }
 
 -(void)initDataDictionary{
@@ -40,8 +37,10 @@ static PalconParser *sharedSingleton;
 }
 
 -(NSString *)getPageType{
-    return nil;
+    NSLog(@"file %@",self.pageDataDictionary);
+    return [self.pageDataDictionary valueForKey:@"page_type"];
 }
+
 
 -(NSString *)homepageGetFirstWysiwyg {
     //get resultCount value (depth 0 of the json)
