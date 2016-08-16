@@ -15,6 +15,7 @@
 +(PalconParser *)getPP;
 -(void) reinitWithFullURL:(NSString *)fullURL;
 -(NSString *)homepageGetFirstWysiwyg;
+-(NSString *)homepageGetSecondWysiwyg;
 -(NSMutableArray *)categoryGetCarousel;
 
 

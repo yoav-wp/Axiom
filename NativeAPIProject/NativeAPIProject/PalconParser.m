@@ -50,15 +50,12 @@ static PalconParser *sharedSingleton;
     return baseString;
 }
 
-
 -(NSString *)homepageGetSecondWysiwyg {
     //get resultCount value (depth 0 of the json)
     NSString *baseString = [self.pageDataDictionary valueForKey:@"second_wysiwyg"];
     
     return baseString;
 }
-
-
 
 -(NSMutableArray *)categoryGetCarousel {
     NSMutableArray *carousel;

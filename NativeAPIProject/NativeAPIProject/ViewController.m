@@ -63,7 +63,6 @@
     
     //get carousel from API
     NSMutableArray *carousel = [self.pp categoryGetCarousel];
-    NSLog(@"test time");
     //Set carousel data in the imageViews
     NSMutableArray *carouselImageViewsArray = [NSMutableArray array];
     int i = 0;
@@ -106,7 +105,7 @@
                                             documentAttributes: nil
                                             error: nil
                                             ];
-    _firstWysiwyg.attributedText = attributedString;
+    self.firstWysiwyg.attributedText = attributedString;
 }
 
 
@@ -127,7 +126,7 @@
     
     //    NSLog(@"screen size %f, font size: %@", width, fontSize);
     
-    NSString *htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:grey;font-size:%@\">%@</spann>",fontSize,[self.pp homepageGetFirstWysiwyg]];
+    NSString *htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:grey;font-size:%@\">%@</spann>",fontSize,[self.pp homepageGetSecondWysiwyg]];
     
     
     NSAttributedString *attributedString = [[NSAttributedString alloc]
@@ -136,7 +135,7 @@
                                             documentAttributes: nil
                                             error: nil
                                             ];
-    _secondWysiwyg.attributedText = attributedString;
+    self.secondWysiwyg.attributedText = attributedString;
 }
 
 
@@ -164,6 +163,10 @@
     }
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    NSLog(@"can prepare for segue");
+}
+
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
 	
@@ -175,12 +178,12 @@
 
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-	if(scrollView.tag == 1){
-		NSLog(@"moving main");
-	}
-	if(scrollView.tag == 2){
-		NSLog(@"moving carousel");
-	}
+//	if(scrollView.tag == 1){
+//		NSLog(@"moving main");
+//	}
+//	if(scrollView.tag == 2){
+//		NSLog(@"moving carousel");
+//	}
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

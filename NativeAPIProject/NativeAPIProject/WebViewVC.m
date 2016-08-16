@@ -39,7 +39,6 @@
 
 
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
-    NSLog(@"hello2");
     if (item.tag == 1){
 //        self.tabBar.selectedItem= self.tabBar.items[5];
         [self.revealViewController rightRevealToggle:self];
