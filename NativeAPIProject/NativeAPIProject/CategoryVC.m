@@ -8,6 +8,7 @@
 
 #import "CategoryVC.h"
 #import "SWRevealViewController.h"
+#import "PalconParser.h"
 
 @interface CategoryVC ()
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
@@ -20,6 +21,9 @@
     [super viewDidLoad];
     
     self.tabBar.selectedItem= self.tabBar.items[1];
+    
+    self.pp = [PalconParser getPP];
+    [self.pp reinitWithFullURL:@"http://www.onlinecasinos.expert/yoav_struct_page2"];
     // Do any additional setup after loading the view.
     self.revealViewController.rightViewRevealOverdraw=4;
     [self.revealViewController panGestureRecognizer];

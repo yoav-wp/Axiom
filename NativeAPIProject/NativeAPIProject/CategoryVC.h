@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PalconParser.h"
 
 @interface CategoryVC : UIViewController <UITabBarDelegate>
+
+@property (strong, nonatomic) PalconParser *pp;
 
 @end

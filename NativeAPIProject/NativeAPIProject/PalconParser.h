@@ -10,7 +10,7 @@
 
 @interface PalconParser : NSObject
 @property (nonatomic, strong) NSString *fullURL;
-@property (nonatomic, strong) NSData *pageData;
+@property (nonatomic, strong) NSDictionary *pageDataDictionary;
 
 +(PalconParser *)getPP;
 -(void) reinitWithFullURL:(NSString *)fullURL;

@@ -9,7 +9,6 @@
 #import "ViewController.h"
 #import "SWRevealViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "PalconParser.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIScrollView *mainSV;
