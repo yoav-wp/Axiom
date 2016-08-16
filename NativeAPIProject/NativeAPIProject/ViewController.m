@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "SWRevealViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "PalconParser.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIScrollView *mainSV;
@@ -46,42 +47,35 @@
 
 
 -(void)initCarousel{
+    
+    //init carousel UI
     _carouselsv.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.width* 0.462);
     CGFloat scrollViewWidth = self.carouselsv.frame.size.width;
     CGFloat scrollViewHeight = self.carouselsv.frame.size.height;
-    NSLog(@"w: %f h: %f.....",scrollViewWidth,scrollViewHeight);
     
-    CGRect rect1 = CGRectMake(0, 0, scrollViewWidth, scrollViewHeight);
-    CGRect rect2 = CGRectMake(scrollViewWidth, 0, scrollViewWidth, scrollViewHeight);
-    CGRect rect3 = CGRectMake(scrollViewWidth*2, 0, scrollViewWidth, scrollViewHeight);
-    CGRect rect4 = CGRectMake(scrollViewWidth*3, 0, scrollViewWidth, scrollViewHeight);
-    UIImageView *imgV1= [[UIImageView alloc] initWithFrame:rect1];
-    UIImageView *imgV2= [[UIImageView alloc] initWithFrame:rect2];
-    UIImageView *imgV3= [[UIImageView alloc] initWithFrame:rect3];
-    UIImageView *imgV4= [[UIImageView alloc] initWithFrame:rect4];
-    [imgV1 setContentMode:UIViewContentModeScaleAspectFill];
-    [imgV2 setContentMode:UIViewContentModeScaleAspectFill];
     
-    //    imgV1.image = [UIImage imageNamed:@"Slide1"];
-    NSURL *imageURL = [NSURL URLWithString:@"http://2.bp.blogspot.com/-jup9W1u0gJs/VmFc2xnAYPI/AAAAAAAABdg/-7CpW4wyKe0/s320/CasinoRebate_promo_EN.jpg"];
-    [imgV1 sd_setImageWithURL:imageURL];
+    //get carousel from API
+    NSMutableArray *carousel = [[PalconParser getPP] categoryGetCarouselForPage:@"http://www.onlinecasinos.expert/homepage.js"];
     
-    NSURL *imageURL2 = [NSURL URLWithString:@"http://i0.wp.com/casino-creatures.com/wp-content/uploads/2015/03/Casino-1.jpeg"];
-    [imgV2 sd_setImageWithURL:imageURL2];
+    //Set carousel data in the imageViews
+    NSMutableArray *carouselImageViewsArray = [NSMutableArray array];
+    int i = 0;
+    for(i = 0; i< carousel.count ; i++){
+        NSDictionary * carouselDict = carousel[i];
+        //NSLog(@"yoav Ya: %@",[carouselDict valueForKey:@"label"] );
+        
+        carouselImageViewsArray[i] = [[UIImageView alloc]initWithFrame:CGRectMake(i * scrollViewWidth, 0, scrollViewWidth, scrollViewHeight)];
+        NSURL *imgURL = [NSURL URLWithString:[carouselDict valueForKey:@"image_url"]];
+        [carouselImageViewsArray[i] sd_setImageWithURL:imgURL];
+        [self.carouselsv addSubview:carouselImageViewsArray[i]];
+        
+    }
     
-    NSURL *imageURL3 = [NSURL URLWithString:@"http://2.bp.blogspot.com/-jup9W1u0gJs/VmFc2xnAYPI/AAAAAAAABdg/-7CpW4wyKe0/s320/CasinoRebate_promo_EN.jpg"];
-    [imgV3 sd_setImageWithURL:imageURL3];
-    
-    NSURL *imageURL4 = [NSURL URLWithString:@"http://i0.wp.com/casino-creatures.com/wp-content/uploads/2015/03/Casino-1.jpeg"];
-    [imgV4 sd_setImageWithURL:imageURL4];
-    
-    [self.carouselsv addSubview:imgV1];
-    [self.carouselsv addSubview:imgV2];
-    [self.carouselsv addSubview:imgV3];
-    [self.carouselsv addSubview:imgV4];
-    
-    self.carouselsv.contentSize = CGSizeMake(self.carouselsv.frame.size.width * 4, self.carouselsv.frame.size.height);
+    //finish UI
+    self.carouselsv.contentSize = CGSizeMake
+    (self.carouselsv.frame.size.width * 4, self.carouselsv.frame.size.height);
     self.carouselsv.delegate = self;
+    
 }
 
 
@@ -101,7 +95,7 @@
     
     NSLog(@"screen size %f, font size: %@", width, fontSize);
     
-    NSString *htmlString = [NSString stringWithFormat:@"<style>h1{color:red;}</style><span style=\"font-family:arial;color:grey;font-size:%@;\">With Canada's best online casinos in 2016 only you can say goodbye to scheduling conflicts. <a href=\"http://google.com\">this is a link</a></span>", fontSize];
+    NSString *htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:grey;font-size:%@\">%@</spann>",fontSize,[[PalconParser getPP]homepageGetFirstWysiwyg]];
 
     
     NSAttributedString *attributedString = [[NSAttributedString alloc]

@@ -24,6 +24,10 @@
 		EBAFFCD91D5C99E60021732B /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBAFFCD81D5C99E60021732B /* MenuViewController.m */; };
 		EBAFFCDC1D5C9A070021732B /* WebViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EBAFFCDB1D5C9A070021732B /* WebViewVC.m */; };
 		EBAFFCDF1D5C9A190021732B /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBAFFCDE1D5C9A190021732B /* SWRevealViewController.m */; };
+		EBB3DCB81D61AF3E003B93A0 /* PalconParser.m in Sources */ = {isa = PBXBuildFile; fileRef = EBB3DCB71D61AF3E003B93A0 /* PalconParser.m */; };
+		EBB3DCC51D61B67C003B93A0 /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = EBB3DCBF1D61B67C003B93A0 /* CJSONDeserializer.m */; };
+		EBB3DCC61D61B67C003B93A0 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = EBB3DCC11D61B67C003B93A0 /* CJSONSerializer.m */; };
+		EBB3DCC71D61B67C003B93A0 /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = EBB3DCC41D61B67C003B93A0 /* NSDictionary_JSONExtensions.m */; };
 		FF117BFBF23D95EF7B71E2F2 /* libPods-NativeAPIProjectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 598836C6CD440AD483913EF4 /* libPods-NativeAPIProjectTests.a */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +85,15 @@
 		EBAFFCDB1D5C9A070021732B /* WebViewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewVC.m; sourceTree = "<group>"; };
 		EBAFFCDD1D5C9A190021732B /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		EBAFFCDE1D5C9A190021732B /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		EBB3DCB61D61AF3E003B93A0 /* PalconParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PalconParser.h; sourceTree = "<group>"; };
+		EBB3DCB71D61AF3E003B93A0 /* PalconParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PalconParser.m; sourceTree = "<group>"; };
+		EBB3DCBE1D61B67C003B93A0 /* CJSONDeserializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONDeserializer.h; sourceTree = "<group>"; };
+		EBB3DCBF1D61B67C003B93A0 /* CJSONDeserializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONDeserializer.m; sourceTree = "<group>"; };
+		EBB3DCC01D61B67C003B93A0 /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializer.h; sourceTree = "<group>"; };
+		EBB3DCC11D61B67C003B93A0 /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
+		EBB3DCC21D61B67C003B93A0 /* JSONRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONRepresentation.h; sourceTree = "<group>"; };
+		EBB3DCC31D61B67C003B93A0 /* NSDictionary_JSONExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDictionary_JSONExtensions.h; sourceTree = "<group>"; };
+		EBB3DCC41D61B67C003B93A0 /* NSDictionary_JSONExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionary_JSONExtensions.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,26 +172,14 @@
 		EBAFFCA31D5C99BB0021732B /* NativeAPIProject */ = {
 			isa = PBXGroup;
 			children = (
-				EBAFFCA71D5C99BB0021732B /* AppDelegate.h */,
-				EBAFFCA81D5C99BB0021732B /* AppDelegate.m */,
-				EB9A9B8A1D5C9EAC00B8BDE9 /* first.plist */,
-				EB9A9B8B1D5C9EAC00B8BDE9 /* second.plist */,
+				EBB3DCB91D61AF50003B93A0 /* libs */,
+				EBB3DCBD1D61AFC2003B93A0 /* delegates */,
+				EBB3DCBC1D61AFAB003B93A0 /* menu */,
+				EBB3DCBA1D61AF67003B93A0 /* models */,
 				EB61990F1D5C9E2600E54823 /* menu_icons.bundle */,
-				EBAFFCAD1D5C99BB0021732B /* Main.storyboard */,
-				EBAFFCB01D5C99BB0021732B /* Assets.xcassets */,
-				EBAFFCB21D5C99BB0021732B /* LaunchScreen.storyboard */,
-				EBAFFCB51D5C99BB0021732B /* Info.plist */,
-				EBAFFCD71D5C99E60021732B /* MenuViewController.h */,
-				EBAFFCD81D5C99E60021732B /* MenuViewController.m */,
-				EBAFFCAA1D5C99BB0021732B /* ViewController.h */,
-				EBAFFCAB1D5C99BB0021732B /* ViewController.m */,
-				EBAFFCDA1D5C9A070021732B /* WebViewVC.h */,
-				EBAFFCDB1D5C9A070021732B /* WebViewVC.m */,
-				EB5752171D609DB300CF9565 /* CategoryVC.h */,
-				EB5752181D609DB300CF9565 /* CategoryVC.m */,
-				EBAFFCDD1D5C9A190021732B /* SWRevealViewController.h */,
-				EBAFFCDE1D5C9A190021732B /* SWRevealViewController.m */,
+				EBB3DCBB1D61AF89003B93A0 /* viewControllers */,
 				EBAFFCA41D5C99BB0021732B /* Supporting Files */,
+				EBAFFCB01D5C99BB0021732B /* Assets.xcassets */,
 			);
 			path = NativeAPIProject;
 			sourceTree = "<group>";
@@ -186,6 +187,9 @@
 		EBAFFCA41D5C99BB0021732B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EBAFFCAD1D5C99BB0021732B /* Main.storyboard */,
+				EBAFFCB21D5C99BB0021732B /* LaunchScreen.storyboard */,
+				EBAFFCB51D5C99BB0021732B /* Info.plist */,
 				EBAFFCA51D5C99BB0021732B /* main.m */,
 			);
 			name = "Supporting Files";
@@ -207,6 +211,64 @@
 				EBAFFCCB1D5C99BC0021732B /* Info.plist */,
 			);
 			path = NativeAPIProjectUITests;
+			sourceTree = "<group>";
+		};
+		EBB3DCB91D61AF50003B93A0 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				EBAFFCDD1D5C9A190021732B /* SWRevealViewController.h */,
+				EBAFFCDE1D5C9A190021732B /* SWRevealViewController.m */,
+				EBB3DCBE1D61B67C003B93A0 /* CJSONDeserializer.h */,
+				EBB3DCBF1D61B67C003B93A0 /* CJSONDeserializer.m */,
+				EBB3DCC01D61B67C003B93A0 /* CJSONSerializer.h */,
+				EBB3DCC11D61B67C003B93A0 /* CJSONSerializer.m */,
+				EBB3DCC21D61B67C003B93A0 /* JSONRepresentation.h */,
+				EBB3DCC31D61B67C003B93A0 /* NSDictionary_JSONExtensions.h */,
+				EBB3DCC41D61B67C003B93A0 /* NSDictionary_JSONExtensions.m */,
+			);
+			name = libs;
+			sourceTree = "<group>";
+		};
+		EBB3DCBA1D61AF67003B93A0 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				EBB3DCB61D61AF3E003B93A0 /* PalconParser.h */,
+				EBB3DCB71D61AF3E003B93A0 /* PalconParser.m */,
+			);
+			name = models;
+			sourceTree = "<group>";
+		};
+		EBB3DCBB1D61AF89003B93A0 /* viewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				EBAFFCD71D5C99E60021732B /* MenuViewController.h */,
+				EBAFFCD81D5C99E60021732B /* MenuViewController.m */,
+				EBAFFCAA1D5C99BB0021732B /* ViewController.h */,
+				EBAFFCAB1D5C99BB0021732B /* ViewController.m */,
+				EBAFFCDA1D5C9A070021732B /* WebViewVC.h */,
+				EBAFFCDB1D5C9A070021732B /* WebViewVC.m */,
+				EB5752171D609DB300CF9565 /* CategoryVC.h */,
+				EB5752181D609DB300CF9565 /* CategoryVC.m */,
+			);
+			name = viewControllers;
+			sourceTree = "<group>";
+		};
+		EBB3DCBC1D61AFAB003B93A0 /* menu */ = {
+			isa = PBXGroup;
+			children = (
+				EB9A9B8A1D5C9EAC00B8BDE9 /* first.plist */,
+				EB9A9B8B1D5C9EAC00B8BDE9 /* second.plist */,
+			);
+			name = menu;
+			sourceTree = "<group>";
+		};
+		EBB3DCBD1D61AFC2003B93A0 /* delegates */ = {
+			isa = PBXGroup;
+			children = (
+				EBAFFCA71D5C99BB0021732B /* AppDelegate.h */,
+				EBAFFCA81D5C99BB0021732B /* AppDelegate.m */,
+			);
+			name = delegates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -473,11 +535,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBB3DCC71D61B67C003B93A0 /* NSDictionary_JSONExtensions.m in Sources */,
 				EBAFFCDC1D5C9A070021732B /* WebViewVC.m in Sources */,
 				EBAFFCAC1D5C99BB0021732B /* ViewController.m in Sources */,
 				EBAFFCA91D5C99BB0021732B /* AppDelegate.m in Sources */,
+				EBB3DCB81D61AF3E003B93A0 /* PalconParser.m in Sources */,
 				EBAFFCA61D5C99BB0021732B /* main.m in Sources */,
 				EB5752191D609DB300CF9565 /* CategoryVC.m in Sources */,
+				EBB3DCC51D61B67C003B93A0 /* CJSONDeserializer.m in Sources */,
+				EBB3DCC61D61B67C003B93A0 /* CJSONSerializer.m in Sources */,
 				EBAFFCD91D5C99E60021732B /* MenuViewController.m in Sources */,
 				EBAFFCDF1D5C9A190021732B /* SWRevealViewController.m in Sources */,
 			);
