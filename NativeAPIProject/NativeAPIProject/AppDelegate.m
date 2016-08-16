@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "PalconParser.h"
 
 @interface AppDelegate ()
 
@@ -18,9 +17,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	// Override point for customization after application launch.
-    
-    PalconParser *parser = [PalconParser getPP];
-    [parser initWithWebsite:@"http://www.onlinecasinos.expert/"];
     
 	return YES;
 }

@@ -25,75 +25,53 @@ static PalconParser *sharedSingleton;
     }
 }
 
--(void) initWithWebsite:(NSString *)websiteURL{
-    [self someJsonTests];
+-(void) reinitWithFullURL:(NSString *)fullURL{
     if(!initialized){
-        self.websiteURL = websiteURL;
+        self.fullURL = fullURL;
+        NSLog(@"full url: %@",fullURL);
+        NSURL *url = [NSURL URLWithString:fullURL];
+        self.pageData = [NSData dataWithContentsOfURL:url];
         initialized = YES;
     }
 }
 
-
--(void) someJsonTests{
-    NSURL *url = [NSURL URLWithString:@"http://www.onlinecasinos.expert/homepage.js"];
-    //create a NSData file from url.
-    NSData *myData = [NSData dataWithContentsOfURL:url];
-    //get String value of the NSData.
-    NSString * myString = [[NSString alloc] initWithData:myData encoding:NSUTF8StringEncoding];
-//    NSLog(@"data : %@",myString);
-    
-    NSError *theError = nil;
-    NSData *theJSONData = myData;
-//
-//    NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:theJSONData error:&theError];
-//    
-//    //get resultCount value (depth 0 of the json)
-//    NSString *baseString = [dict valueForKey:@"page_url"];
-//    
-//    NSLog(@"resultCount = %@", baseString );
-//    
-//    //get results->artistId value (depth 1 of the json)
-//    NSString *resString = [dict valueForKey:@"results"];
-//    NSLog(@"artistId = %@", [resString valueForKey:@"artistId"] );
-}
-
-
-
-
 -(NSString *)homepageGetFirstWysiwyg {
-    NSURL *url = [NSURL URLWithString:@"http://www.onlinecasinos.expert/homepage.js"];
-    //create a NSData file from url.
-    NSData *myData = [NSData dataWithContentsOfURL:url];
     //get String value of the NSData.
-    NSString * myString = [[NSString alloc] initWithData:myData encoding:NSUTF8StringEncoding];
+    //    NSString * myString = [[NSString alloc] initWithData:myData encoding:NSUTF8StringEncoding];
     NSError *theError = nil;
-    NSData *theJSONData = myData;
+    NSData *theJSONData = self.pageData;
     //
     NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:theJSONData error:&theError];
     
     //get resultCount value (depth 0 of the json)
     NSString *baseString = [dict valueForKey:@"first_wysiwyg"];
+    
     return baseString;
 }
 
--(NSMutableArray *)categoryGetCarouselForPage:(NSString *)pageURL {
-    
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",pageURL]];
-    //create a NSData file from url.
-    NSData *myData = [NSData dataWithContentsOfURL:url];
-    
+
+-(NSString *)homepageGetSecondWysiwyg {
+    //get String value of the NSData.
+    //    NSString * myString = [[NSString alloc] initWithData:myData encoding:NSUTF8StringEncoding];
     NSError *theError = nil;
-    NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:myData error:&theError];
+    NSData *theJSONData = self.pageData;
+    //
+    NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:theJSONData error:&theError];
     
     //get resultCount value (depth 0 of the json)
-    NSString *testString = [dict valueForKey:@"page_url"];
-    NSLog(@"page_url = %@", testString );
+    NSString *baseString = [dict valueForKey:@"second_wysiwyg"];
     
-    //	lets try foreach product display timestamp
-    
+    return baseString;
+}
+
+
+
+-(NSMutableArray *)categoryGetCarousel {
+    NSError *theError = nil;
+    NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:self.pageData error:&theError];
     NSMutableArray *carousel;
     for(id key in dict){
-        NSLog(@"key: %@, value: %@",key,[dict objectForKey:key]);
+//        NSLog(@"key: %@, value: %@",key,[dict objectForKey:key]);
         if([key isEqualToString:@"carousel"]){
             //			NSLog(@" value class: %@", [dict[key] class]);
             carousel = [dict objectForKey:key];

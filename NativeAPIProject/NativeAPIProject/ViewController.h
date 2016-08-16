@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PalconParser.h"
 
 @interface ViewController : UIViewController <UIScrollViewDelegate, UITabBarDelegate, UITableViewDataSource,UITableViewDelegate>
+
+@property (nonatomic, strong) PalconParser *pp;
 
 
 @end

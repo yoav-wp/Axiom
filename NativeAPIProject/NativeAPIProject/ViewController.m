@@ -26,20 +26,25 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    
+    self.pp = [PalconParser getPP];
+    [self.pp reinitWithFullURL:@"http://www.onlinecasinos.expert/homepage.js"];
     self.tabBar.selectedItem= self.tabBar.items[0];
-    
     //for the menu
     self.revealViewController.rightViewRevealOverdraw=4;
     [self.revealViewController panGestureRecognizer];
     [self.revealViewController tapGestureRecognizer];
     
-	// Do any additional setup after loading the view, typically from a nib.
-    [self initCarousel];
-    [self initFirstWysiwyg];
-    [self initFirstTableView];
 }
 
+
+//better view WILL appear, did appear for debug
+-(void)viewDidAppear:(BOOL)animated{
+    // Do any additional setup after loading the view, typically from a nib.
+    [self initFirstWysiwyg];
+    [self initSecondWysiwyg];
+    [self initCarousel];
+    [self initFirstTableView];
+}
 
 -(void) initFirstTableView{
     
@@ -52,11 +57,14 @@
     _carouselsv.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.width* 0.462);
     CGFloat scrollViewWidth = self.carouselsv.frame.size.width;
     CGFloat scrollViewHeight = self.carouselsv.frame.size.height;
-    
+    //finish UI
+    self.carouselsv.contentSize = CGSizeMake
+    (self.carouselsv.frame.size.width * 4, self.carouselsv.frame.size.height);
+    self.carouselsv.delegate = self;
     
     //get carousel from API
-    NSMutableArray *carousel = [[PalconParser getPP] categoryGetCarouselForPage:@"http://www.onlinecasinos.expert/homepage.js"];
-    
+    NSMutableArray *carousel = [self.pp categoryGetCarousel];
+    NSLog(@"test time");
     //Set carousel data in the imageViews
     NSMutableArray *carouselImageViewsArray = [NSMutableArray array];
     int i = 0;
@@ -71,11 +79,6 @@
         
     }
     
-    //finish UI
-    self.carouselsv.contentSize = CGSizeMake
-    (self.carouselsv.frame.size.width * 4, self.carouselsv.frame.size.height);
-    self.carouselsv.delegate = self;
-    
 }
 
 
@@ -84,7 +87,7 @@
 
     CGFloat width = screenRect.size.width;
     NSString *fontSize = @"";
-    NSLog(@"screen size %f", width);
+//    NSLog(@"screen size %f", width);
     if(width <= 400){
         fontSize = @"1em";
     }else if(width <= 500){
@@ -93,9 +96,9 @@
         fontSize = @"2em";
     }
     
-    NSLog(@"screen size %f, font size: %@", width, fontSize);
+//    NSLog(@"screen size %f, font size: %@", width, fontSize);
     
-    NSString *htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:grey;font-size:%@\">%@</spann>",fontSize,[[PalconParser getPP]homepageGetFirstWysiwyg]];
+    NSString *htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:grey;font-size:%@\">%@</spann>",fontSize,[self.pp homepageGetFirstWysiwyg]];
 
     
     NSAttributedString *attributedString = [[NSAttributedString alloc]
@@ -105,8 +108,39 @@
                                             error: nil
                                             ];
     _firstWysiwyg.attributedText = attributedString;
+}
+
+
+
+-(void)initSecondWysiwyg{
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    
+    CGFloat width = screenRect.size.width;
+    NSString *fontSize = @"";
+//    NSLog(@"screen size %f", width);
+    if(width <= 400){
+        fontSize = @"1em";
+    }else if(width <= 500){
+        fontSize = @"1.5em";
+    }else{
+        fontSize = @"2em";
+    }
+    
+    //    NSLog(@"screen size %f, font size: %@", width, fontSize);
+    
+    NSString *htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:grey;font-size:%@\">%@</spann>",fontSize,[self.pp homepageGetFirstWysiwyg]];
+    
+    
+    NSAttributedString *attributedString = [[NSAttributedString alloc]
+                                            initWithData: [htmlString dataUsingEncoding:NSUnicodeStringEncoding]
+                                            options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+                                            documentAttributes: nil
+                                            error: nil
+                                            ];
     _secondWysiwyg.attributedText = attributedString;
 }
+
+
 
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
     if (item.tag == 1){

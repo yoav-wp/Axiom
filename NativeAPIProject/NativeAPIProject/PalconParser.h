@@ -9,12 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @interface PalconParser : NSObject
-@property (nonatomic, strong) NSString *websiteURL;
+@property (nonatomic, strong) NSString *fullURL;
+@property (nonatomic, strong) NSData *pageData;
 
 +(PalconParser *)getPP;
--(void) initWithWebsite:(NSString *)websiteURL;
+-(void) reinitWithFullURL:(NSString *)fullURL;
 -(NSString *)homepageGetFirstWysiwyg;
--(NSMutableArray *)categoryGetCarouselForPage:(NSString *)pageURL;
+-(NSMutableArray *)categoryGetCarousel;
 
 
 
