@@ -108,7 +108,7 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
-                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="betwaylogo" translatesAutoresizingMaskIntoConstraints="NO" id="fdZ-45-qHT">
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leo-vegas" translatesAutoresizingMaskIntoConstraints="NO" id="fdZ-45-qHT">
                                                                             <rect key="frame" x="8" y="8" width="85" height="84"/>
                                                                         </imageView>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="four_stars" translatesAutoresizingMaskIntoConstraints="NO" id="kQ8-w4-34R">
@@ -402,7 +402,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="betwaylogo" width="132" height="132"/>
-        <image name="four_stars" width="797" height="148"/>
+        <image name="four_stars" width="798" height="143"/>
+        <image name="leo-vegas" width="896" height="896"/>
     </resources>
 </document>

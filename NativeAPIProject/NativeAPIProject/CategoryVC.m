@@ -16,6 +16,10 @@
 
 @end
 
+static NSString * homepageID = @"HomePageSB";
+static NSString * webviewID = @"webviewVC";
+static NSString * categoryID = @"categoryVC";
+
 @implementation CategoryVC
 
 - (void)viewDidLoad {
@@ -23,18 +27,16 @@
     
     self.tabBar.selectedItem= self.tabBar.items[1];
     
-    self.pp = [[PalconParser alloc] init];
-    [self.pp reinitWithFullURL:@"http://www.onlinecasinos.expert/page2.js"];
     // Do any additional setup after loading the view.
     self.revealViewController.rightViewRevealOverdraw=4;
     [self.revealViewController panGestureRecognizer];
     [self.revealViewController tapGestureRecognizer];
 }
 
+
 -(void)viewDidAppear:(BOOL)animated{
     [self initTestLabel];
 }
-
 
 -(void) initTestLabel{
     NSString *pageType = [self.pp getPageType];
@@ -63,14 +65,15 @@
     }
     if (item.tag == 5){
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"HomePageSB"];
+        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:homepageID];
+
         
         SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
         [segue perform];
     }
     if (item.tag == 3){
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"webviewVC"];
+        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:webviewID];
         
         SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
         [segue perform];

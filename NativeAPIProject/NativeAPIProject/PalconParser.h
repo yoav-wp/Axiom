@@ -12,11 +12,12 @@
 @property (nonatomic, strong) NSString *fullURL;
 @property (nonatomic, strong) NSDictionary *pageDataDictionary;
 
--(void) reinitWithFullURL:(NSString *)fullURL;
+-(void) initWithFullURL:(NSString *)fullURL;
 -(NSString *)homepageGetFirstWysiwyg;
 -(NSString *)homepageGetSecondWysiwyg;
 -(NSMutableArray *)categoryGetCarousel;
 -(NSString *)getPageType;
+-(NSMutableArray *)getTabBarElements;
 
 
 

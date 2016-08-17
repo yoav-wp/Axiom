@@ -12,6 +12,7 @@
 @interface ViewController : UIViewController <UIScrollViewDelegate, UITabBarDelegate, UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) PalconParser *pp;
+@property (nonatomic, strong) NSMutableArray *tabbarElements;
 
 
 @end

@@ -16,11 +16,17 @@
 
 @end
 
+
+static NSString * homepageID = @"HomePageSB";
+static NSString * webviewID = @"webviewVC";
+static NSString * categoryID = @"categoryVC";
+
 @implementation WebViewVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    NSLog(@"viewdidload");
     
     self.tabBar.selectedItem= self.tabBar.items[2];
     self.revealViewController.rightViewRevealOverdraw=4;
@@ -45,7 +51,7 @@
     }
     if (item.tag == 5){
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"HomePageSB"];
+        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:homepageID];
         
         SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
         [segue perform];
@@ -54,7 +60,7 @@
     }
     if (item.tag == 4){
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"categoryVC"];
+        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:categoryID];
         
         SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
         [segue perform];

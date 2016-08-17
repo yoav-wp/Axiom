@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import "SWRevealViewController.h"
+#import "CategoryVC.h"
+#import "WebViewVC.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface ViewController ()
@@ -21,18 +23,21 @@
 
 @end
 
+static NSString * homepageID = @"HomePageSB";
+static NSString * webviewID = @"webviewVC";
+static NSString * categoryID = @"categoryVC";
+
 @implementation ViewController
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
     self.pp = [[PalconParser alloc] init];
-    [self.pp reinitWithFullURL:@"http://www.onlinecasinos.expert/homepage.js"];
+    [self.pp initWithFullURL:@"http://www.onlinecasinos.expert/homepage.js"];
     self.tabBar.selectedItem= self.tabBar.items[0];
     //for the menu
     self.revealViewController.rightViewRevealOverdraw=4;
     [self.revealViewController panGestureRecognizer];
     [self.revealViewController tapGestureRecognizer];
-    
 }
 
 
@@ -76,9 +81,19 @@
         [self.carouselsv addSubview:carouselImageViewsArray[i]];
         
     }
-    
 }
 
+
+-(void)initTabBar{
+    int i = 0;
+    self.tabbarElements = [self.pp getTabBarElements];
+    for(i = 0 ; i< self.tabbarElements.count; i++){
+        NSDictionary *tabbarDict = self.tabbarElements[i];
+        NSInteger itemID = [[tabbarDict valueForKey:@"id"] integerValue];
+        NSString *targetURL = [tabbarDict valueForKey:@"link"];
+        NSLog(@"item id : %ld with url %@", itemID, targetURL);
+    }
+}
 
 -(void)initFirstWysiwyg{
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -139,7 +154,6 @@
 }
 
 
-
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
     if (item.tag == 1){
         [self.revealViewController rightRevealToggle:self];
@@ -148,24 +162,24 @@
     }
     if (item.tag == 3){
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"webviewVC"];
+        WebViewVC *vc = [storyboard instantiateViewControllerWithIdentifier:webviewID];
         
         SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
         [segue perform];
         
-    }
+    }//TODO : read about self.var vs _var, make an enum for ViewControllers identifiers, put next block in a func
     if (item.tag == 4){
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"categoryVC"];
-        
+        CategoryVC *vc = [storyboard instantiateViewControllerWithIdentifier:categoryID];
+        PalconParser *destPP = [[PalconParser alloc] init];
+        [destPP initWithFullURL:@"http://www.onlinecasinos.expert/page2.js"];
+        vc.pp = destPP;
         SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
         [segue perform];
+        
     }
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    NSLog(@"can prepare for segue");
-}
 
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{

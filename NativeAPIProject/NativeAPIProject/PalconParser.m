@@ -11,21 +11,7 @@
 
 @implementation PalconParser
 
-//static BOOL initialized = NO;
-static PalconParser *sharedSingleton;
-
-
-//
-//-(PalconParser *) getPP{
-//    @synchronized (self) {
-//        if(!initialized){
-//            sharedSingleton = [[PalconParser alloc] init];
-//        }
-//        return sharedSingleton;
-//    }
-//}
-
--(void) reinitWithFullURL:(NSString *)fullURL{
+-(void) initWithFullURL:(NSString *)fullURL{
         self.fullURL = fullURL;
         [self initDataDictionary];
 }
@@ -70,7 +56,29 @@ static PalconParser *sharedSingleton;
     return carousel;
 }
 
+//ask to have site url in each page, to avoid multiple connections to API
+-(NSString *)getBaseURL{
+    NSLog(@"000000, %@ ",[self.pageDataDictionary valueForKey:@"website_url"]);
+    return [self.pageDataDictionary valueForKey:@"website_url"];
+}
 
+-(NSMutableArray *)getTabBarElements{
+    NSString *baseURL = [self getBaseURL];
+    NSString *tabBarURL = [NSString stringWithFormat:@"%@/tabbar.js",baseURL];
+    NSError *theError = nil;
+    NSData *theJSONData = [NSData dataWithContentsOfURL:[NSURL URLWithString:tabBarURL]];
+    NSDictionary *tabbarDict = [[CJSONDeserializer deserializer] deserializeAsDictionary:theJSONData error:&theError];
+    NSMutableArray *tabbarArray;
+    
+    for (id key in tabbarDict) {
+        if([key isEqualToString:@"tabbar"]){
+            tabbarArray =[tabbarDict objectForKey:key];
+            break;
+        }
+    }
+    return tabbarArray;
+    
+}
 
 
 
