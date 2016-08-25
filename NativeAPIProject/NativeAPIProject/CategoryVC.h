@@ -12,6 +12,7 @@
 @interface CategoryVC : UIViewController <UITabBarDelegate>
 
 @property (strong, nonatomic) PalconParser *pp;
-
+@property (nonatomic, strong) NSMutableArray *tabbarElements;
+@property (nonatomic) NSInteger activeTab;
 
 @end

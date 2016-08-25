@@ -18,6 +18,7 @@
 -(NSMutableArray *)categoryGetCarousel;
 -(NSString *)getPageType;
 -(NSMutableArray *)getTabBarElements;
+-(NSString *)getBaseURL;
 
 
 

@@ -23,7 +23,7 @@
 }
 
 -(NSString *)getPageType{
-    NSLog(@"file %@",self.pageDataDictionary);
+//    NSLog(@"file %@",self.pageDataDictionary);
     return [self.pageDataDictionary valueForKey:@"page_type"];
 }
 
@@ -56,9 +56,8 @@
     return carousel;
 }
 
-//ask to have site url in each page, to avoid multiple connections to API
+//ask R&D to have site url in each page, to avoid multiple connections to API
 -(NSString *)getBaseURL{
-    NSLog(@"000000, %@ ",[self.pageDataDictionary valueForKey:@"website_url"]);
     return [self.pageDataDictionary valueForKey:@"website_url"];
 }
 

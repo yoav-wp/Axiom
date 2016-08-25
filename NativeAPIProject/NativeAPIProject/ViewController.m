@@ -15,7 +15,6 @@
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIScrollView *mainSV;
 @property (weak, nonatomic) IBOutlet UIScrollView *carouselsv;
-@property (weak, nonatomic) IBOutlet UITabBarItem *menuButton;
 @property (weak, nonatomic) IBOutlet UIStackView *firstStack;
 @property (weak, nonatomic) IBOutlet UITextView *firstWysiwyg;
 @property (weak, nonatomic) IBOutlet UITextView *secondWysiwyg;
@@ -29,11 +28,14 @@ static NSString * categoryID = @"categoryVC";
 
 @implementation ViewController
 
+//TabBar items
+static NSMutableDictionary *_tags2URLs;
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
     self.pp = [[PalconParser alloc] init];
     [self.pp initWithFullURL:@"http://www.onlinecasinos.expert/homepage.js"];
-    self.tabBar.selectedItem= self.tabBar.items[0];
+//    self.tabBar.selectedItem= self.tabBar.items[0];
     //for the menu
     self.revealViewController.rightViewRevealOverdraw=4;
     [self.revealViewController panGestureRecognizer];
@@ -41,6 +43,7 @@ static NSString * categoryID = @"categoryVC";
 }
 
 
+//call all the widgets initializations
 //better view WILL appear, did appear for debug
 -(void)viewDidAppear:(BOOL)animated{
     // Do any additional setup after loading the view, typically from a nib.
@@ -48,13 +51,11 @@ static NSString * categoryID = @"categoryVC";
     [self initSecondWysiwyg];
     [self initCarousel];
     [self initTableView];
+    [self initTabBar];
 }
 
--(void) initTableView{
-    
-}
-
-
+//#############################Start initializations##############################################
+//Handle widgets initializations
 -(void)initCarousel{
     
     //init carousel UI
@@ -79,20 +80,45 @@ static NSString * categoryID = @"categoryVC";
         NSURL *imgURL = [NSURL URLWithString:[carouselDict valueForKey:@"image_url"]];
         [carouselImageViewsArray[i] sd_setImageWithURL:imgURL];
         [self.carouselsv addSubview:carouselImageViewsArray[i]];
-        
     }
 }
 
-
+//menu tag: 42, homepage tag: 24
 -(void)initTabBar{
-    int i = 0;
+    _tags2URLs = [[NSMutableDictionary alloc] init];
+    NSMutableArray *tabBarArray;
+    int i;
     self.tabbarElements = [self.pp getTabBarElements];
-    for(i = 0 ; i< self.tabbarElements.count; i++){
+    tabBarArray = [[NSMutableArray alloc] init];
+    UITabBarItem *homeItem;
+    UITabBarItem *menuItem;
+    
+    //set middle items
+    //Homepage and menu position in the json array doesnt matter, for the others it does.
+    for(i = 0; i < self.tabbarElements.count; i++){
         NSDictionary *tabbarDict = self.tabbarElements[i];
-        NSInteger itemID = [[tabbarDict valueForKey:@"id"] integerValue];
-        NSString *targetURL = [tabbarDict valueForKey:@"link"];
-        NSLog(@"item id : %ld with url %@", itemID, targetURL);
+        UITabBarItem *item;
+        if([[tabbarDict valueForKey:@"id"] isEqualToString:@"menu_item"]){
+            menuItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:nil tag:42];
+            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:42]];
+            continue;
+        }
+        if([[tabbarDict valueForKey:@"id"] isEqualToString:@"homepage_item"]){
+            homeItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:nil tag:24];
+            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:24]];
+            continue;
+        }
+        
+        item = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:nil tag:10+i];
+        [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:10+i]];
+        [tabBarArray addObject:item];
     }
+    //set menu and homepage items
+    [tabBarArray insertObject:homeItem atIndex:0];
+    [tabBarArray addObject:menuItem];
+    
+    
+    [_tabBar setItems:[tabBarArray arrayByAddingObjectsFromArray:[_tabBar items]]];
 }
 
 -(void)initFirstWysiwyg{
@@ -123,8 +149,6 @@ static NSString * categoryID = @"categoryVC";
     self.firstWysiwyg.attributedText = attributedString;
 }
 
-
-
 -(void)initSecondWysiwyg{
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     
@@ -151,37 +175,84 @@ static NSString * categoryID = @"categoryVC";
                                             error: nil
                                             ];
     self.secondWysiwyg.attributedText = attributedString;
+//    CGRect frame = _secondWysiwyg.frame;
+//    frame.size.height = _secondWysiwyg.contentSize.height;
+//    _secondWysiwyg.frame = frame;
 }
 
 
+-(void) initTableView{
+    
+}
+
+//handle tableView
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 3;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *appCell = [tableView dequeueReusableCellWithIdentifier:@"homePageCell"];
+    return appCell;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+//################################End of initializations###########################################
+
+//################################Start of Events Handling###########################################
+
+
+//Handle tabBar clicks
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
-    if (item.tag == 1){
+    [self handleTabBarSelectionWithItemID:item.tag];
+}
+
+
+//we have: tag ID, pp, tabbarElements (array with button txt, link, img url)
+-(void) handleTabBarSelectionWithItemID: (NSInteger) tag{
+    
+    NSLog(@"clicked on %ld",(long)tag);
+    //On homepage, homepage click does nothing
+    if (tag == 42){
         [self.revealViewController rightRevealToggle:self];
     }
-    if (item.tag == 5){
+    //On menu click, action is static - always open menu
+    else if (tag == 24){
+        //homepage, do nothing
     }
-    if (item.tag == 3){
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        WebViewVC *vc = [storyboard instantiateViewControllerWithIdentifier:webviewID];
-        
-        SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
-        [segue perform];
-        
-    }//TODO : read about self.var vs _var, make an enum for ViewControllers identifiers, put next block in a func
-    if (item.tag == 4){
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        CategoryVC *vc = [storyboard instantiateViewControllerWithIdentifier:categoryID];
+    else{
+        NSString *targetURL = [_tags2URLs objectForKey:[NSNumber numberWithInteger:tag]];
+        NSLog(@"target url : %@",targetURL);
         PalconParser *destPP = [[PalconParser alloc] init];
-        [destPP initWithFullURL:@"http://www.onlinecasinos.expert/page2.js"];
-        vc.pp = destPP;
-        SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
-        [segue perform];
+        [destPP initWithFullURL:targetURL];
         
+        
+        if([[destPP getPageType]isEqualToString:@"webview_page"]){
+            NSLog(@"entered WV if");
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            WebViewVC *vc = [storyboard instantiateViewControllerWithIdentifier:webviewID];
+            vc.pp = destPP;
+            vc.activeTab = tag;
+            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
+            [segue perform];
+        }
+        if([[destPP getPageType]isEqualToString:@"category_page"]){
+            NSLog(@"entered WV if");
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            CategoryVC *vc = [storyboard instantiateViewControllerWithIdentifier:categoryID];
+            vc.pp = destPP;
+            vc.activeTab = tag;
+            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
+            [segue perform];
+        }
     }
 }
 
 
-
+//Handle scrolling
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
 	
 //	CGFloat pageWidth = CGRectGetWidth(scrollView.frame);
@@ -200,18 +271,7 @@ static NSString * categoryID = @"categoryVC";
 //	}
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
-}
+//################################Start of Events Handling###########################################
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *appCell = [tableView dequeueReusableCellWithIdentifier:@"homePageCell"];
-    return appCell;
-}
-
-- (void)didReceiveMemoryWarning {
-	[super didReceiveMemoryWarning];
-	// Dispose of any resources that can be recreated.
-}
 
 @end

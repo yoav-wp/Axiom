@@ -57,7 +57,7 @@
                                         </connections>
                                     </scrollView>
                                     <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="xsS-De-m70" userLabel="vertS">
-                                        <rect key="frame" x="0.0" y="282" width="600" height="311"/>
+                                        <rect key="frame" x="0.0" y="282" width="600" height="300"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="haQ-BL-QAq" userLabel="wysiwyg and label">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="62"/>
@@ -101,11 +101,11 @@
                                                         <color key="sectionIndexBackgroundColor" red="0.62982257230000005" green="0.66666666669999997" blue="0.6421234388" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="sectionIndexTrackingBackgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <prototypes>
-                                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="homePageCell" rowHeight="100" id="cQK-Bi-uJJ">
+                                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="homePageCell" rowHeight="100" id="cQK-Bi-uJJ">
                                                                 <rect key="frame" x="0.0" y="28" width="600" height="100"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cQK-Bi-uJJ" id="RkN-7p-tg8">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leo-vegas" translatesAutoresizingMaskIntoConstraints="NO" id="fdZ-45-qHT">
@@ -170,23 +170,15 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="CWn-FY-BHR">
-                                                <rect key="frame" x="0.0" y="270" width="600" height="41"/>
+                                                <rect key="frame" x="0.0" y="270" width="600" height="30"/>
                                                 <subviews>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2o7-fk-0De" userLabel="secondWysiwyg">
-                                                        <rect key="frame" x="0.0" y="0.0" width="600" height="41"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="80" id="AZc-kr-BXy"/>
-                                                        </constraints>
-                                                        <attributedString key="attributedText">
-                                                            <fragment content="blablo">
-                                                                <attributes>
-                                                                    <color key="NSColor" red="0.3843137254901961" green="0.38823529411764707" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
-                                                                    <font key="NSFont" size="15" name="Kailasa"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                        </attributedString>
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" bounces="NO" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2o7-fk-0De" userLabel="secondWysiwyg">
+                                                        <rect key="frame" x="0.0" y="0.0" width="600" height="30"/>
+                                                        <attributedString key="attributedText"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="BYZ-38-t0r" id="Zn5-aq-dW4"/>
+                                                        </connections>
                                                     </textView>
                                                 </subviews>
                                             </stackView>
@@ -212,15 +204,7 @@
                             <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gbx-Br-xBS">
                                 <rect key="frame" x="0.0" y="551" width="600" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <items>
-                                    <tabBarItem tag="5" systemItem="favorites" id="RjH-34-KOj"/>
-                                    <tabBarItem tag="4" title="Item" id="rlx-An-qic"/>
-                                    <tabBarItem tag="3" title="Item" id="UgU-KM-dVc"/>
-                                    <tabBarItem tag="2" title="Item" id="PJ9-u1-kMO"/>
-                                    <tabBarItem tag="1" systemItem="contacts" id="4ui-jK-MHh">
-                                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-1"/>
-                                    </tabBarItem>
-                                </items>
+                                <items/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="AxR-YU-72J"/>
                                 </connections>
@@ -246,7 +230,6 @@
                         <outlet property="firstStack" destination="haQ-BL-QAq" id="VNv-09-nYw"/>
                         <outlet property="firstWysiwyg" destination="ReC-ZF-NeX" id="ZJp-Xa-XpS"/>
                         <outlet property="mainSV" destination="XK4-Oz-S53" id="0wu-6G-XBo"/>
-                        <outlet property="menuButton" destination="RjH-34-KOj" id="epS-tL-jKa"/>
                         <outlet property="secondWysiwyg" destination="2o7-fk-0De" id="YNQ-wR-upu"/>
                         <outlet property="tabBar" destination="Gbx-Br-xBS" id="Mx9-gd-sBx"/>
                     </connections>
@@ -277,15 +260,7 @@
                             <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zUB-MT-p9w">
                                 <rect key="frame" x="0.0" y="551" width="600" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <items>
-                                    <tabBarItem tag="5" systemItem="favorites" id="gTN-3m-qBb"/>
-                                    <tabBarItem tag="4" title="Item" id="j8s-sE-n0c"/>
-                                    <tabBarItem tag="3" title="Item" id="Bqg-4N-OZk"/>
-                                    <tabBarItem tag="2" title="Item" id="mYu-AX-i2V"/>
-                                    <tabBarItem tag="1" systemItem="contacts" id="bRs-ez-A64">
-                                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-1"/>
-                                    </tabBarItem>
-                                </items>
+                                <items/>
                                 <color key="tintColor" red="0.85098039219999999" green="0.031372549020000001" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="vjC-H1-VVq" id="EI7-Wd-R59"/>
@@ -360,21 +335,13 @@
                                     <constraint firstAttribute="height" constant="44" id="Dvs-Oe-8O2"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bTc-iK-TXu">
                                 <rect key="frame" x="0.0" y="551" width="600" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <items>
-                                    <tabBarItem tag="5" systemItem="favorites" id="xHG-lu-1Tg"/>
-                                    <tabBarItem tag="4" title="Item" id="eg0-SP-F00"/>
-                                    <tabBarItem tag="3" title="Item" id="yjs-Y7-5e9"/>
-                                    <tabBarItem tag="2" title="Item" id="Qvd-RG-cUV"/>
-                                    <tabBarItem tag="1" systemItem="contacts" id="AvL-aX-jNU">
-                                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-1"/>
-                                    </tabBarItem>
-                                </items>
+                                <items/>
                                 <connections>
                                     <outlet property="delegate" destination="mRq-Yd-f0l" id="0B7-WQ-odE"/>
                                 </connections>

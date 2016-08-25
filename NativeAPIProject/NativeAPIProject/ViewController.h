@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "PalconParser.h"
 
-@interface ViewController : UIViewController <UIScrollViewDelegate, UITabBarDelegate, UITableViewDataSource,UITableViewDelegate>
+@interface ViewController : UIViewController <UIScrollViewDelegate, UITabBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) PalconParser *pp;
 @property (nonatomic, strong) NSMutableArray *tabbarElements;
-
+@property (nonatomic) NSInteger activeTab;
 
 @end
 
