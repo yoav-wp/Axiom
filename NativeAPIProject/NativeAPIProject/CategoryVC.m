@@ -22,8 +22,11 @@ static NSString * homepageID = @"HomePageSB";
 static NSString * webviewID = @"webviewVC";
 static NSString * categoryID = @"categoryVC";
 
-@implementation CategoryVC
-static NSMutableDictionary *_tags2URLs;
+@implementation CategoryVC{
+    
+    NSMutableDictionary *_tags2URLs;
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,13 +43,13 @@ static NSMutableDictionary *_tags2URLs;
 -(void)viewDidAppear:(BOOL)animated{
     // Do any additional setup after loading the view, typically from a nib.
     [self initTabBar];
-    [self setSelectedTabbarItem];
-    [self testLabel];
+    [self setActiveTabbarItem];
+    [self initTestLabel];
 }
 
 
 -(void) initTestLabel{
-    NSString *pageType = [self.pp getPageType];
+    NSString *pageType = [_pp getPageType];
     [self.testLabel setText:pageType];
 }
 
@@ -55,7 +58,7 @@ static NSMutableDictionary *_tags2URLs;
     // Dispose of any resources that can be recreated.
 }
 
--(void)setSelectedTabbarItem{
+-(void)setActiveTabbarItem{
     int i = 0;
     NSArray *ar = [_tabBar items];
     for(i = 0 ; i< ar.count ; i++){

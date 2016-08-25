@@ -21,9 +21,11 @@
 static NSString * homepageID = @"HomePageSB";
 static NSString * webviewID = @"webviewVC";
 static NSString * categoryID = @"categoryVC";
-static NSMutableDictionary *_tags2URLs;
 
-@implementation WebViewVC
+@implementation WebViewVC{
+    NSMutableDictionary *_tags2URLs;
+
+}
 
 
 - (void)viewDidLoad {

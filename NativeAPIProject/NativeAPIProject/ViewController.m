@@ -26,11 +26,11 @@ static NSString * homepageID = @"HomePageSB";
 static NSString * webviewID = @"webviewVC";
 static NSString * categoryID = @"categoryVC";
 
-@implementation ViewController
+@implementation ViewController{
 
-//TabBar items
-static NSMutableDictionary *_tags2URLs;
-
+    //TabBar items
+    NSMutableDictionary *_tags2URLs;
+}
 - (void)viewDidLoad {
 	[super viewDidLoad];
     self.pp = [[PalconParser alloc] init];
