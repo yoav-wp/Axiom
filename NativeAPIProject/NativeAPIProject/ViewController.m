@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UIStackView *firstStack;
 @property (weak, nonatomic) IBOutlet UITextView *firstWysiwyg;
 @property (weak, nonatomic) IBOutlet UITextView *secondWysiwyg;
+@property (weak, nonatomic) IBOutlet UIButton *GetBannerButton;
+@property (weak, nonatomic) IBOutlet UIView *bannerView;
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
 
 @end
@@ -45,13 +47,27 @@ static NSString * categoryID = @"categoryVC";
 
 //call all the widgets initializations
 //better view WILL appear, did appear for debug
--(void)viewDidAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated{
     // Do any additional setup after loading the view, typically from a nib.
     [self initFirstWysiwyg];
     [self initSecondWysiwyg];
     [self initCarousel];
     [self initTableView];
     [self initTabBar];
+    [self initBanner];
+}
+- (IBAction)closeBannerClick:(id)sender {
+    [self removeBanner];
+}
+
+-(void)initBanner{
+    _GetBannerButton.layer.cornerRadius = 14;
+    _GetBannerButton.layer.zPosition = 1;
+    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(removeBanner) userInfo:nil repeats:NO];
+}
+
+-(void)removeBanner{
+    [_bannerView removeFromSuperview];
 }
 
 //#############################Start initializations##############################################

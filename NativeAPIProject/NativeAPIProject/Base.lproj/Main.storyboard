@@ -105,7 +105,7 @@
                                                                 <rect key="frame" x="0.0" y="28" width="600" height="100"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cQK-Bi-uJJ" id="RkN-7p-tg8">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leo-vegas" translatesAutoresizingMaskIntoConstraints="NO" id="fdZ-45-qHT">
@@ -209,6 +209,63 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="AxR-YU-72J"/>
                                 </connections>
                             </tabBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nGk-7W-kj7" userLabel="Banner View">
+                                <rect key="frame" x="0.0" y="519" width="600" height="32"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="-15" translatesAutoresizingMaskIntoConstraints="NO" id="NLU-Pq-mcT" userLabel="Banner Stack View">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="32"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Betway Casino" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cBN-Fq-0fp">
+                                                <rect key="frame" x="0.0" y="0.0" width="290" height="32"/>
+                                                <color key="backgroundColor" red="0.89376246680000004" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRe-Wd-xvL">
+                                                <rect key="frame" x="275" y="0.0" width="50" height="32"/>
+                                                <color key="backgroundColor" red="0.53302777000000001" green="0.53999730050000005" blue="0.62577917220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="1YK-KW-0l1"/>
+                                                </constraints>
+                                                <state key="normal" title="GET">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$800 Bonus" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sPD-Od-8rl">
+                                                <rect key="frame" x="310" y="0.0" width="290" height="32"/>
+                                                <color key="backgroundColor" red="0.044522616930000002" green="0.39759140630000001" blue="0.93018617020000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aLt-6h-jt8">
+                                                <rect key="frame" x="584" y="0.0" width="16" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="16" id="gjf-CP-mLZ"/>
+                                                </constraints>
+                                                <state key="normal" title="x">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="closeBannerClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kdu-SC-41w"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="sPD-Od-8rl" firstAttribute="width" secondItem="cBN-Fq-0fp" secondAttribute="width" id="3pd-Xw-9zz"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="NLU-Pq-mcT" firstAttribute="top" secondItem="nGk-7W-kj7" secondAttribute="top" id="C25-B3-zgk"/>
+                                    <constraint firstAttribute="trailing" secondItem="NLU-Pq-mcT" secondAttribute="trailing" id="DR5-xL-rtY"/>
+                                    <constraint firstItem="NLU-Pq-mcT" firstAttribute="leading" secondItem="nGk-7W-kj7" secondAttribute="leading" id="EFk-42-qP1"/>
+                                    <constraint firstAttribute="height" constant="32" id="dz0-cA-a6s"/>
+                                    <constraint firstAttribute="bottom" secondItem="NLU-Pq-mcT" secondAttribute="bottom" id="gmL-wv-wjz"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.89376246675531912" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -216,9 +273,12 @@
                             <constraint firstAttribute="trailing" secondItem="Gbx-Br-xBS" secondAttribute="trailing" id="EdG-Rm-PLe"/>
                             <constraint firstAttribute="bottom" secondItem="Gbx-Br-xBS" secondAttribute="bottom" id="UsI-ir-iBW"/>
                             <constraint firstItem="Gbx-Br-xBS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ZAw-Lj-xoz"/>
+                            <constraint firstItem="Gbx-Br-xBS" firstAttribute="top" secondItem="nGk-7W-kj7" secondAttribute="bottom" id="bwR-uc-SnA"/>
                             <constraint firstItem="xsS-De-m70" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="hNB-w7-QPg"/>
                             <constraint firstItem="Gbx-Br-xBS" firstAttribute="top" secondItem="XK4-Oz-S53" secondAttribute="bottom" id="hQP-Fi-bhV"/>
                             <constraint firstItem="XK4-Oz-S53" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="nrV-mo-5b4"/>
+                            <constraint firstAttribute="trailing" secondItem="nGk-7W-kj7" secondAttribute="trailing" id="qJG-cs-wUb"/>
+                            <constraint firstItem="nGk-7W-kj7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="tSq-7v-qsb"/>
                             <constraint firstItem="XK4-Oz-S53" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="taw-Sh-GlN"/>
                             <constraint firstAttribute="trailing" secondItem="XK4-Oz-S53" secondAttribute="trailing" id="yqZ-Nk-zUb"/>
                         </constraints>
@@ -226,6 +286,8 @@
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="GetBannerButton" destination="CRe-Wd-xvL" id="kHD-T1-bmj"/>
+                        <outlet property="bannerView" destination="nGk-7W-kj7" id="c0E-rp-tUt"/>
                         <outlet property="carouselsv" destination="mDI-ju-qvj" id="Qrd-xC-GKW"/>
                         <outlet property="firstStack" destination="haQ-BL-QAq" id="VNv-09-nYw"/>
                         <outlet property="firstWysiwyg" destination="ReC-ZF-NeX" id="ZJp-Xa-XpS"/>
