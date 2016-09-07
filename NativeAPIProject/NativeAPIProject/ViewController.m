@@ -10,6 +10,7 @@
 #import "SWRevealViewController.h"
 #import "CategoryVC.h"
 #import "WebViewVC.h"
+#import "BrandReviewVC.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface ViewController ()
@@ -27,6 +28,7 @@
 static NSString * homepageID = @"HomePageSB";
 static NSString * webviewID = @"webviewVC";
 static NSString * categoryID = @"categoryVC";
+static NSString * brandRevID = @"brandRevID";
 
 @implementation ViewController{
 
@@ -259,6 +261,15 @@ static NSString * categoryID = @"categoryVC";
             NSLog(@"entered WV if");
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
             CategoryVC *vc = [storyboard instantiateViewControllerWithIdentifier:categoryID];
+            vc.pp = destPP;
+            vc.activeTab = tag;
+            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
+            [segue perform];
+        }
+        if([[destPP getPageType]isEqualToString:@"brand_review"]){
+            NSLog(@"entered WV if");
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            BrandReviewVC *vc = [storyboard instantiateViewControllerWithIdentifier:brandRevID];
             vc.pp = destPP;
             vc.activeTab = tag;
             SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];

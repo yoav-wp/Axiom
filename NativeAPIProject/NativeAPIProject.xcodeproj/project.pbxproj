@@ -28,6 +28,7 @@
 		EBB3DCC51D61B67C003B93A0 /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = EBB3DCBF1D61B67C003B93A0 /* CJSONDeserializer.m */; };
 		EBB3DCC61D61B67C003B93A0 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = EBB3DCC11D61B67C003B93A0 /* CJSONSerializer.m */; };
 		EBB3DCC71D61B67C003B93A0 /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = EBB3DCC41D61B67C003B93A0 /* NSDictionary_JSONExtensions.m */; };
+		EBE468741D76C8AA009A3CDA /* BrandReviewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE468731D76C8AA009A3CDA /* BrandReviewVC.m */; };
 		FF117BFBF23D95EF7B71E2F2 /* libPods-NativeAPIProjectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 598836C6CD440AD483913EF4 /* libPods-NativeAPIProjectTests.a */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +95,8 @@
 		EBB3DCC21D61B67C003B93A0 /* JSONRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONRepresentation.h; sourceTree = "<group>"; };
 		EBB3DCC31D61B67C003B93A0 /* NSDictionary_JSONExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDictionary_JSONExtensions.h; sourceTree = "<group>"; };
 		EBB3DCC41D61B67C003B93A0 /* NSDictionary_JSONExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionary_JSONExtensions.m; sourceTree = "<group>"; };
+		EBE468721D76C8AA009A3CDA /* BrandReviewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandReviewVC.h; sourceTree = "<group>"; };
+		EBE468731D76C8AA009A3CDA /* BrandReviewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandReviewVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +252,8 @@
 				EBAFFCDB1D5C9A070021732B /* WebViewVC.m */,
 				EB5752171D609DB300CF9565 /* CategoryVC.h */,
 				EB5752181D609DB300CF9565 /* CategoryVC.m */,
+				EBE468721D76C8AA009A3CDA /* BrandReviewVC.h */,
+				EBE468731D76C8AA009A3CDA /* BrandReviewVC.m */,
 			);
 			name = viewControllers;
 			sourceTree = "<group>";
@@ -543,6 +548,7 @@
 				EBAFFCA61D5C99BB0021732B /* main.m in Sources */,
 				EB5752191D609DB300CF9565 /* CategoryVC.m in Sources */,
 				EBB3DCC51D61B67C003B93A0 /* CJSONDeserializer.m in Sources */,
+				EBE468741D76C8AA009A3CDA /* BrandReviewVC.m in Sources */,
 				EBB3DCC61D61B67C003B93A0 /* CJSONSerializer.m in Sources */,
 				EBAFFCD91D5C99E60021732B /* MenuViewController.m in Sources */,
 				EBAFFCDF1D5C9A190021732B /* SWRevealViewController.m in Sources */,
