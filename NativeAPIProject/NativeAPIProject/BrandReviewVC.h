@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PalconParser.h"
 
-@interface BrandReviewVC : UIViewController
+@interface BrandReviewVC : UIViewController <UIWebViewDelegate>
 
 @property (strong, nonatomic) PalconParser *pp;
 @property (nonatomic, strong) NSMutableArray *tabbarElements;

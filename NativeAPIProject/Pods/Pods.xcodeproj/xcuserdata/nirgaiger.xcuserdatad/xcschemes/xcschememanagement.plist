@@ -24,15 +24,25 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ZSSRichTextEditor.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>3F16608AD03130C2917DEBD0BF2F916A</key>
+		<key>18528544257C1035A5DC517E4AB6BC26</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>50D040F8710AD12FAB042570DB5322C1</key>
+		<key>33F4BCABD285740E7F9FF4972849172B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>43759DBE2FB84B769C0F784E957450C3</key>
 		<dict>
 			<key>primary</key>
 			<true/>

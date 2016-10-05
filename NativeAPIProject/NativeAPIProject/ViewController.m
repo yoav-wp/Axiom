@@ -16,7 +16,6 @@
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIScrollView *mainSV;
 @property (weak, nonatomic) IBOutlet UIScrollView *carouselsv;
-@property (weak, nonatomic) IBOutlet UIStackView *firstStack;
 @property (weak, nonatomic) IBOutlet UITextView *firstWysiwyg;
 @property (weak, nonatomic) IBOutlet UITextView *secondWysiwyg;
 @property (weak, nonatomic) IBOutlet UIButton *GetBannerButton;
@@ -45,7 +44,6 @@ static NSString * brandRevID = @"brandRevID";
     [self.revealViewController panGestureRecognizer];
     [self.revealViewController tapGestureRecognizer];
 }
-
 
 //call all the widgets initializations
 //better view WILL appear, did appear for debug
@@ -183,7 +181,7 @@ static NSString * brandRevID = @"brandRevID";
     
     //    NSLog(@"screen size %f, font size: %@", width, fontSize);
     
-    NSString *htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:grey;font-size:%@\">%@</spann>",fontSize,[self.pp homepageGetSecondWysiwyg]];
+    NSString *htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:grey;font-size:%@\">%@</span>",fontSize,[self.pp homepageGetSecondWysiwyg]];
     
     
     NSAttributedString *attributedString = [[NSAttributedString alloc]
@@ -196,6 +194,11 @@ static NSString * brandRevID = @"brandRevID";
 //    CGRect frame = _secondWysiwyg.frame;
 //    frame.size.height = _secondWysiwyg.contentSize.height;
 //    _secondWysiwyg.frame = frame;
+}
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange{
+    NSLog(@"bla bla %@", [URL absoluteString]);
+    return NO;
 }
 
 
@@ -277,6 +280,8 @@ static NSString * brandRevID = @"brandRevID";
         }
     }
 }
+
+
 
 
 //Handle scrolling

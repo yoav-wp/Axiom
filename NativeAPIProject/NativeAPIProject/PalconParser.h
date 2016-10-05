@@ -19,7 +19,8 @@
 -(NSString *)getPageType;
 -(NSMutableArray *)getTabBarElements;
 -(NSString *)getBaseURL;
-
+-(NSString *)brandReviewGetWysiwyg;
+-(NSString *)brandReviewGetSecondTabWysiwyg;
 
 
 @end

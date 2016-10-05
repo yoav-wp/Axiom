@@ -42,6 +42,41 @@
     return baseString;
 }
 
+-(NSString *)brandReviewGetWysiwyg{
+    NSString *s = [self.pageDataDictionary valueForKey:@"first_wysiwyg"];
+    return s;
+}
+
+
+-(NSString *)brandReviewGetSecondTabWysiwyg{
+    NSString *s;
+    
+    int i = 0;
+    NSMutableArray *tabs = [self getBrandReviewTabs];
+    for(i = 0; i< tabs.count; i++){
+        NSLog(@" yo yo%@ ",[tabs[i] valueForKey:@"id"]);
+        if([[tabs[i] valueForKey:@"id"] integerValue] == 2){
+            s = [tabs[i] valueForKey:@"wysiwyg"];
+            break;
+        }
+    }
+    return s;
+}
+
+
+//for now - private methode to get the tabs (used in brandReviewGetSecondTabWysiwyg)
+-(NSMutableArray *)getBrandReviewTabs{
+    NSMutableArray *tabs;
+    for (id key in self.pageDataDictionary) {
+        if([key isEqualToString:@"tabs"]){
+            tabs = [self.pageDataDictionary objectForKey:key];
+            break;
+        }
+    }
+    return tabs;
+}
+
+
 -(NSMutableArray *)categoryGetCarousel {
     NSMutableArray *carousel;
     for(id key in self.pageDataDictionary){
