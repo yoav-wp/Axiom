@@ -12,6 +12,7 @@
 #import "CategoryVC.h"
 #import "WebViewVC.h"
 #import "AccordionView.h"
+#import "NavigationManager.h"
 
 @interface BrandReviewVC()
 
@@ -25,9 +26,7 @@
 
 @end
 
-static NSString * homepageID = @"HomePageSB";
-static NSString * webviewID = @"webviewVC";
-static NSString * categoryID = @"categoryVC";
+
 CGFloat maxAccordionHeight = 0;
 
 @implementation BrandReviewVC{
@@ -147,9 +146,10 @@ CGFloat maxAccordionHeight = 0;
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     NSString *url = [[request URL] absoluteString];
+    NavigationManager *nav = [[NavigationManager alloc] init];
     NSLog(@"url : %@",url);
     if([url containsString:@"onlinecasinos.expert"]){
-        [self handleTabBarSelectionWithItemID:-42 WithURL:url];
+        [nav handleTabBarSelectionWithItemID:-42 WithURL:url WithURLsDict:_tags2URLs WithSourceVC:self];
         return NO;
     }
     return YES;
@@ -202,85 +202,24 @@ CGFloat maxAccordionHeight = 0;
 
 //Handle tabBar clicks
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
-    [self handleTabBarSelectionWithItemID:item.tag WithURL:nil];
-}
-
-
-//we have: tag ID, pp, tabbarElements (array with button txt, link, img url)
--(void) handleTabBarSelectionWithItemID: (NSInteger) tag WithURL:(NSString *)destURL{
-    
-    if(tag == -42 && destURL){
-        PalconParser *destPP = [[PalconParser alloc] init];
-        [destPP initWithFullURL:destURL];
-        
-        
-        if([[destPP getPageType]isEqualToString:@"webview_page"]){
-            NSLog(@"entered WV if");
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            WebViewVC *vc = [storyboard instantiateViewControllerWithIdentifier:webviewID];
-            vc.pp = destPP;
-            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
-            [segue perform];
-        }
-        if([[destPP getPageType]isEqualToString:@"category_page"]){
-            NSLog(@"entered WV if");
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            CategoryVC *vc = [storyboard instantiateViewControllerWithIdentifier:categoryID];
-            vc.pp = destPP;
-            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
-            [segue perform];
-        }
-    }
-    
-    
-    
-    NSLog(@"clicked on %ld",(long)tag);
     //On homepage, homepage click does nothing
-    if (tag == 42){
+    if (item.tag == 42){
         [self.revealViewController rightRevealToggle:self];
     }
-    //On menu click, action is static - always open menu
-    else if (tag == 24){
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        ViewController *vc = [storyboard instantiateViewControllerWithIdentifier:homepageID];
-        SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
-        [segue perform];
-    }
-    else{
-        if(tag == _activeTab){
-            return;
-        }
-        NSString *targetURL = [_tags2URLs objectForKey:[NSNumber numberWithInteger:tag]];
-        NSLog(@"target url : %@",targetURL);
-        PalconParser *destPP = [[PalconParser alloc] init];
-        [destPP initWithFullURL:targetURL];
-        
-        
-        if([[destPP getPageType]isEqualToString:@"webview_page"]){
-            NSLog(@"entered WV if");
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            WebViewVC *vc = [storyboard instantiateViewControllerWithIdentifier:webviewID];
-            vc.pp = destPP;
-            vc.activeTab = tag;
-            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
-            [segue perform];
-        }
-        if([[destPP getPageType]isEqualToString:@"category_page"]){
-            NSLog(@"entered WV if");
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            CategoryVC *vc = [storyboard instantiateViewControllerWithIdentifier:categoryID];
-            vc.pp = destPP;
-            vc.activeTab = tag;
-            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
-            [segue perform];
-        }
+    else if(item.tag == _activeTab){
+        return;
+    }else{
+        NavigationManager *nav = [[NavigationManager alloc] init];
+        [nav handleTabBarSelectionWithItemID:item.tag WithURL:nil WithURLsDict:_tags2URLs WithSourceVC:self];
     }
 }
+
 
 
 
 //menu tag: 42, homepage tag: 24
 -(void)initTabBar{
+    //contains list of : a tag and a url for it
     _tags2URLs = [[NSMutableDictionary alloc] init];
     NSMutableArray *tabBarArray;
     int i;

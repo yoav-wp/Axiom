@@ -186,7 +186,7 @@
 				EBB3DCBC1D61AFAB003B93A0 /* menu */,
 				EBB3DCBA1D61AF67003B93A0 /* models */,
 				EB61990F1D5C9E2600E54823 /* menu_icons.bundle */,
-				EBBA49361DA4E8F000904C90 /* Navigation */,
+				EBBA49361DA4E8F000904C90 /* navigation */,
 				EBB3DCBB1D61AF89003B93A0 /* viewControllers */,
 				EBAFFCA41D5C99BB0021732B /* Supporting Files */,
 				EBAFFCB01D5C99BB0021732B /* Assets.xcassets */,
@@ -285,13 +285,13 @@
 			name = delegates;
 			sourceTree = "<group>";
 		};
-		EBBA49361DA4E8F000904C90 /* Navigation */ = {
+		EBBA49361DA4E8F000904C90 /* navigation */ = {
 			isa = PBXGroup;
 			children = (
 				EBBA49371DA4E93500904C90 /* NavigationManager.h */,
 				EBBA49381DA4E93500904C90 /* NavigationManager.m */,
 			);
-			name = Navigation;
+			name = navigation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
