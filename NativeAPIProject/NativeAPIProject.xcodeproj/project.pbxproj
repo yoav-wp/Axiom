@@ -156,6 +156,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		EB5704E11DAA241C0006869B /* storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				EBAFFCAD1D5C99BB0021732B /* Main.storyboard */,
+				EBAFFCB21D5C99BB0021732B /* LaunchScreen.storyboard */,
+			);
+			name = storyboards;
+			sourceTree = "<group>";
+		};
 		EBAFFC981D5C99BB0021732B = {
 			isa = PBXGroup;
 			children = (
@@ -182,12 +191,12 @@
 			isa = PBXGroup;
 			children = (
 				EBB3DCB91D61AF50003B93A0 /* libs */,
-				EBB3DCBD1D61AFC2003B93A0 /* delegates */,
 				EBB3DCBC1D61AFAB003B93A0 /* menu */,
 				EBB3DCBA1D61AF67003B93A0 /* models */,
 				EB61990F1D5C9E2600E54823 /* menu_icons.bundle */,
 				EBBA49361DA4E8F000904C90 /* navigation */,
 				EBB3DCBB1D61AF89003B93A0 /* viewControllers */,
+				EB5704E11DAA241C0006869B /* storyboards */,
 				EBAFFCA41D5C99BB0021732B /* Supporting Files */,
 				EBAFFCB01D5C99BB0021732B /* Assets.xcassets */,
 			);
@@ -197,8 +206,6 @@
 		EBAFFCA41D5C99BB0021732B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EBAFFCAD1D5C99BB0021732B /* Main.storyboard */,
-				EBAFFCB21D5C99BB0021732B /* LaunchScreen.storyboard */,
 				EBAFFCB51D5C99BB0021732B /* Info.plist */,
 				EBAFFCA51D5C99BB0021732B /* main.m */,
 			);
@@ -253,6 +260,7 @@
 		EBB3DCBB1D61AF89003B93A0 /* viewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				EBB3DCBD1D61AFC2003B93A0 /* delegates */,
 				EBAFFCD71D5C99E60021732B /* MenuViewController.h */,
 				EBAFFCD81D5C99E60021732B /* MenuViewController.m */,
 				EBAFFCAA1D5C99BB0021732B /* ViewController.h */,

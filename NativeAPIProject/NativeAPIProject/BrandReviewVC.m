@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIView *accordionView;
 @property (weak, nonatomic) IBOutlet UIView *firstTabView;
 @property (weak, nonatomic) IBOutlet UIView *secondTabView;
+@property (weak, nonatomic) IBOutlet UIView *thirdTabView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segment;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *accordionHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIWebView *secondTabWebView;
@@ -46,6 +47,7 @@ CGFloat maxAccordionHeight = 0;
     self.revealViewController.rightViewRevealOverdraw=4;
     [self.revealViewController panGestureRecognizer];
     [self.revealViewController tapGestureRecognizer];
+    [self initSegmentViews];
     [self initWV];
     [self initSecondTabWebView];
 }
@@ -71,6 +73,11 @@ CGFloat maxAccordionHeight = 0;
 }
 
 
+-(void)initSegmentViews{
+    _firstTabView.hidden=NO;
+    _secondTabView.hidden=YES;
+    _thirdTabView.hidden=YES;
+}
 
 -(void)initAccordionView{
 
@@ -86,9 +93,9 @@ CGFloat maxAccordionHeight = 0;
     for(i = 1 ; i< 4 ; i++){
         // Only height is taken into account, so other parameters are just dummy
         UIButton *header1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 30)];
-        [header1 setTitle:@"First row" forState:UIControlStateNormal];
-        header1.backgroundColor = [UIColor colorWithRed:0.086 green:0.627 blue:0.522 alpha:1.000];
-        
+        [header1 setTitle:@"Welcone Bonus" forState:UIControlStateNormal];
+        header1.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.000];
+        [header1 setTitleColor:[UIColor colorWithRed:10/255.0 green:10/255.0 blue:10/255.0 alpha:1.000] forState:UIControlStateNormal];
         UIView *view1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 242)];
         view1.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.000];
         
@@ -99,6 +106,7 @@ CGFloat maxAccordionHeight = 0;
         wv.delegate = self;
         wv.tag = i;
         [[wv scrollView] setScrollEnabled:NO];
+
 
         [view1 addSubview:wv];
         [wv loadHTMLString:@"<div>second WYSIWYG <b>this is bold</b><p>Lets <a href=\"http://www.onlinecasinos.expert/page2.js\">start</a> a new paragraph and close it</p> this is the second <i>WYSIWYG</i> for thisthe second <i>WYSIWYG</i> for this Homepage Homepage Homepage Homepage<i>WYSIWYG</i> for this Homepage Homepage HomepageHomepage Homepagthe second <i>WYSIWYG</i> for this Homepage Homepage Homepage Homepage<i>WYSIWYG</i> for this Homepage Homepage HomepageHomepage Homepagthe second <i>WYSIWYG</i> for this Homepage Homepage Homepage Homepage<i>WYSIWYG</i>page</div>" baseURL:nil];
@@ -159,17 +167,20 @@ CGFloat maxAccordionHeight = 0;
     NSLog(@"changed %ld",(long)_segment.selectedSegmentIndex);
     switch (_segment.selectedSegmentIndex) {
         case 0:
+            _secondTabView.hidden=YES;
+            _thirdTabView.hidden=YES;
             _firstTabView.hidden=NO;
-            _secondTabWebView.hidden=YES;
             break;
         case 1:
             _firstTabView.hidden=YES;
-            _secondTabWebView.hidden=NO;
+            _thirdTabView.hidden=YES;
+            _secondTabView.hidden=NO;
             break;
             
         case 2:
-            _firstTabView.hidden=NO;
-            _secondTabWebView.hidden=YES;
+            _firstTabView.hidden=YES;
+            _secondTabView.hidden=YES;
+            _thirdTabView.hidden=NO;
             break;
             
         default:
