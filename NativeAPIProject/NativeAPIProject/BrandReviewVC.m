@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segment;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *accordionHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIWebView *secondTabWebView;
+@property (weak, nonatomic) IBOutlet UIView *thirdsBottomView;
 
 @end
 
@@ -36,6 +37,7 @@ CGFloat maxAccordionHeight = 0;
     NSMutableDictionary *_tags2URLs;
     NSMutableArray * accordionWVArray;
     AccordionView *accordion;
+    NavigationManager *_nav;
 }
 
 
@@ -44,16 +46,24 @@ CGFloat maxAccordionHeight = 0;
     [super viewDidLoad];
     //    self.tabBar.selectedItem= self.tabBar.items[0];
     //for the menu
+    _nav = [[NavigationManager alloc] init];
     self.revealViewController.rightViewRevealOverdraw=4;
     [self.revealViewController panGestureRecognizer];
     [self.revealViewController tapGestureRecognizer];
     [self initSegmentViews];
+    [self initAccordionView];
     [self initWV];
     [self initSecondTabWebView];
+    [self initSomeUI];
 }
 
+-(void)initSomeUI{
+    _thirdsBottomView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _thirdsBottomView.layer.borderWidth = 0.5f;
+}
+
+
 -(void)viewDidAppear:(BOOL)animated{
-    [self initAccordionView];
 }
 
 
@@ -109,7 +119,7 @@ CGFloat maxAccordionHeight = 0;
 
 
         [view1 addSubview:wv];
-        [wv loadHTMLString:@"<div>second WYSIWYG <b>this is bold</b><p>Lets <a href=\"http://www.onlinecasinos.expert/page2.js\">start</a> a new paragraph and close it</p> this is the second <i>WYSIWYG</i> for thisthe second <i>WYSIWYG</i> for this Homepage Homepage Homepage Homepage<i>WYSIWYG</i> for this Homepage Homepage HomepageHomepage Homepagthe second <i>WYSIWYG</i> for this Homepage Homepage Homepage Homepage<i>WYSIWYG</i> for this Homepage Homepage HomepageHomepage Homepagthe second <i>WYSIWYG</i> for this Homepage Homepage Homepage Homepage<i>WYSIWYG</i>page</div>" baseURL:nil];
+        [wv loadHTMLString:@"<div>second WYSIWYG <b>this is bold</b><p>Lets <a href=\"http://www.onlinecasinos.expert/page4.js\">start</a> a new paragraph and close it</p> this is the second <i>WYSIWYG</i> for thisthe second <i>WYSIWYG</i> for this Homepage Homepage Homepage Homepage<i>WYSIWYG</i> for this Homepage Homepage HomepageHomepage Homepagthe second <i>WYSIWYG</i> for this Homepage Homepage Homepage Homepage<i>WYSIWYG</i> for this Homepage Homepage HomepageHomepage Homepagthe second <i>WYSIWYG</i> for this Homepage Homepage Homepage Homepage<i>WYSIWYG</i>page</div>" baseURL:nil];
         
         [accordionWVArray addObject:wv];
         
@@ -164,7 +174,12 @@ CGFloat maxAccordionHeight = 0;
 }
 
 - (IBAction)segmentValueChanged:(id)sender {
-    NSLog(@"changed %ld",(long)_segment.selectedSegmentIndex);
+    
+    
+    CGRect frame = _thirdTabView.frame;
+    CGSize fittingSize = [_thirdTabView sizeThatFits:_thirdTabView.frame.size];
+    frame.size = fittingSize;
+    NSLog(@"changed %ld, size : %f",(long)_segment.selectedSegmentIndex, frame.size.height);
     switch (_segment.selectedSegmentIndex) {
         case 0:
             _secondTabView.hidden=YES;
@@ -220,8 +235,7 @@ CGFloat maxAccordionHeight = 0;
     else if(item.tag == _activeTab){
         return;
     }else{
-        NavigationManager *nav = [[NavigationManager alloc] init];
-        [nav handleTabBarSelectionWithItemID:item.tag WithURL:nil WithURLsDict:_tags2URLs WithSourceVC:self];
+        [_nav handleTabBarSelectionWithItemID:item.tag WithURL:nil WithURLsDict:_tags2URLs WithSourceVC:self];
     }
 }
 
@@ -263,8 +277,16 @@ CGFloat maxAccordionHeight = 0;
     [tabBarArray insertObject:homeItem atIndex:0];
     [tabBarArray addObject:menuItem];
     
-    
     [_tabbar setItems:[tabBarArray arrayByAddingObjectsFromArray:[_tabbar items]]];
+    
+    
+    //some UI
+    _tabbar.layer.shadowOffset = CGSizeMake(0, 0);
+    _tabbar.layer.shadowRadius = 8;
+    _tabbar.layer.shadowColor = [UIColor redColor].CGColor;
+    _tabbar.layer.shadowOpacity = 0.3;
+    _tabbar.layer.backgroundColor = [UIColor whiteColor].CGColor;
+    
 }
 
 

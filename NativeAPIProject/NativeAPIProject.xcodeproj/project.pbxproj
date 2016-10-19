@@ -11,6 +11,7 @@
 		7773B1F0F1D1B74C28E4FF37 /* libPods-NativeAPIProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E253A927D2EB113502984E52 /* libPods-NativeAPIProject.a */; };
 		EB5752191D609DB300CF9565 /* CategoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5752181D609DB300CF9565 /* CategoryVC.m */; };
 		EB6199101D5C9E2600E54823 /* menu_icons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EB61990F1D5C9E2600E54823 /* menu_icons.bundle */; };
+		EB7F73CA1DAF92050069A9E2 /* GameReviewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7F73C91DAF92050069A9E2 /* GameReviewVC.m */; };
 		EB9A9B8C1D5C9EAC00B8BDE9 /* first.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB9A9B8A1D5C9EAC00B8BDE9 /* first.plist */; };
 		EB9A9B8D1D5C9EAC00B8BDE9 /* second.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB9A9B8B1D5C9EAC00B8BDE9 /* second.plist */; };
 		EBA9DD921D85578E005C5255 /* AccordionView.m in Sources */ = {isa = PBXBuildFile; fileRef = EBA9DD911D85578E005C5255 /* AccordionView.m */; };
@@ -64,6 +65,8 @@
 		EB5752171D609DB300CF9565 /* CategoryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryVC.h; sourceTree = "<group>"; };
 		EB5752181D609DB300CF9565 /* CategoryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryVC.m; sourceTree = "<group>"; };
 		EB61990F1D5C9E2600E54823 /* menu_icons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = menu_icons.bundle; sourceTree = "<group>"; };
+		EB7F73C81DAF92050069A9E2 /* GameReviewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameReviewVC.h; sourceTree = "<group>"; };
+		EB7F73C91DAF92050069A9E2 /* GameReviewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameReviewVC.m; sourceTree = "<group>"; };
 		EB9A9B8A1D5C9EAC00B8BDE9 /* first.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = first.plist; sourceTree = "<group>"; };
 		EB9A9B8B1D5C9EAC00B8BDE9 /* second.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = second.plist; sourceTree = "<group>"; };
 		EBA9DD901D85578E005C5255 /* AccordionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccordionView.h; sourceTree = "<group>"; };
@@ -194,6 +197,7 @@
 				EBB3DCBC1D61AFAB003B93A0 /* menu */,
 				EBB3DCBA1D61AF67003B93A0 /* models */,
 				EB61990F1D5C9E2600E54823 /* menu_icons.bundle */,
+				EBB3DCBD1D61AFC2003B93A0 /* delegates */,
 				EBBA49361DA4E8F000904C90 /* navigation */,
 				EBB3DCBB1D61AF89003B93A0 /* viewControllers */,
 				EB5704E11DAA241C0006869B /* storyboards */,
@@ -260,7 +264,6 @@
 		EBB3DCBB1D61AF89003B93A0 /* viewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				EBB3DCBD1D61AFC2003B93A0 /* delegates */,
 				EBAFFCD71D5C99E60021732B /* MenuViewController.h */,
 				EBAFFCD81D5C99E60021732B /* MenuViewController.m */,
 				EBAFFCAA1D5C99BB0021732B /* ViewController.h */,
@@ -271,6 +274,8 @@
 				EB5752181D609DB300CF9565 /* CategoryVC.m */,
 				EBE468721D76C8AA009A3CDA /* BrandReviewVC.h */,
 				EBE468731D76C8AA009A3CDA /* BrandReviewVC.m */,
+				EB7F73C81DAF92050069A9E2 /* GameReviewVC.h */,
+				EB7F73C91DAF92050069A9E2 /* GameReviewVC.m */,
 			);
 			name = viewControllers;
 			sourceTree = "<group>";
@@ -575,6 +580,7 @@
 				EBB3DCB81D61AF3E003B93A0 /* PalconParser.m in Sources */,
 				EBAFFCA61D5C99BB0021732B /* main.m in Sources */,
 				EB5752191D609DB300CF9565 /* CategoryVC.m in Sources */,
+				EB7F73CA1DAF92050069A9E2 /* GameReviewVC.m in Sources */,
 				EBB3DCC51D61B67C003B93A0 /* CJSONDeserializer.m in Sources */,
 				EBE468741D76C8AA009A3CDA /* BrandReviewVC.m in Sources */,
 				EBB3DCC61D61B67C003B93A0 /* CJSONSerializer.m in Sources */,
