@@ -16,8 +16,10 @@
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIScrollView *mainSV;
 @property (weak, nonatomic) IBOutlet UIScrollView *carouselsv;
-@property (weak, nonatomic) IBOutlet UITextView *firstWysiwyg;
-@property (weak, nonatomic) IBOutlet UITextView *secondWysiwyg;
+@property (weak, nonatomic) IBOutlet UIWebView *firstWYSIWYG;
+@property (weak, nonatomic) IBOutlet UIWebView *secondWYSIWYG;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *secondWVHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *firstWVHeight;
 @property (weak, nonatomic) IBOutlet UIButton *GetBannerButton;
 @property (weak, nonatomic) IBOutlet UIView *bannerView;
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
@@ -154,16 +156,32 @@ static NSString * brandRevID = @"brandRevID";
 //    NSLog(@"screen size %f, font size: %@", width, fontSize);
     
     NSString *htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:grey;font-size:%@\">%@</spann>",fontSize,[self.pp homepageGetFirstWysiwyg]];
-
-    
-    NSAttributedString *attributedString = [[NSAttributedString alloc]
-                                            initWithData: [htmlString dataUsingEncoding:NSUnicodeStringEncoding]
-                                            options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                            documentAttributes: nil
-                                            error: nil
-                                            ];
-    self.firstWysiwyg.attributedText = attributedString;
+    [_firstWYSIWYG loadHTMLString:htmlString baseURL:nil];
 }
+
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView{
+    if(webView.tag ==1){
+        CGRect frame = _firstWYSIWYG.frame;
+        frame.size.height = 1;
+        _firstWYSIWYG.frame = frame;
+        CGSize fittingSize = [_firstWYSIWYG sizeThatFits:CGSizeZero];
+        frame.size = fittingSize;
+        _firstWYSIWYG.frame = frame;
+        _firstWVHeight.constant = frame.size.height;
+    }
+    else if(webView.tag == 2){
+        CGRect frame = _secondWYSIWYG.frame;
+        frame.size.height = 1;
+        _secondWYSIWYG.frame = frame;
+        CGSize fittingSize = [_secondWYSIWYG sizeThatFits:CGSizeZero];
+        frame.size = fittingSize;
+        _secondWYSIWYG.frame = frame;
+        _secondWVHeight.constant = frame.size.height;
+    }
+    
+}
+
 
 -(void)initSecondWysiwyg{
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -181,21 +199,18 @@ static NSString * brandRevID = @"brandRevID";
     
     //    NSLog(@"screen size %f, font size: %@", width, fontSize);
     
-    NSString *htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:grey;font-size:%@\">%@</span>",fontSize,[self.pp homepageGetSecondWysiwyg]];
-    
-    
-    NSAttributedString *attributedString = [[NSAttributedString alloc]
-                                            initWithData: [htmlString dataUsingEncoding:NSUnicodeStringEncoding]
-                                            options: @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                            documentAttributes: nil
-                                            error: nil
-                                            ];
-    self.secondWysiwyg.attributedText = attributedString;
-//    CGRect frame = _secondWysiwyg.frame;
-//    frame.size.height = _secondWysiwyg.contentSize.height;
-//    _secondWysiwyg.frame = frame;
+    NSString *htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:grey;font-size:%@\">ssd,fns,manf,sandf,.sadnf,sanmdf,mnsd,fnsa,dmfns,adfns,madfnsmabdfmndsabfnmsvdbfnmvsdhfgsadfbdkjgsn,mngdfs,g%@</span>",fontSize,[self.pp homepageGetSecondWysiwyg]];
+    [_secondWYSIWYG loadHTMLString:htmlString baseURL:nil];
 }
 
+/**
+ If I wanna handle click on link on a TextView
+
+ @param textView
+ @param URL
+ @param characterRange
+ @return
+ */
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange{
     NSLog(@"bla bla %@", [URL absoluteString]);
     return NO;
