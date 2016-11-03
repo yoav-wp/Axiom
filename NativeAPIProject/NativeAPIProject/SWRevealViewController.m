@@ -807,7 +807,6 @@ const int FrontViewPositionNone = 0xff;
     [self setRearViewController:rearViewController animated:NO];
 }
 
-
 - (void)setRearViewController:(UIViewController *)rearViewController animated:(BOOL)animated
 {
     if ( ![self isViewLoaded])

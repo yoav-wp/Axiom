@@ -79,12 +79,18 @@ static NSString * categoryID = @"categoryVC";
     tabBarArray = [[NSMutableArray alloc] init];
     UITabBarItem *homeItem;
     UITabBarItem *menuItem;
+    UITabBarItem *shareItem;
     
     //set middle items
     //Homepage and menu position in the json array doesnt matter, for the others it does.
     for(i = 0; i < self.tabbarElements.count; i++){
         NSDictionary *tabbarDict = self.tabbarElements[i];
         UITabBarItem *item;
+        if([[tabbarDict valueForKey:@"id"] isEqualToString:@"share_item"]){
+            shareItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"share_item"] image:nil tag:84];
+            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:84]];
+            continue;
+        }
         if([[tabbarDict valueForKey:@"id"] isEqualToString:@"menu_item"]){
             menuItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:nil tag:42];
             [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:42]];
@@ -102,8 +108,8 @@ static NSString * categoryID = @"categoryVC";
     }
     //set menu and homepage items
     [tabBarArray insertObject:homeItem atIndex:0];
+    [tabBarArray addObject:shareItem];
     [tabBarArray addObject:menuItem];
-    
     
     [_tabBar setItems:[tabBarArray arrayByAddingObjectsFromArray:[_tabBar items]]];
 }
@@ -121,6 +127,7 @@ static NSString * categoryID = @"categoryVC";
     NSLog(@"clicked on %ld",(long)tag);
     //On homepage, homepage click does nothing
     if (tag == 42){
+      
         [self.revealViewController rightRevealToggle:self];
     }
     //On menu click, action is static - always open menu

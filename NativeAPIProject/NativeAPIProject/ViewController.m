@@ -38,6 +38,7 @@ static NSString * brandRevID = @"brandRevID";
 }
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    NSLog(@"debug yoav 2");
     self.pp = [[PalconParser alloc] init];
     [self.pp initWithFullURL:@"http://www.onlinecasinos.expert/homepage.js"];
 //    self.tabBar.selectedItem= self.tabBar.items[0];
@@ -61,6 +62,7 @@ static NSString * brandRevID = @"brandRevID";
 - (IBAction)closeBannerClick:(id)sender {
     [self removeBanner];
 }
+
 
 -(void)initBanner{
     _GetBannerButton.layer.cornerRadius = 14;
@@ -110,12 +112,19 @@ static NSString * brandRevID = @"brandRevID";
     tabBarArray = [[NSMutableArray alloc] init];
     UITabBarItem *homeItem;
     UITabBarItem *menuItem;
+    UITabBarItem *shareItem;
     
     //set middle items
     //Homepage and menu position in the json array doesnt matter, for the others it does.
     for(i = 0; i < self.tabbarElements.count; i++){
         NSDictionary *tabbarDict = self.tabbarElements[i];
         UITabBarItem *item;
+        if([[tabbarDict valueForKey:@"id"] isEqualToString:@"share_item"]){
+            shareItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"share_item"] image:nil tag:84];
+            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:84]];
+            NSLog(@"yeahh");
+            continue;
+        }
         if([[tabbarDict valueForKey:@"id"] isEqualToString:@"menu_item"]){
             menuItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:nil tag:42];
             [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:42]];
@@ -133,8 +142,8 @@ static NSString * brandRevID = @"brandRevID";
     }
     //set menu and homepage items
     [tabBarArray insertObject:homeItem atIndex:0];
+    [tabBarArray addObject:shareItem];
     [tabBarArray addObject:menuItem];
-    
     
     [_tabBar setItems:[tabBarArray arrayByAddingObjectsFromArray:[_tabBar items]]];
 }
@@ -157,6 +166,7 @@ static NSString * brandRevID = @"brandRevID";
     
     NSString *htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:grey;font-size:%@\">%@</spann>",fontSize,[self.pp homepageGetFirstWysiwyg]];
     [_firstWYSIWYG loadHTMLString:htmlString baseURL:nil];
+    _firstWYSIWYG.scrollView.scrollEnabled = NO;
 }
 
 
@@ -169,6 +179,7 @@ static NSString * brandRevID = @"brandRevID";
         frame.size = fittingSize;
         _firstWYSIWYG.frame = frame;
         _firstWVHeight.constant = frame.size.height;
+        NSLog(@"aaa%f", frame.size.height);
     }
     else if(webView.tag == 2){
         CGRect frame = _secondWYSIWYG.frame;
@@ -178,6 +189,7 @@ static NSString * brandRevID = @"brandRevID";
         frame.size = fittingSize;
         _secondWYSIWYG.frame = frame;
         _secondWVHeight.constant = frame.size.height;
+        NSLog(@"bbb%f", frame.size.height);
     }
     
 }
@@ -199,12 +211,14 @@ static NSString * brandRevID = @"brandRevID";
     
     //    NSLog(@"screen size %f, font size: %@", width, fontSize);
     
-    NSString *htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:grey;font-size:%@\">ssd,fns,manf,sandf,.sadnf,sanmdf,mnsd,fnsa,dmfns,adfns,madfnsmabdfmndsabfnmsvdbfnmvsdhfgsadfbdkjgsn,mngdfs,g%@</span>",fontSize,[self.pp homepageGetSecondWysiwyg]];
+    NSString *htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:grey;font-size:%@\">%@</span>",fontSize,[self.pp homepageGetSecondWysiwyg]];
     [_secondWYSIWYG loadHTMLString:htmlString baseURL:nil];
+    _secondWYSIWYG.scrollView.scrollEnabled = NO;
 }
 
+
 /**
- If I wanna handle click on link on a TextView
+ If I wanna handle click on link on a TextView, impl. this
 
  @param textView
  @param URL

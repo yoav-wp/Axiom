@@ -64,7 +64,7 @@
         return;
     }else{
         NavigationManager *nav = [[NavigationManager alloc] init];
-        [nav handleTabBarSelectionWithItemID:item.tag WithURL:nil WithURLsDict:_tags2URLs WithSourceVC:self];
+        [nav navigateWithItemID:item.tag WithURL:nil WithURLsDict:_tags2URLs WithSourceVC:self];
     }
 }
 

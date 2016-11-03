@@ -24,6 +24,9 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segment;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *accordionHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIWebView *secondTabWebView;
+
+
+//bottom view of the third tab's view
 @property (weak, nonatomic) IBOutlet UIView *thirdsBottomView;
 
 @end
@@ -33,7 +36,7 @@ CGFloat maxAccordionHeight = 0;
 
 @implementation BrandReviewVC{
 
-    //TabBar items
+    //will be passed to navigation manager with a tag, so we heve the tag-url relation
     NSMutableDictionary *_tags2URLs;
     NSMutableArray * accordionWVArray;
     AccordionView *accordion;
@@ -57,7 +60,9 @@ CGFloat maxAccordionHeight = 0;
     [self initSomeUI];
 }
 
+// Some general page UI
 -(void)initSomeUI{
+    //borders
     _thirdsBottomView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     _thirdsBottomView.layer.borderWidth = 0.5f;
 }
@@ -161,20 +166,18 @@ CGFloat maxAccordionHeight = 0;
 //}
 
 
-
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     NSString *url = [[request URL] absoluteString];
     NavigationManager *nav = [[NavigationManager alloc] init];
     NSLog(@"url : %@",url);
     if([url containsString:@"onlinecasinos.expert"]){
-        [nav handleTabBarSelectionWithItemID:-42 WithURL:url WithURLsDict:_tags2URLs WithSourceVC:self];
+        [nav navigateWithItemID:-42 WithURL:url WithURLsDict:_tags2URLs WithSourceVC:self];
         return NO;
     }
     return YES;
 }
 
 - (IBAction)segmentValueChanged:(id)sender {
-    
     
     CGRect frame = _thirdTabView.frame;
     CGSize fittingSize = [_thirdTabView sizeThatFits:_thirdTabView.frame.size];
@@ -214,37 +217,60 @@ CGFloat maxAccordionHeight = 0;
 }
 
 
--(void)setActiveTabbarItem{
-    int i = 0;
-    NSArray *ar = [_tabbar items];
-    for(i = 0 ; i< ar.count ; i++){
-        UITabBarItem *it = ar[i];
-        if(it.tag == _activeTab){
-            _tabbar.selectedItem = it;
-            break;
+//Sharing
+-(void)handleSharingEvent{
+    // create a message
+    NSString *theMessage = [self.pp fullURL];
+    NSArray *items = @[@"hello", [UIImage imageNamed:@"betwaylogo"]];
+    
+    // build an activity view controller
+    UIActivityViewController *controller = [[UIActivityViewController alloc]initWithActivityItems:items applicationActivities:nil];
+    
+    // and present it
+    [self presentActivityController:controller];
+    NSLog(@"Share it !");
+}
+- (void)presentActivityController:(UIActivityViewController *)controller {
+    
+    if ( [controller respondsToSelector:@selector(popoverPresentationController)] ) {
+        // iOS8
+        controller.popoverPresentationController.sourceView = self.view;
+    }
+    
+    // for iPad: make the presentation a Popover
+    controller.modalPresentationStyle = UIModalPresentationPopover;
+    [self presentViewController:controller animated:YES completion:nil];
+    
+    UIPopoverPresentationController *popController = [controller popoverPresentationController];
+    popController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    popController.barButtonItem = self.navigationItem.leftBarButtonItem;
+    
+    // access the completion handler
+    controller.completionWithItemsHandler = ^(NSString *activityType,
+                                              BOOL completed,
+                                              NSArray *returnedItems,
+                                              NSError *error){
+        // react to the completion
+        if (completed) {
+            
+            // user shared an item
+            NSLog(@"We used activity type%@", activityType);
+            
+        } else {
+            
+            // user cancelled
+            NSLog(@"We didn't want to share anything after all.");
         }
-    }
+        
+        if (error) {
+            NSLog(@"An Error occured: %@, %@", error.localizedDescription, error.localizedFailureReason);
+        }
+    };
 }
-
-//Handle tabBar clicks
--(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
-    //On homepage, homepage click does nothing
-    if (item.tag == 42){
-        [self.revealViewController rightRevealToggle:self];
-    }
-    else if(item.tag == _activeTab){
-        return;
-    }else{
-        [_nav handleTabBarSelectionWithItemID:item.tag WithURL:nil WithURLsDict:_tags2URLs WithSourceVC:self];
-    }
-}
-
-
 
 
 //menu tag: 42, homepage tag: 24
 -(void)initTabBar{
-    //contains list of : a tag and a url for it
     _tags2URLs = [[NSMutableDictionary alloc] init];
     NSMutableArray *tabBarArray;
     int i;
@@ -252,12 +278,18 @@ CGFloat maxAccordionHeight = 0;
     tabBarArray = [[NSMutableArray alloc] init];
     UITabBarItem *homeItem;
     UITabBarItem *menuItem;
+    UITabBarItem *shareItem;
     
     //set middle items
-    //Homepage and menu position in the json array doesnt matter, for the others it does.
+    //Homepage, Share and menu position in the json array doesnt matter, for the others it does.
     for(i = 0; i < self.tabbarElements.count; i++){
         NSDictionary *tabbarDict = self.tabbarElements[i];
         UITabBarItem *item;
+        if([[tabbarDict valueForKey:@"id"] isEqualToString:@"share_item"]){
+            shareItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:nil tag:84];
+            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:84]];
+            continue;
+        }
         if([[tabbarDict valueForKey:@"id"] isEqualToString:@"menu_item"]){
             menuItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:nil tag:42];
             [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:42]];
@@ -275,20 +307,38 @@ CGFloat maxAccordionHeight = 0;
     }
     //set menu and homepage items
     [tabBarArray insertObject:homeItem atIndex:0];
+    [tabBarArray addObject:shareItem];
     [tabBarArray addObject:menuItem];
     
+    //concatenating tabBarArray to (the empty) [_tabbar items]
     [_tabbar setItems:[tabBarArray arrayByAddingObjectsFromArray:[_tabbar items]]];
-    
-    
-    //some UI
-    _tabbar.layer.shadowOffset = CGSizeMake(0, 0);
-    _tabbar.layer.shadowRadius = 8;
-    _tabbar.layer.shadowColor = [UIColor redColor].CGColor;
-    _tabbar.layer.shadowOpacity = 0.3;
-    _tabbar.layer.backgroundColor = [UIColor whiteColor].CGColor;
-    
 }
-
+-(void)setActiveTabbarItem{
+    int i = 0;
+    NSArray *ar = [_tabbar items];
+    for(i = 0 ; i< ar.count ; i++){
+        UITabBarItem *it = ar[i];
+        if(it.tag == _activeTab){
+            _tabbar.selectedItem = it;
+            break;
+        }
+    }
+}
+//Handle tabBar clicks
+-(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
+    //On homepage, homepage click does nothing
+    if (item.tag == 42){
+        [self.revealViewController rightRevealToggle:self];
+    }
+    if(item.tag == 84){
+        [self handleSharingEvent];
+    }
+    else if(item.tag == _activeTab){
+        return;
+    }else{
+        [_nav navigateWithItemID:item.tag WithURL:nil WithURLsDict:_tags2URLs WithSourceVC:self];
+    }
+}
 
 
 
