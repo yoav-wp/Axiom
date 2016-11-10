@@ -30,7 +30,7 @@
 
 -(NSString *)homepageGetFirstWysiwyg {
     //get resultCount value (depth 0 of the json)
-    NSString *baseString = [self.pageDataDictionary valueForKey:@"first_wysiwyg"];
+    NSString *baseString = [self.pageDataDictionary valueForKey:@"introduction_text"];
     
     return baseString;
 }

@@ -38,7 +38,6 @@ static NSString * brandRevID = @"brandRevID";
 }
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    NSLog(@"debug yoav 2");
     self.pp = [[PalconParser alloc] init];
     [self.pp initWithFullURL:@"http://www.onlinecasinos.expert/homepage.js"];
 //    self.tabBar.selectedItem= self.tabBar.items[0];
@@ -120,23 +119,25 @@ static NSString * brandRevID = @"brandRevID";
         NSDictionary *tabbarDict = self.tabbarElements[i];
         UITabBarItem *item;
         if([[tabbarDict valueForKey:@"id"] isEqualToString:@"share_item"]){
-            shareItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"share_item"] image:nil tag:84];
+            UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+            shareItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"share_item"] image:iconImage tag:84];
             [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:84]];
-            NSLog(@"yeahh");
             continue;
         }
         if([[tabbarDict valueForKey:@"id"] isEqualToString:@"menu_item"]){
-            menuItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:nil tag:42];
+            UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+            menuItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:42];
             [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:42]];
             continue;
         }
         if([[tabbarDict valueForKey:@"id"] isEqualToString:@"homepage_item"]){
-            homeItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:nil tag:24];
+            UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+            homeItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:24];
             [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:24]];
             continue;
         }
-        
-        item = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:nil tag:10+i];
+        UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+        item = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:10+i];
         [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:10+i]];
         [tabBarArray addObject:item];
     }

@@ -18,7 +18,11 @@
 {
     [super viewDidLoad];
     
-    NSDictionary *dTmp=[[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"first" ofType:@"plist"]];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectoryPath = [paths objectAtIndex:0];
+    NSURL *destinationURL = [NSURL fileURLWithPath:[documentDirectoryPath stringByAppendingPathComponent:@"first.plist"]];
+    
+    NSDictionary *dTmp=[[NSDictionary alloc] initWithContentsOfFile:[destinationURL path]];
     
     NSDictionary *dTmp2=[[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"second" ofType:@"plist"]];
     
@@ -30,8 +34,8 @@
     self.firstForTable=[[NSMutableArray alloc] init] ;
     [self.firstForTable addObjectsFromArray:self.firstArray];
     
-    self.secondForTable=[[NSMutableArray alloc] init] ;
-    [self.secondForTable addObjectsFromArray:self.secondArray];
+//    self.secondForTable=[[NSMutableArray alloc] init] ;
+//    [self.secondForTable addObjectsFromArray:self.secondArray];
     
 }
 

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate,NSURLSessionDownloadDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

@@ -12,8 +12,6 @@
 		EB5752191D609DB300CF9565 /* CategoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5752181D609DB300CF9565 /* CategoryVC.m */; };
 		EB6199101D5C9E2600E54823 /* menu_icons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EB61990F1D5C9E2600E54823 /* menu_icons.bundle */; };
 		EB7F73CA1DAF92050069A9E2 /* GameReviewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7F73C91DAF92050069A9E2 /* GameReviewVC.m */; };
-		EB9A9B8C1D5C9EAC00B8BDE9 /* first.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB9A9B8A1D5C9EAC00B8BDE9 /* first.plist */; };
-		EB9A9B8D1D5C9EAC00B8BDE9 /* second.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB9A9B8B1D5C9EAC00B8BDE9 /* second.plist */; };
 		EBA9DD921D85578E005C5255 /* AccordionView.m in Sources */ = {isa = PBXBuildFile; fileRef = EBA9DD911D85578E005C5255 /* AccordionView.m */; };
 		EBAFFCA61D5C99BB0021732B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EBAFFCA51D5C99BB0021732B /* main.m */; };
 		EBAFFCA91D5C99BB0021732B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EBAFFCA81D5C99BB0021732B /* AppDelegate.m */; };
@@ -67,8 +65,6 @@
 		EB61990F1D5C9E2600E54823 /* menu_icons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = menu_icons.bundle; sourceTree = "<group>"; };
 		EB7F73C81DAF92050069A9E2 /* GameReviewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameReviewVC.h; sourceTree = "<group>"; };
 		EB7F73C91DAF92050069A9E2 /* GameReviewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameReviewVC.m; sourceTree = "<group>"; };
-		EB9A9B8A1D5C9EAC00B8BDE9 /* first.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = first.plist; sourceTree = "<group>"; };
-		EB9A9B8B1D5C9EAC00B8BDE9 /* second.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = second.plist; sourceTree = "<group>"; };
 		EBA9DD901D85578E005C5255 /* AccordionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccordionView.h; sourceTree = "<group>"; };
 		EBA9DD911D85578E005C5255 /* AccordionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccordionView.m; sourceTree = "<group>"; };
 		EBAFFCA11D5C99BB0021732B /* NativeAPIProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeAPIProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -283,8 +279,6 @@
 		EBB3DCBC1D61AFAB003B93A0 /* menu */ = {
 			isa = PBXGroup;
 			children = (
-				EB9A9B8A1D5C9EAC00B8BDE9 /* first.plist */,
-				EB9A9B8B1D5C9EAC00B8BDE9 /* second.plist */,
 			);
 			name = menu;
 			sourceTree = "<group>";
@@ -423,8 +417,6 @@
 				EB6199101D5C9E2600E54823 /* menu_icons.bundle in Resources */,
 				EBAFFCB11D5C99BB0021732B /* Assets.xcassets in Resources */,
 				EBAFFCAF1D5C99BB0021732B /* Main.storyboard in Resources */,
-				EB9A9B8D1D5C9EAC00B8BDE9 /* second.plist in Resources */,
-				EB9A9B8C1D5C9EAC00B8BDE9 /* first.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
