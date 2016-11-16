@@ -53,7 +53,7 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     //append file name to path
-    NSString *filePath = [documentsPath stringByAppendingPathComponent:@"first.plist"];
+    NSString *filePath = [documentsPath stringByAppendingPathComponent:@"plist.xml"];
     NSError *error;
     //remove the file
     BOOL success = [fileManager removeItemAtPath:filePath error:&error];
@@ -72,7 +72,7 @@
     
     //create the download task and run it
     if(download == nil){
-        NSURL *url = [NSURL URLWithString:@"http://onlinecasinos.expert/first.plist"];
+        NSURL *url = [NSURL URLWithString:@"http://onlinecasinos.expert/plist.xml"];
         download = [_backgroundSession downloadTaskWithURL:url];
         [download resume];
     }
@@ -88,7 +88,7 @@
     NSString *documentDirectoryPath = [paths objectAtIndex:0];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
-    NSURL *destinationURL = [NSURL fileURLWithPath:[documentDirectoryPath stringByAppendingPathComponent:@"first.plist"]];
+    NSURL *destinationURL = [NSURL fileURLWithPath:[documentDirectoryPath stringByAppendingPathComponent:@"plist.xml"]];
     
     NSError *error = nil;
     

@@ -24,6 +24,8 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segment;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *accordionHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIWebView *secondTabWebView;
+@property (weak, nonatomic) IBOutlet UIWebView *firstWysiwyg;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *firstWysiwygHeightConst;
 
 
 //bottom view of the third tab's view
@@ -58,6 +60,7 @@ CGFloat maxAccordionHeight = 0;
     [self initWV];
     [self initSecondTabWebView];
     [self initSomeUI];
+    [self initFirstWysiwyg];
 }
 
 // Some general page UI
@@ -72,19 +75,33 @@ CGFloat maxAccordionHeight = 0;
 }
 
 
+-(void)initFirstWysiwyg{
+    NSString *urlString = [self.pp brandReviewGetWysiwyg];
+    [_firstWysiwyg loadHTMLString:urlString baseURL:nil];
+}
+
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
-    NSLog(@"enter finishload for  : %ld", (long)webView.tag);
-    
-    //get best fitting size
-    CGSize fittingSize = [webView sizeThatFits:CGSizeMake(webView.superview.frame.size.width, 1)];
-    [webView.scrollView setScrollEnabled:NO];
-    //init a new frame (with just another one)
-    CGRect newFrame = webView.frame;
-    //give the newFrame the fitting size
-    newFrame.size = fittingSize;
-    //set newFrame for the wv
-    webView.frame = newFrame;
-    NSLog(@"aaa %f",webView.frame.size.height);
+    if(webView.tag == 14){
+        CGRect frame = _firstWysiwyg.frame;
+        frame.size.height = 1;
+        _firstWysiwyg.frame = frame;
+        CGSize fittingSize = [_firstWysiwyg sizeThatFits:CGSizeZero];
+        frame.size = fittingSize;
+        _firstWysiwyg.frame = frame;
+        _firstWysiwygHeightConst.constant = frame.size.height;
+        NSLog(@"aaa%f", frame.size.height);
+    }
+        NSLog(@"enter finishload for  : %ld", (long)webView.tag);
+        //get best fitting size
+        CGSize fittingSize = [webView sizeThatFits:CGSizeMake(webView.superview.frame.size.width, 1)];
+        [webView.scrollView setScrollEnabled:NO];
+        //init a new frame (with just another one)
+        CGRect newFrame = webView.frame;
+        //give the newFrame the fitting size
+        newFrame.size = fittingSize;
+        //set newFrame for the wv
+        webView.frame = newFrame;
+        NSLog(@"aaa %f",webView.frame.size.height);
 }
 
 
@@ -93,6 +110,7 @@ CGFloat maxAccordionHeight = 0;
     _secondTabView.hidden=YES;
     _thirdTabView.hidden=YES;
 }
+
 
 -(void)initAccordionView{
 
@@ -106,10 +124,41 @@ CGFloat maxAccordionHeight = 0;
     
     int i = 1;
     for(i = 1 ; i< 4 ; i++){
+//        float rating = 3.5;
+//        rating *=10;
+//        NSString *filename= [NSString stringWithFormat:@"rating%.0fup",rating];
+//        NSLog(@" filename %@",filename);
         // Only height is taken into account, so other parameters are just dummy
         UIButton *header1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 30)];
-        [header1 setTitle:@"Welcone Bonus" forState:UIControlStateNormal];
-        header1.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.000];
+        [header1 setTitle:@" Welcone Bonus" forState:UIControlStateNormal];
+        
+        UIImageView *ratingImgView = [[UIImageView alloc] initWithFrame:CGRectMake(200, 0, 80, 30)];
+        [header1 addSubview:ratingImgView];
+        [ratingImgView setImage:[UIImage imageNamed:@"rating25"]];
+        [ratingImgView setContentMode:UIViewContentModeScaleAspectFit];
+        
+        UIImageView *buttonImgView = [[UIImageView alloc] initWithFrame:CGRectMake(300, 5, 20, 20)];
+        [header1 addSubview:buttonImgView];
+        [buttonImgView setImage:[UIImage imageNamed:@"accordion_arrow"]];
+        
+        [buttonImgView setContentMode:UIViewContentModeScaleAspectFit];
+        buttonImgView.tag = 10;
+        
+        //if first element, we rotate the image, as tab is open.
+        if(i == 1){
+            UIImage *rotated = [self upsideDownBunny:M_PI withImage:buttonImgView.image];
+            buttonImgView.image = rotated;
+        }
+        //if last element, we rotate it 90
+        if(i == 3){
+            UIImage *rotated = [self upsideDownBunny:M_PI/2 withImage:buttonImgView.image];
+            buttonImgView.image = rotated;
+        }
+        
+        [header1 addTarget:self action:@selector(changeAccordionArrowOrientation:) forControlEvents:UIControlEventTouchUpInside];
+        header1.contentVerticalAlignment =  UIControlContentVerticalAlignmentCenter;
+        header1.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//        header1.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.000];
         [header1 setTitleColor:[UIColor colorWithRed:10/255.0 green:10/255.0 blue:10/255.0 alpha:1.000] forState:UIControlStateNormal];
         UIView *view1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 242)];
         view1.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.000];
@@ -117,19 +166,32 @@ CGFloat maxAccordionHeight = 0;
         [accordion addHeader:header1 withView:view1];
         view1.tag = 3*i;
         
-        UIWebView *wv = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, width, 1)];
-        wv.delegate = self;
-        wv.tag = i;
-        [[wv scrollView] setScrollEnabled:NO];
-
-
-        [view1 addSubview:wv];
-        [wv loadHTMLString:@"<div>second WYSIWYG <b>this is bold</b><p>Lets <a href=\"http://www.onlinecasinos.expert/page4.js\">start</a> a new paragraph and close it</p> this is the second <i>WYSIWYG</i> for thisthe second <i>WYSIWYG</i> for this Homepage Homepage Homepage Homepage<i>WYSIWYG</i> for this Homepage Homepage HomepageHomepage Homepagthe second <i>WYSIWYG</i> for this Homepage Homepage Homepage Homepage<i>WYSIWYG</i> for this Homepage Homepage HomepageHomepage Homepagthe second <i>WYSIWYG</i> for this Homepage Homepage Homepage Homepage<i>WYSIWYG</i>page</div>" baseURL:nil];
         
-        [accordionWVArray addObject:wv];
-        
-        //update total height for best scrolling
-        maxAccordionHeight += 300;
+        //if not last element
+        if(i != 4-1){
+            
+            UIWebView *wv = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, width, 1)];
+            wv.delegate = self;
+            wv.tag = i;
+            //disable scrolling in webview
+            [[wv scrollView] setScrollEnabled:NO];
+            //disable background color in webview
+            [wv setBackgroundColor:[UIColor clearColor]];
+            [wv setOpaque:NO];
+
+            [view1 addSubview:wv];
+            [wv loadHTMLString:@"<div>second WYSIWYG <b>this is bold</b><p>Lets <a href=\"http://www.onlinecasinos.expert/page4.js\">start</a> a new paragraph and close it</p> this is the second <i>WYSIWYG</i> for thisthe second <i>WYSIWYG</i> for this Homepage Homepage Homepage Homepage<i>WYSIWYG</i> for this Homepage Homepage HomepageHomepage Homepagthe second <i>WYSIWYG</i> for this Homepage Homepage Homepage Homepage<i>WYSIWYG</i> for this Homepage Homepage HomepageHomepage Homepagthe second <i>WYSIWYG</i> for this Homepage Homepage Homepage Homepage<i>WYSIWYG</i>page</div>" baseURL:nil];
+            
+            [accordionWVArray addObject:wv];
+            
+            //update total height for best scrolling
+            maxAccordionHeight += 300;
+        }else{
+            //if last element
+            header1.backgroundColor = [UIColor colorWithRed:76/255.0 green:75/255.0 blue:89/255.0 alpha:1];
+            [header1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [buttonImgView setTintColor:[UIColor redColor]];
+        }
         
     }
 
@@ -142,11 +204,128 @@ CGFloat maxAccordionHeight = 0;
     [accordion setAllowsEmptySelection:YES];
 }
 
+//downloaded code for changing image orientation
+- (UIImage*)upsideDownBunny:(CGFloat)radians withImage:(UIImage*)testImage {
+    __block CGImageRef cgImg;
+    __block CGSize imgSize;
+    __block UIImageOrientation orientation;
+    dispatch_block_t createStartImgBlock = ^(void) {
+        // UIImages should only be accessed from the main thread
+        
+        UIImage *img =testImage;
+        imgSize = [img size]; // this size will be pre rotated
+        orientation = [img imageOrientation];
+        cgImg = CGImageRetain([img CGImage]); // this data is not rotated
+    };
+    if([NSThread isMainThread]) {
+        createStartImgBlock();
+    } else {
+        dispatch_sync(dispatch_get_main_queue(), createStartImgBlock);
+    }
+    CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
+    // in iOS4+ you can let the context allocate memory by passing NULL
+    CGContextRef context = CGBitmapContextCreate( NULL,
+                                                 imgSize.width,
+                                                 imgSize.height,
+                                                 8,
+                                                 imgSize.width * 4,
+                                                 colorspace,
+                                                 kCGImageAlphaPremultipliedLast);
+    // rotate so the image respects the original UIImage's orientation
+    switch (orientation) {
+        case UIImageOrientationDown:
+            CGContextTranslateCTM(context, imgSize.width, imgSize.height);
+            CGContextRotateCTM(context, -radians);
+            break;
+        case UIImageOrientationLeft:
+            CGContextTranslateCTM(context, 0.0, imgSize.height);
+            CGContextRotateCTM(context, 3.0 * -radians / 2.0);
+            break;
+        case UIImageOrientationRight:
+            CGContextTranslateCTM(context,imgSize.width, 0.0);
+            CGContextRotateCTM(context, -radians / 2.0);
+            break;
+        default:
+            // there are mirrored modes possible
+            // but they aren't generated by the iPhone's camera
+            break;
+    }
+    // rotate the image upside down
+    
+    CGContextTranslateCTM(context, +(imgSize.width * 0.5f), +(imgSize.height * 0.5f));
+    CGContextRotateCTM(context, -radians);
+    //CGContextDrawImage( context, CGRectMake(0.0, 0.0, imgSize.width, imgSize.height), cgImg );
+    CGContextDrawImage(context, (CGRect){.origin.x = -imgSize.width* 0.5f , .origin.y = -imgSize.width* 0.5f , .size.width = imgSize.width, .size.height = imgSize.width}, cgImg);
+    // grab the new rotated image
+    CGContextFlush(context);
+    CGImageRef newCgImg = CGBitmapContextCreateImage(context);
+    __block UIImage *newImage;
+    dispatch_block_t createRotatedImgBlock = ^(void) {
+        // UIImages should only be accessed from the main thread
+        newImage = [UIImage imageWithCGImage:newCgImg];
+    };
+    if([NSThread isMainThread]) {
+        createRotatedImgBlock();
+    } else {
+        dispatch_sync(dispatch_get_main_queue(), createRotatedImgBlock);
+    }
+    CGColorSpaceRelease(colorspace);
+    CGImageRelease(newCgImg);
+    CGContextRelease(context);
+    return newImage;
+}
 
+
+
+-(void)changeAccordionArrowOrientation:(id) sender{
+    UIButton *button = (UIButton *) sender;
+    for (UIView *i in button.subviews){
+        if([i isKindOfClass:[UIImageView class]]){
+            UIImageView *imgV = (UIImageView *)i;
+            if(imgV.tag == 10){
+                UIImage *rotated = [self upsideDownBunny:M_PI withImage:imgV.image];
+                imgV.image = rotated;
+                
+                //attempts to display an animation - not working
+                
+                
+/*
+                [UIView animateWithDuration:0.5f animations:^{
+                    [imgV setTransform:CGAffineTransformMakeRotation(M_PI)];
+                }];
+
+
+                
+                CABasicAnimation* rotationAnimation;
+                rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+                rotationAnimation.fromValue = 0;
+                rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 1* 1 ];
+                rotationAnimation.duration = 0.5f;
+                rotationAnimation.cumulative = NO;
+                rotationAnimation.repeatCount = 0;
+                rotationAnimation.removedOnCompletion = YES;
+                
+                [imgV.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+                
+                
+                
+                [UIView beginAnimations:nil context:NULL];
+                [UIView setAnimationDuration:0.25]; // Set how long your animation goes for
+                [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+                
+                imgV.transform = CGAffineTransformMakeRotation(M_PI); // if angle is in radians
+                
+                [UIView commitAnimations];
+ */
+                
+            }
+        }
+    }
+}
 
 
 -(void)initWV{
-    NSString *s = [self.pp brandReviewGetWysiwyg];
+    
 }
 
 -(void)initSecondTabWebView{
@@ -221,7 +400,7 @@ CGFloat maxAccordionHeight = 0;
 -(void)handleSharingEvent{
     // create a message
     NSString *theMessage = [self.pp fullURL];
-    NSArray *items = @[@"hello", [UIImage imageNamed:@"betwaylogo"]];
+    NSArray *items = @[@"My Share Item - Yoav", [UIImage imageNamed:@"betwaylogo"]];
     
     // build an activity view controller
     UIActivityViewController *controller = [[UIActivityViewController alloc]initWithActivityItems:items applicationActivities:nil];
@@ -281,27 +460,30 @@ CGFloat maxAccordionHeight = 0;
     UITabBarItem *shareItem;
     
     //set middle items
-    //Homepage, Share and menu position in the json array doesnt matter, for the others it does.
+    //Homepage and menu position in the json array doesnt matter, for the others it does.
     for(i = 0; i < self.tabbarElements.count; i++){
         NSDictionary *tabbarDict = self.tabbarElements[i];
         UITabBarItem *item;
         if([[tabbarDict valueForKey:@"id"] isEqualToString:@"share_item"]){
-            shareItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:nil tag:84];
+            UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+            shareItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:84];
             [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:84]];
             continue;
         }
         if([[tabbarDict valueForKey:@"id"] isEqualToString:@"menu_item"]){
-            menuItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:nil tag:42];
+            UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+            menuItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:42];
             [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:42]];
             continue;
         }
         if([[tabbarDict valueForKey:@"id"] isEqualToString:@"homepage_item"]){
-            homeItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:nil tag:24];
+            UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+            homeItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:24];
             [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:24]];
             continue;
         }
-        
-        item = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:nil tag:10+i];
+        UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+        item = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:10+i];
         [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:10+i]];
         [tabBarArray addObject:item];
     }
@@ -310,7 +492,6 @@ CGFloat maxAccordionHeight = 0;
     [tabBarArray addObject:shareItem];
     [tabBarArray addObject:menuItem];
     
-    //concatenating tabBarArray to (the empty) [_tabbar items]
     [_tabbar setItems:[tabBarArray arrayByAddingObjectsFromArray:[_tabbar items]]];
 }
 -(void)setActiveTabbarItem{
@@ -324,13 +505,12 @@ CGFloat maxAccordionHeight = 0;
         }
     }
 }
-//Handle tabBar clicks
+
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
-    //On homepage, homepage click does nothing
+    NSLog(@"tag : %ld",item.tag);
     if (item.tag == 42){
         [self.revealViewController rightRevealToggle:self];
-    }
-    if(item.tag == 84){
+    }else if(item.tag == 84){
         [self handleSharingEvent];
     }
     else if(item.tag == _activeTab){

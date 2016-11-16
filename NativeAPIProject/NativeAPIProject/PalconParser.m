@@ -12,7 +12,7 @@
 @implementation PalconParser
 
 -(void) initWithFullURL:(NSString *)fullURL{
-        self.fullURL = fullURL;
+        self.fullURL = [fullURL stringByAppendingString:@"?json_api=1"];
         [self initDataDictionary];
 }
 
@@ -29,14 +29,12 @@
 
 
 -(NSString *)homepageGetFirstWysiwyg {
-    //get resultCount value (depth 0 of the json)
     NSString *baseString = [self.pageDataDictionary valueForKey:@"introduction_text"];
     
     return baseString;
 }
 
 -(NSString *)homepageGetSecondWysiwyg {
-    //get resultCount value (depth 0 of the json)
     NSString *baseString = [self.pageDataDictionary valueForKey:@"second_wysiwyg"];
     
     return baseString;
@@ -64,7 +62,7 @@
 }
 
 
-//for now - private methode to get the tabs (used in brandReviewGetSecondTabWysiwyg)
+//for now - private method to get the tabs (used in brandReviewGetSecondTabWysiwyg)
 -(NSMutableArray *)getBrandReviewTabs{
     NSMutableArray *tabs;
     for (id key in self.pageDataDictionary) {
@@ -113,20 +111,5 @@
     return tabbarArray;
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @end

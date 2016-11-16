@@ -10,6 +10,7 @@
 #import "SWRevealViewController.h"
 #import "CategoryVC.h"
 #import "WebViewVC.h"
+#import "NavigationManager.h"
 #import "BrandReviewVC.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
@@ -35,10 +36,13 @@ static NSString * brandRevID = @"brandRevID";
 
     //TabBar items
     NSMutableDictionary *_tags2URLs;
+    NavigationManager *_nav;
 }
 - (void)viewDidLoad {
 	[super viewDidLoad];
     self.pp = [[PalconParser alloc] init];
+    _nav = [[NavigationManager alloc] init];
+    self.activeTab = 24;
     [self.pp initWithFullURL:@"http://www.onlinecasinos.expert/homepage.js"];
 //    self.tabBar.selectedItem= self.tabBar.items[0];
     //for the menu
@@ -57,20 +61,30 @@ static NSString * brandRevID = @"brandRevID";
     [self initTableView];
     [self initTabBar];
     [self initBanner];
+    [self setActiveTabbarItem];
 }
 - (IBAction)closeBannerClick:(id)sender {
     [self removeBanner];
 }
 
-
+//init banner, show and remove it after 5 sec
 -(void)initBanner{
     _GetBannerButton.layer.cornerRadius = 14;
     _GetBannerButton.layer.zPosition = 1;
-    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(removeBanner) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(removeBanner) userInfo:nil repeats:NO];
 }
 
 -(void)removeBanner{
     [_bannerView removeFromSuperview];
+}
+- (IBAction)bannerButtonClick:(id)sender {
+    CABasicAnimation* rotationAnimation;
+    rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI];
+    rotationAnimation.duration = 0.5;
+    rotationAnimation.cumulative = NO;
+    
+    [_GetBannerButton.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
 }
 
 //#############################Start initializations##############################################
@@ -120,7 +134,7 @@ static NSString * brandRevID = @"brandRevID";
         UITabBarItem *item;
         if([[tabbarDict valueForKey:@"id"] isEqualToString:@"share_item"]){
             UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
-            shareItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"share_item"] image:iconImage tag:84];
+            shareItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:84];
             [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:84]];
             continue;
         }
@@ -149,8 +163,11 @@ static NSString * brandRevID = @"brandRevID";
     [_tabBar setItems:[tabBarArray arrayByAddingObjectsFromArray:[_tabBar items]]];
 }
 
+
 -(void)initFirstWysiwyg{
     CGRect screenRect = [[UIScreen mainScreen] bounds];
+    [_firstWYSIWYG setBackgroundColor:[UIColor clearColor]];
+    [_firstWYSIWYG setOpaque:NO];
 
     CGFloat width = screenRect.size.width;
     NSString *fontSize = @"";
@@ -231,6 +248,16 @@ static NSString * brandRevID = @"brandRevID";
     return NO;
 }
 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    NSString *url = [[request URL] absoluteString];
+    NavigationManager *nav = [[NavigationManager alloc] init];
+    NSLog(@"url : %@",url);
+    if([url containsString:@"onlinecasinos.expert"]){
+        [nav navigateWithItemID:-42 WithURL:url WithURLsDict:_tags2URLs WithSourceVC:self];
+        return NO;
+    }
+    return YES;
+}
 
 -(void) initTableView{
     
@@ -258,59 +285,81 @@ static NSString * brandRevID = @"brandRevID";
 
 //Handle tabBar clicks
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
-    [self handleTabBarSelectionWithItemID:item.tag];
-}
-
-
-//we have: tag ID, pp, tabbarElements (array with button txt, link, img url)
--(void) handleTabBarSelectionWithItemID: (NSInteger) tag{
-    
-    NSLog(@"clicked on %ld",(long)tag);
-    //On homepage, homepage click does nothing
-    if (tag == 42){
+    NSLog(@"tag : %ld",item.tag);
+    if (item.tag == 42){
         [self.revealViewController rightRevealToggle:self];
+    }else if(item.tag == 84){
+        [self handleSharingEvent];
     }
-    //On menu click, action is static - always open menu
-    else if (tag == 24){
-        //homepage, do nothing
-    }
-    else{
-        NSString *targetURL = [_tags2URLs objectForKey:[NSNumber numberWithInteger:tag]];
-        NSLog(@"target url : %@",targetURL);
-        PalconParser *destPP = [[PalconParser alloc] init];
-        [destPP initWithFullURL:targetURL];
-        
-        
-        if([[destPP getPageType]isEqualToString:@"webview_page"]){
-            NSLog(@"entered WV if");
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            WebViewVC *vc = [storyboard instantiateViewControllerWithIdentifier:webviewID];
-            vc.pp = destPP;
-            vc.activeTab = tag;
-            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
-            [segue perform];
-        }
-        if([[destPP getPageType]isEqualToString:@"category_page"]){
-            NSLog(@"entered WV if");
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            CategoryVC *vc = [storyboard instantiateViewControllerWithIdentifier:categoryID];
-            vc.pp = destPP;
-            vc.activeTab = tag;
-            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
-            [segue perform];
-        }
-        if([[destPP getPageType]isEqualToString:@"brand_review"]){
-            NSLog(@"entered WV if");
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            BrandReviewVC *vc = [storyboard instantiateViewControllerWithIdentifier:brandRevID];
-            vc.pp = destPP;
-            vc.activeTab = tag;
-            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
-            [segue perform];
-        }
+    else if(item.tag == _activeTab){
+        return;
+    }else{
+        [_nav navigateWithItemID:item.tag WithURL:nil WithURLsDict:_tags2URLs WithSourceVC:self];
     }
 }
 
+//Sharing
+-(void)handleSharingEvent{
+    // create a message
+    NSString *theMessage = [self.pp fullURL];
+    NSArray *items = @[@"hello", [UIImage imageNamed:@"betwaylogo"]];
+    
+    // build an activity view controller
+    UIActivityViewController *controller = [[UIActivityViewController alloc]initWithActivityItems:items applicationActivities:nil];
+    
+    // and present it
+    [self presentActivityController:controller];
+    NSLog(@"Share it !");
+}
+- (void)presentActivityController:(UIActivityViewController *)controller {
+    
+    if ( [controller respondsToSelector:@selector(popoverPresentationController)] ) {
+        // iOS8
+        controller.popoverPresentationController.sourceView = self.view;
+    }
+    
+    // for iPad: make the presentation a Popover
+    controller.modalPresentationStyle = UIModalPresentationPopover;
+    [self presentViewController:controller animated:YES completion:nil];
+    
+    UIPopoverPresentationController *popController = [controller popoverPresentationController];
+    popController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    popController.barButtonItem = self.navigationItem.leftBarButtonItem;
+    
+    // access the completion handler
+    controller.completionWithItemsHandler = ^(NSString *activityType,
+                                              BOOL completed,
+                                              NSArray *returnedItems,
+                                              NSError *error){
+        // react to the completion
+        if (completed) {
+            
+            // user shared an item
+            NSLog(@"We used activity type%@", activityType);
+            
+        } else {
+            
+            // user cancelled
+            NSLog(@"We didn't want to share anything after all.");
+        }
+        
+        if (error) {
+            NSLog(@"An Error occured: %@, %@", error.localizedDescription, error.localizedFailureReason);
+        }
+    };
+}
+     
+-(void)setActiveTabbarItem{
+ int i = 0;
+ NSArray *ar = [_tabBar items];
+ for(i = 0 ; i< ar.count ; i++){
+     UITabBarItem *it = ar[i];
+     if(it.tag == _activeTab){
+         _tabBar.selectedItem = it;
+         break;
+     }
+ }
+}
 
 
 

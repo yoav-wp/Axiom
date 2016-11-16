@@ -2,16 +2,13 @@ PODS:
   - SDWebImage (3.8.1):
     - SDWebImage/Core (= 3.8.1)
   - SDWebImage/Core (3.8.1)
-  - ZSSRichTextEditor (0.5.2.1)
 
 DEPENDENCIES:
   - SDWebImage (~> 3.7)
-  - ZSSRichTextEditor
 
 SPEC CHECKSUMS:
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
-  ZSSRichTextEditor: 56ed060d6d7a98fb6be9fceb8074ced22160349b
 
-PODFILE CHECKSUM: e66f922ba27cdf97c2fa8614afa3881cfc4e5b6f
+PODFILE CHECKSUM: 4cf5f6825caddfb4222354049a582d98f0364e49
 
 COCOAPODS: 1.0.0

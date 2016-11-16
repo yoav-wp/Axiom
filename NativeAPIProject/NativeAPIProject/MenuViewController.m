@@ -20,16 +20,13 @@
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentDirectoryPath = [paths objectAtIndex:0];
-    NSURL *destinationURL = [NSURL fileURLWithPath:[documentDirectoryPath stringByAppendingPathComponent:@"first.plist"]];
+    NSURL *destinationURL = [NSURL fileURLWithPath:[documentDirectoryPath stringByAppendingPathComponent:@"plist.xml"]];
     
     NSDictionary *dTmp=[[NSDictionary alloc] initWithContentsOfFile:[destinationURL path]];
     
-    NSDictionary *dTmp2=[[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"second" ofType:@"plist"]];
-    
+    self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
     
     self.firstArray=[dTmp valueForKey:@"Objects"];
-    self.secondArray=[dTmp2 valueForKey:@"Objects"];
-    
     
     self.firstForTable=[[NSMutableArray alloc] init] ;
     [self.firstForTable addObjectsFromArray:self.firstArray];
@@ -69,7 +66,7 @@
 // Customize the number of sections in the table view.
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 
 
@@ -105,7 +102,7 @@
     NSString *testo;
     switch (section) {
         case 0:
-            testo = @"First Section";
+            testo = @"";
             break;
         case 1:
             testo = @"Second Section";

@@ -9,6 +9,7 @@
 #import "WebViewVC.h"
 #import "SWRevealViewController.h"
 #import "ViewController.h"
+#import "NavigationManager.h"
 #import "CategoryVC.h"
 
 @interface WebViewVC ()
@@ -24,6 +25,7 @@ static NSString * categoryID = @"categoryVC";
 
 @implementation WebViewVC{
     NSMutableDictionary *_tags2URLs;
+    NavigationManager *_nav;
 
 }
 
@@ -31,8 +33,7 @@ static NSString * categoryID = @"categoryVC";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSLog(@"viewdidload");
-    
+    _nav = [[NavigationManager alloc]init];
     self.revealViewController.rightViewRevealOverdraw=4;
     [self.revealViewController panGestureRecognizer];
     [self.revealViewController tapGestureRecognizer];
@@ -40,12 +41,26 @@ static NSString * categoryID = @"categoryVC";
 
 //call all the widgets initializations
 //better view WILL appear, did appear for debug
--(void)viewDidAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated{
     // Do any additional setup after loading the view, typically from a nib.
-    [self initWebView];
     [self initTabBar];
+    [self initWebView];
     [self setSelectedTabbarItem];
 }
+
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    NSString *url = [[request URL] absoluteString];
+    NavigationManager *nav = [[NavigationManager alloc] init];
+    NSLog(@"url : %@",url);
+    if([url containsString:@"onlinecasinos.expert"]){
+        [nav navigateWithItemID:-42 WithURL:url WithURLsDict:_tags2URLs WithSourceVC:self];
+        return NO;
+    }
+    return YES;
+}
+
+
 
 -(void)setSelectedTabbarItem{
     int i = 0;
@@ -65,7 +80,9 @@ static NSString * categoryID = @"categoryVC";
 }
 
 -(void) initWebView{
-    NSURL *url = [NSURL URLWithString:[self.pp getBaseURL]];
+//    NSURL *url = [NSURL URLWithString:[self.pp getBaseURL]];
+    NSURL *url = [NSURL URLWithString:@"http://www.norskcasino.com/"];
+    NSLog(@"Gonna load %@", url);
     NSURLRequest *rq =[NSURLRequest requestWithURL:url];
     [self.webView loadRequest:rq];
 }
@@ -87,22 +104,25 @@ static NSString * categoryID = @"categoryVC";
         NSDictionary *tabbarDict = self.tabbarElements[i];
         UITabBarItem *item;
         if([[tabbarDict valueForKey:@"id"] isEqualToString:@"share_item"]){
-            shareItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"share_item"] image:nil tag:84];
+            UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+            shareItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:84];
             [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:84]];
             continue;
         }
         if([[tabbarDict valueForKey:@"id"] isEqualToString:@"menu_item"]){
-            menuItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:nil tag:42];
+            UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+            menuItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:42];
             [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:42]];
             continue;
         }
         if([[tabbarDict valueForKey:@"id"] isEqualToString:@"homepage_item"]){
-            homeItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:nil tag:24];
+            UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+            homeItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:24];
             [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:24]];
             continue;
         }
-        
-        item = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:nil tag:10+i];
+        UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+        item = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:10+i];
         [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:10+i]];
         [tabBarArray addObject:item];
     }
@@ -114,59 +134,85 @@ static NSString * categoryID = @"categoryVC";
     [_tabBar setItems:[tabBarArray arrayByAddingObjectsFromArray:[_tabBar items]]];
 }
 
-
 //Handle tabBar clicks
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
-    [self handleTabBarSelectionWithItemID:item.tag];
-}
-
-
-//we have: tag ID, pp, tabbarElements (array with button txt, link, img url)
--(void) handleTabBarSelectionWithItemID: (NSInteger) tag{
-    
-    NSLog(@"clicked on %ld",(long)tag);
+    NSLog(@"tag : %ld",_activeTab);
     //On homepage, homepage click does nothing
-    if (tag == 42){
-      
+    if (item.tag == 42){
         [self.revealViewController rightRevealToggle:self];
+    }else if(item.tag == 84){
+        [self handleSharingEvent];
     }
-    //On menu click, action is static - always open menu
-    else if (tag == 24){
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        ViewController *vc = [storyboard instantiateViewControllerWithIdentifier:homepageID];
-        SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
-        [segue perform];
+    else if(item.tag == _activeTab){
+        return;
+    }else{
+        [_nav navigateWithItemID:item.tag WithURL:nil WithURLsDict:_tags2URLs WithSourceVC:self];
     }
-    else{
-        if(tag == _activeTab){
-            return;
+}
+
+//Sharing
+-(void)handleSharingEvent{
+    // create a message
+    NSString *theMessage = [self.pp fullURL];
+    NSArray *items = @[@"hello", [UIImage imageNamed:@"betwaylogo"]];
+    
+    // build an activity view controller
+    UIActivityViewController *controller = [[UIActivityViewController alloc]initWithActivityItems:items applicationActivities:nil];
+    
+    // and present it
+    [self presentActivityController:controller];
+    NSLog(@"Share it !");
+}
+- (void)presentActivityController:(UIActivityViewController *)controller {
+    
+    if ( [controller respondsToSelector:@selector(popoverPresentationController)] ) {
+        // iOS8
+        controller.popoverPresentationController.sourceView = self.view;
+    }
+    
+    // for iPad: make the presentation a Popover
+    controller.modalPresentationStyle = UIModalPresentationPopover;
+    [self presentViewController:controller animated:YES completion:nil];
+    
+    UIPopoverPresentationController *popController = [controller popoverPresentationController];
+    popController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    popController.barButtonItem = self.navigationItem.leftBarButtonItem;
+    
+    // access the completion handler
+    controller.completionWithItemsHandler = ^(NSString *activityType,
+                                              BOOL completed,
+                                              NSArray *returnedItems,
+                                              NSError *error){
+        // react to the completion
+        if (completed) {
+            
+            // user shared an item
+            NSLog(@"We used activity type%@", activityType);
+            
+        } else {
+            
+            // user cancelled
+            NSLog(@"We didn't want to share anything after all.");
         }
-        NSString *targetURL = [_tags2URLs objectForKey:[NSNumber numberWithInteger:tag]];
-        NSLog(@"target url : %@",targetURL);
-        PalconParser *destPP = [[PalconParser alloc] init];
-        [destPP initWithFullURL:targetURL];
         
-        
-        if([[destPP getPageType]isEqualToString:@"webview_page"]){
-            NSLog(@"entered WV if");
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            WebViewVC *vc = [storyboard instantiateViewControllerWithIdentifier:webviewID];
-            vc.pp = destPP;
-            vc.activeTab = tag;
-            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
-            [segue perform];
+        if (error) {
+            NSLog(@"An Error occured: %@, %@", error.localizedDescription, error.localizedFailureReason);
         }
-        if([[destPP getPageType]isEqualToString:@"category_page"]){
-            NSLog(@"entered WV if");
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            CategoryVC *vc = [storyboard instantiateViewControllerWithIdentifier:categoryID];
-            vc.pp = destPP;
-            vc.activeTab = tag;
-            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
-            [segue perform];
+    };
+}
+
+-(void)setActiveTabbarItem{
+    int i = 0;
+    NSArray *ar = [_tabBar items];
+    for(i = 0 ; i< ar.count ; i++){
+        UITabBarItem *it = ar[i];
+        if(it.tag == _activeTab){
+            _tabBar.selectedItem = it;
+            break;
         }
     }
 }
+
 
 
 

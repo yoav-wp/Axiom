@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PalconParser.h"
 
-@interface WebViewVC : UIViewController <UITabBarDelegate>
+@interface WebViewVC : UIViewController <UITabBarDelegate, UIWebViewDelegate>
 
 @property (strong, nonatomic) PalconParser *pp;
 @property (nonatomic, strong) NSMutableArray *tabbarElements;
