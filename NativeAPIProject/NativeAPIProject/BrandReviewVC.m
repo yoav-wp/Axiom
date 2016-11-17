@@ -130,7 +130,7 @@ CGFloat maxAccordionHeight = 0;
 //        NSLog(@" filename %@",filename);
         // Only height is taken into account, so other parameters are just dummy
         UIButton *header1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 30)];
-        [header1 setTitle:@" Welcone Bonus" forState:UIControlStateNormal];
+        [header1 setTitle:@" Welcome Bonus" forState:UIControlStateNormal];
         
         UIImageView *ratingImgView = [[UIImageView alloc] initWithFrame:CGRectMake(200, 0, 80, 30)];
         [header1 addSubview:ratingImgView];

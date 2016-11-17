@@ -92,10 +92,10 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
-                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leo-vegas" translatesAutoresizingMaskIntoConstraints="NO" id="j3L-cP-GAf">
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="betwaylogo" translatesAutoresizingMaskIntoConstraints="NO" id="j3L-cP-GAf">
                                                                             <rect key="frame" x="8" y="8" width="85" height="84"/>
                                                                         </imageView>
-                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="four_stars" translatesAutoresizingMaskIntoConstraints="NO" id="OdI-91-NJ4">
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating45" translatesAutoresizingMaskIntoConstraints="NO" id="OdI-91-NJ4">
                                                                             <rect key="frame" x="101" y="34" width="84" height="16"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="84" id="C9i-Mb-8hD"/>
@@ -778,7 +778,7 @@
     </scenes>
     <resources>
         <image name="betwaylogo" width="132" height="132"/>
-        <image name="four_stars" width="798" height="143"/>
         <image name="leo-vegas" width="896" height="896"/>
+        <image name="rating45" width="329" height="65"/>
     </resources>
 </document>
