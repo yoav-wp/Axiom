@@ -12,6 +12,7 @@
 #import "WebViewVC.h"
 #import "NavigationManager.h"
 #import "BrandReviewVC.h"
+#import "HomePageTableViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface ViewController ()
@@ -21,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIWebView *secondWYSIWYG;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *secondWVHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *firstWVHeight;
+@property (weak, nonatomic) IBOutlet UITableView *brandsTableView;
 @property (weak, nonatomic) IBOutlet UIButton *GetBannerButton;
 @property (weak, nonatomic) IBOutlet UIView *bannerView;
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
@@ -260,6 +262,9 @@ static NSString * brandRevID = @"brandRevID";
 }
 
 -(void) initTableView{
+    [_brandsTableView registerNib:[UINib nibWithNibName:NSStringFromClass([HomePageTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([HomePageTableViewCell class])];
+    [_brandsTableView setScrollEnabled:NO];
+    
     
 }
 
@@ -267,9 +272,15 @@ static NSString * brandRevID = @"brandRevID";
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 3;
 }
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 90.0f;
+}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *appCell = [tableView dequeueReusableCellWithIdentifier:@"homePageCell"];
+    HomePageTableViewCell *appCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HomePageTableViewCell class]) forIndexPath:indexPath];
     return appCell;
 }
 
