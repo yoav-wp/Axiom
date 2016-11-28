@@ -28,5 +28,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *swProviderImgV2;
 @property (weak, nonatomic) IBOutlet UIImageView *swProviderImgV3;
 @property (weak, nonatomic) IBOutlet UIImageView *swProviderImgV4;
+@property (weak, nonatomic) IBOutlet UIImageView *bottomBrandInfoImgV1;
+@property (weak, nonatomic) IBOutlet UIImageView *bottomBrandInfoImgV2;
+@property (weak, nonatomic) IBOutlet UIImageView *bottomBrandInfoImgV3;
 
 @end

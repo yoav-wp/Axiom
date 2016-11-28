@@ -94,6 +94,9 @@
     return [self.pageDataDictionary valueForKey:@"sof_providers"];
 }
 
+-(NSString *)brandReviewGetTOSWysiwyg{
+    return [self.pageDataDictionary valueForKey:@"content_1"];
+}
 
 //ask R&D to have site url in each page, to avoid multiple connections to API
 -(NSString *)getBaseURL{

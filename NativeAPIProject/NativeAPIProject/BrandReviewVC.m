@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIView *thirdTabView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segment;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *accordionHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tosWysiwygHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIWebView *secondTabWebView;
 @property (weak, nonatomic) IBOutlet UIWebView *firstWysiwyg;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *firstWysiwygHeightConst;
@@ -35,6 +36,7 @@
 
 //bottom view of the third tab's view
 @property (weak, nonatomic) IBOutlet UIView *thirdsBottomView;
+@property (weak, nonatomic) IBOutlet UIWebView *tosWV;
 
 @end
 
@@ -77,6 +79,7 @@ CGFloat maxAccordionHeight = 0;
     [self initPaymentMethods];
     [self initSoftwareProviders];
     [self initScreenshots];
+    [self initTOSWV];
 }
 
 // Some general page UI
@@ -116,6 +119,12 @@ CGFloat maxAccordionHeight = 0;
     }
 }
 
+-(void)initTOSWV{
+    _tosWV.scrollView.scrollEnabled = NO;
+    NSString *urlString = [self.pp brandReviewGetTOSWysiwyg];
+    [_tosWV loadHTMLString:urlString baseURL:nil];
+}
+
 -(void)initFirstWysiwyg{
     NSString *urlString = [self.pp brandReviewGetWysiwyg];
     [_firstWysiwyg loadHTMLString:urlString baseURL:nil];
@@ -131,6 +140,15 @@ CGFloat maxAccordionHeight = 0;
         _firstWysiwyg.frame = frame;
         _firstWysiwygHeightConst.constant = frame.size.height;
         NSLog(@"aaa%f", frame.size.height);
+    }else if (webView.tag == 15){
+        CGRect frame = _tosWV.frame;
+        frame.size.height = 1;
+        _tosWV.frame = frame;
+        CGSize fittingSize = [_tosWV sizeThatFits:CGSizeZero];
+        frame.size = fittingSize;
+        _tosWV.frame = frame;
+        _tosWysiwygHeightConstraint.constant = frame.size.height;
+        NSLog(@"yyyyy%f", frame.size.height);
     }
         NSLog(@"enter finishload for  : %ld", (long)webView.tag);
         //get best fitting size
@@ -260,6 +278,7 @@ CGFloat maxAccordionHeight = 0;
             wv.tag = i;
             //disable scrolling in webview
             [[wv scrollView] setScrollEnabled:NO];
+            [wv setUserInteractionEnabled:NO];
             //disable background color in webview
             [wv setBackgroundColor:[UIColor clearColor]];
             [wv setOpaque:NO];

@@ -24,6 +24,7 @@
 -(NSMutableArray *)getBrandReviewScreenshots;
 -(NSArray *)brandReviewGetPaymentMethods;
 -(NSArray *)brandReviewGetSoftwareProviders;
+-(NSString *)brandReviewGetTOSWysiwyg;
 
 
 @end
