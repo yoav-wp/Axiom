@@ -10,21 +10,6 @@
 	<string>46</string>
 	<key>objects</key>
 	<dict>
-		<key>01BED00DF80BB65461F0D28336FB6CE8</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>NSData+ImageContentType.m</string>
-			<key>path</key>
-			<string>SDWebImage/NSData+ImageContentType.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>01E416DC2CFDB54EB91C06C078F34E3C</key>
 		<dict>
 			<key>children</key>
@@ -39,7 +24,7 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>053B5EB27371089DC3C748090DE33658</key>
+		<key>09A1ACBC3254700FE064856C43E34DC6</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -47,23 +32,10 @@
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>SDWebImage-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>0ACAC3316F7B86AA1862BE94DFE5C4D0</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
 			<key>name</key>
-			<string>UIImageView+HighlightedWebCache.h</string>
+			<string>UIImage+MultiFormat.m</string>
 			<key>path</key>
-			<string>SDWebImage/UIImageView+HighlightedWebCache.h</string>
+			<string>SDWebImage/UIImage+MultiFormat.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -82,6 +54,21 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>0CC9D002513E46FC51E52D171E96D7AF</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>UIImageView+WebCache.m</string>
+			<key>path</key>
+			<string>SDWebImage/UIImageView+WebCache.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>0E4D9C65F7DEDDB7A4C7AC8F8A7E9AA5</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -95,7 +82,7 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>11F9903267CA68F30E00A0239345863A</key>
+		<key>13CAE85B849E930DAB6F6C800568A196</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -104,9 +91,9 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
 			<key>name</key>
-			<string>SDImageCache.h</string>
+			<string>UIImageView+WebCache.h</string>
 			<key>path</key>
-			<string>SDWebImage/SDImageCache.h</string>
+			<string>SDWebImage/UIImageView+WebCache.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -128,7 +115,7 @@
 		<key>1682E09B4346B6D4428FC030024608C4</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>98CD83782F73287ECE4013F9234F1CE5</string>
+			<string>213EE558FE41642D34DE6D8E49582BEF</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
@@ -188,7 +175,7 @@
 		<key>183F40F705A9D7C63D9B03651F038E4B</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D99686ED60C3C01FEED8B35B779A456A</string>
+			<string>80120355D5081A3D033DD6F2303A81C2</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -232,6 +219,49 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
+		<key>1B4A24AB15BEF2FA261F2B6D2FEDE800</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>SDWebImageDownloaderOperation.h</string>
+			<key>path</key>
+			<string>SDWebImage/SDWebImageDownloaderOperation.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1B767E8BEB6014E94F778DC3BE003173</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>SDWebImage-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1BC7C946E87D003000C5901B6F226881</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>B10075678D3649A76AAEFA00851DC98C</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>AppsFlyerFramework</string>
+			<key>path</key>
+			<string>AppsFlyerFramework</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>1C776483D5A9289DA59EFE1382EE3D91</key>
 		<dict>
 			<key>fileRef</key>
@@ -239,93 +269,33 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>22B28D982A589941872911F22349FD95</key>
+		<key>213EE558FE41642D34DE6D8E49582BEF</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>SDWebImageDecoder.h</string>
+			<string>text.xcconfig</string>
 			<key>path</key>
-			<string>SDWebImage/SDWebImageDecoder.h</string>
+			<string>SDWebImage.xcconfig</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>24D67060642F46499091E7CE62BD9F9A</key>
+		<key>2624F335E499DEE0C16E7A06BA668B1F</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>children</key>
+			<array>
+				<string>213EE558FE41642D34DE6D8E49582BEF</string>
+				<string>1B767E8BEB6014E94F778DC3BE003173</string>
+				<string>9B6316B5F796DFE98C2EE327978CAE99</string>
+			</array>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
+			<string>PBXGroup</string>
 			<key>name</key>
-			<string>UIButton+WebCache.m</string>
+			<string>Support Files</string>
 			<key>path</key>
-			<string>SDWebImage/UIButton+WebCache.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>24E0E5A3B8321A9A1884E99287933282</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>UIView+WebCacheOperation.m</string>
-			<key>path</key>
-			<string>SDWebImage/UIView+WebCacheOperation.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>250BAE81BE304B444F381CD6FD11B6EF</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>UIImageView+WebCache.m</string>
-			<key>path</key>
-			<string>SDWebImage/UIImageView+WebCache.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>25C8E2BBF608ECE8671D2FEE5C4B4EDD</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>UIView+WebCacheOperation.h</string>
-			<key>path</key>
-			<string>SDWebImage/UIView+WebCacheOperation.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>25FACB0DA2CEDD1C574C3B3665B2B863</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>UIImage+GIF.h</string>
-			<key>path</key>
-			<string>SDWebImage/UIImage+GIF.h</string>
+			<string>../Target Support Files/SDWebImage</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -380,7 +350,7 @@
 		<key>2CBF74B0A8740A249BAB3CA1DFF27F7E</key>
 		<dict>
 			<key>fileRef</key>
-			<string>24D67060642F46499091E7CE62BD9F9A</string>
+			<string>9EDC797AA28603B66EF6AF2159EC9D16</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -414,7 +384,7 @@
 		<key>329201137411514E4E8D10E4B8F4A602</key>
 		<dict>
 			<key>fileRef</key>
-			<string>584D9094F3B8E893DD7988573497CE4F</string>
+			<string>CEE4048D34CAE26D0DCCAC7BFDD5899D</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -424,6 +394,21 @@
 			<string>79C43EBA6705504C4AE1C53A721903E0</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+		</dict>
+		<key>34003EC4D995D4489CF571D57E4B9D13</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>SDImageCache.h</string>
+			<key>path</key>
+			<string>SDWebImage/SDImageCache.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>34F3CE5BC22561215F8BEC14EFA66A83</key>
 		<dict>
@@ -458,6 +443,22 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>389DFD3E44AC1D4A8759A7BB0C2D1F02</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>D7D4D3C4D463B798E72BA2C04998585E</string>
+				<string>2624F335E499DEE0C16E7A06BA668B1F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>SDWebImage</string>
+			<key>path</key>
+			<string>SDWebImage</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>3C53A326BDBCEC117057F4FC0E8136DB</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -468,21 +469,6 @@
 			<string>sourcecode.c.objc</string>
 			<key>path</key>
 			<string>Pods-NativeAPIProject-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>3D4B171E8C10A9B61871121F6B772057</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>SDWebImageDownloaderOperation.h</string>
-			<key>path</key>
-			<string>SDWebImage/SDWebImageDownloaderOperation.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -582,61 +568,7 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>433CD3331B6C3787F473C941B61FC68F</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>01E416DC2CFDB54EB91C06C078F34E3C</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>465A2CEA0BE5A165BDD26F755CDC9516</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>B109750998ADF20B8220311398DF64F6</string>
-				<string>01BED00DF80BB65461F0D28336FB6CE8</string>
-				<string>11F9903267CA68F30E00A0239345863A</string>
-				<string>57432B77DB4524A0940406E1574CAE23</string>
-				<string>4FE14E49C11A08FA132ADB2667489C89</string>
-				<string>48A09FE35ADF900277C8B50749A7A443</string>
-				<string>22B28D982A589941872911F22349FD95</string>
-				<string>584D9094F3B8E893DD7988573497CE4F</string>
-				<string>53C4EA1C4BFE3F13F74B288B217D2618</string>
-				<string>D99686ED60C3C01FEED8B35B779A456A</string>
-				<string>3D4B171E8C10A9B61871121F6B772057</string>
-				<string>EA762DD93A06FB43F745DCCCBC1D6249</string>
-				<string>CAA9CDF50B3B3D72A40DDD6992A3F1AB</string>
-				<string>FA165D45AFB745D2CC245D9F159DFBA0</string>
-				<string>B0D9773DD42372EC5C4F3E42FFBCD37F</string>
-				<string>DD0EE6401B194E10ED17CEC135BF4343</string>
-				<string>C3ACBC3A61BEEFDC8AAF89B9E9C78E3F</string>
-				<string>5B9DB2A002719436CEECAB3444646B64</string>
-				<string>24D67060642F46499091E7CE62BD9F9A</string>
-				<string>25FACB0DA2CEDD1C574C3B3665B2B863</string>
-				<string>8BFC6AD5E887F4EFC2676535FE8B5FD8</string>
-				<string>A0DE9BDB6F7807A6DC1E0C34EEB20708</string>
-				<string>EEA3218C18FD309EA41E929AD5FA7618</string>
-				<string>0ACAC3316F7B86AA1862BE94DFE5C4D0</string>
-				<string>ED05538C05B2A839D52553060101C23A</string>
-				<string>C9D46EB475239A56304616D49393AE1A</string>
-				<string>250BAE81BE304B444F381CD6FD11B6EF</string>
-				<string>25C8E2BBF608ECE8671D2FEE5C4B4EDD</string>
-				<string>24E0E5A3B8321A9A1884E99287933282</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Core</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>48A09FE35ADF900277C8B50749A7A443</key>
+		<key>4069851F664AD0675D02809894E26FDD</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -648,6 +580,34 @@
 			<string>SDWebImageCompat.m</string>
 			<key>path</key>
 			<string>SDWebImage/SDWebImageCompat.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>432C0CA9657158443236AB134119A948</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>SDWebImageDownloaderOperation.m</string>
+			<key>path</key>
+			<string>SDWebImage/SDWebImageDownloaderOperation.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>433CD3331B6C3787F473C941B61FC68F</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>01E416DC2CFDB54EB91C06C078F34E3C</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -680,11 +640,11 @@
 		<key>4B9563F6FC5116838DCA3609348858DB</key>
 		<dict>
 			<key>fileRef</key>
-			<string>57432B77DB4524A0940406E1574CAE23</string>
+			<string>F0E55FD5D03AE97D115012F50DB75CB9</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>4FE14E49C11A08FA132ADB2667489C89</key>
+		<key>4D1BD0B7B19F64224EE31F9486E86AB5</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -702,7 +662,7 @@
 		<key>502F0F3CF7E8113C9AE0643A4AA25923</key>
 		<dict>
 			<key>fileRef</key>
-			<string>EEA3218C18FD309EA41E929AD5FA7618</string>
+			<string>09A1ACBC3254700FE064856C43E34DC6</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -732,6 +692,21 @@
 			<key>productType</key>
 			<string>com.apple.product-type.library.static</string>
 		</dict>
+		<key>520A4F57F523CEA0A8CAC98A13EE4D66</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>SDWebImageDecoder.h</string>
+			<key>path</key>
+			<string>SDWebImage/SDWebImageDecoder.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>53925B1057978985BB6FDF6B8DD5CEF4</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -742,21 +717,6 @@
 			<string>text</string>
 			<key>path</key>
 			<string>Pods-NativeAPIProjectTests-acknowledgements.markdown</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>53C4EA1C4BFE3F13F74B288B217D2618</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>SDWebImageDownloader.h</string>
-			<key>path</key>
-			<string>SDWebImage/SDWebImageDownloader.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -797,40 +757,10 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>57432B77DB4524A0940406E1574CAE23</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>SDImageCache.m</string>
-			<key>path</key>
-			<string>SDWebImage/SDImageCache.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>584D9094F3B8E893DD7988573497CE4F</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>SDWebImageDecoder.m</string>
-			<key>path</key>
-			<string>SDWebImage/SDWebImageDecoder.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>592C2EB6212D8250BFAF9FEBD87998C2</key>
 		<dict>
 			<key>fileRef</key>
-			<string>01BED00DF80BB65461F0D28336FB6CE8</string>
+			<string>D75BAF16C1AB6E0E373C45344D6C1CDC</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -847,25 +777,10 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>5B9DB2A002719436CEECAB3444646B64</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>UIButton+WebCache.h</string>
-			<key>path</key>
-			<string>SDWebImage/UIButton+WebCache.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>5C2040EB05436D2699EB5B3B8B7C7C26</key>
 		<dict>
 			<key>fileRef</key>
-			<string>25FACB0DA2CEDD1C574C3B3665B2B863</string>
+			<string>C975D80ABC964EF795CD3D1A6498E0D2</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -892,7 +807,7 @@
 		<key>5D8B50F2949CF878E4B5D0087D8F42DB</key>
 		<dict>
 			<key>fileRef</key>
-			<string>8BFC6AD5E887F4EFC2676535FE8B5FD8</string>
+			<string>B44D8A74BF7EBD578D99E8CC281C6467</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -990,7 +905,7 @@
 		<key>694B313C06FAF2FA9340C7B08EF1FD00</key>
 		<dict>
 			<key>fileRef</key>
-			<string>C9D46EB475239A56304616D49393AE1A</string>
+			<string>13CAE85B849E930DAB6F6C800568A196</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1041,10 +956,40 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
+		<key>6B376DCB576DA95D2704819EE44AEA22</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>SDWebImageDownloader.h</string>
+			<key>path</key>
+			<string>SDWebImage/SDWebImageDownloader.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6CACE53D9BA398D0F3460F66AB43E902</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>NSData+ImageContentType.h</string>
+			<key>path</key>
+			<string>SDWebImage/NSData+ImageContentType.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>6E4E59CD69E09A190EF90FB08DF202FF</key>
 		<dict>
 			<key>fileRef</key>
-			<string>22B28D982A589941872911F22349FD95</string>
+			<string>520A4F57F523CEA0A8CAC98A13EE4D66</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1058,7 +1003,7 @@
 		<key>6F8397C52D995A216B5D085BA130A865</key>
 		<dict>
 			<key>fileRef</key>
-			<string>A0DE9BDB6F7807A6DC1E0C34EEB20708</string>
+			<string>E1CFCCBC01574CBABBAB1781B9CAFCDB</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1072,7 +1017,7 @@
 		<key>6FCC43706F8EA52546459C9CA8E4F43A</key>
 		<dict>
 			<key>fileRef</key>
-			<string>11F9903267CA68F30E00A0239345863A</string>
+			<string>34003EC4D995D4489CF571D57E4B9D13</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1086,7 +1031,7 @@
 		<key>74A6BE332AE10C2026535D181FE87C57</key>
 		<dict>
 			<key>fileRef</key>
-			<string>ED05538C05B2A839D52553060101C23A</string>
+			<string>DBBAF88970FCAA54A284F0EA5643B657</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -1106,7 +1051,7 @@
 		<key>7992B95D6AA359B32DE66B121FE3941E</key>
 		<dict>
 			<key>fileRef</key>
-			<string>EA762DD93A06FB43F745DCCCBC1D6249</string>
+			<string>432C0CA9657158443236AB134119A948</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -1142,7 +1087,7 @@
 			<array>
 				<string>93A4A3777CF96A4AAC1D13BA6DCCEA73</string>
 				<string>433CD3331B6C3787F473C941B61FC68F</string>
-				<string>BF4B13718B20D23D5B220FA33C2583D8</string>
+				<string>B45E01F304A911978AFF6F447DF7DC8A</string>
 				<string>D12E72F60C5B8098E32399A68F90B246</string>
 				<string>0BFB38C2F05623066CE964BA68F20E08</string>
 			</array>
@@ -1167,7 +1112,7 @@
 		<key>7FB189DD9E1F8ECCBCCFFB35FEC912E4</key>
 		<dict>
 			<key>fileRef</key>
-			<string>CAA9CDF50B3B3D72A40DDD6992A3F1AB</string>
+			<string>D366F8591122627C87CB8E431A03E15A</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1177,6 +1122,36 @@
 					<string>Public</string>
 				</array>
 			</dict>
+		</dict>
+		<key>80120355D5081A3D033DD6F2303A81C2</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>SDWebImageDownloader.m</string>
+			<key>path</key>
+			<string>SDWebImage/SDWebImageDownloader.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>84CA4535B17DEE15E230063CA1BFFA23</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>SDWebImageOperation.h</string>
+			<key>path</key>
+			<string>SDWebImage/SDWebImageOperation.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>87364E4AD5E10961FFB56CB8B7B329A0</key>
 		<dict>
@@ -1227,21 +1202,6 @@
 			<string>C4CFD54395D98E94018B165EFFB236FE</string>
 			<key>productType</key>
 			<string>com.apple.product-type.library.static</string>
-		</dict>
-		<key>8BFC6AD5E887F4EFC2676535FE8B5FD8</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>UIImage+GIF.m</string>
-			<key>path</key>
-			<string>SDWebImage/UIImage+GIF.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>8C996A6188EA11C3D2FAD48B63301654</key>
 		<dict>
@@ -1296,16 +1256,18 @@
 			<key>xcLanguageSpecificationIdentifier</key>
 			<string>xcode.lang.ruby</string>
 		</dict>
-		<key>953F85FB45CB8BFFE32FE81C92CCE092</key>
+		<key>968F595408B62BB12EAA2E19A7091C42</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>SDWebImagePrefetcher.m</string>
 			<key>path</key>
-			<string>SDWebImage-prefix.pch</string>
+			<string>SDWebImage/SDWebImagePrefetcher.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1315,19 +1277,6 @@
 			<string>79C43EBA6705504C4AE1C53A721903E0</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-		</dict>
-		<key>98CD83782F73287ECE4013F9234F1CE5</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>SDWebImage.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>9924DEA71BE83B32EF695B832F4CFA07</key>
 		<dict>
@@ -1345,7 +1294,7 @@
 		<key>99542A804F2CB4AA3D9409567F3FC115</key>
 		<dict>
 			<key>fileRef</key>
-			<string>0ACAC3316F7B86AA1862BE94DFE5C4D0</string>
+			<string>B6374789CB66A2FA28AEB16DF337E946</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1369,35 +1318,7 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>9C0C5065C9C7352696B71E8D8C3553C0</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B109750998ADF20B8220311398DF64F6</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>9FD4F8D633B6F6A0968071D005CF4284</key>
-		<dict>
-			<key>fileRef</key>
-			<string>4FE14E49C11A08FA132ADB2667489C89</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>A0DE9BDB6F7807A6DC1E0C34EEB20708</key>
+		<key>9B6316B5F796DFE98C2EE327978CAE99</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1405,17 +1326,58 @@
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>UIImage+MultiFormat.h</string>
 			<key>path</key>
-			<string>SDWebImage/UIImage+MultiFormat.h</string>
+			<string>SDWebImage-prefix.pch</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9C0C5065C9C7352696B71E8D8C3553C0</key>
+		<dict>
+			<key>fileRef</key>
+			<string>6CACE53D9BA398D0F3460F66AB43E902</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>9EDC797AA28603B66EF6AF2159EC9D16</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>UIButton+WebCache.m</string>
+			<key>path</key>
+			<string>SDWebImage/UIButton+WebCache.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9FD4F8D633B6F6A0968071D005CF4284</key>
+		<dict>
+			<key>fileRef</key>
+			<string>4D1BD0B7B19F64224EE31F9486E86AB5</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
 		</dict>
 		<key>A28E38044C2F0CE84C9A0CB46D22B31C</key>
 		<dict>
 			<key>fileRef</key>
-			<string>25C8E2BBF608ECE8671D2FEE5C4B4EDD</string>
+			<string>B2E46FDB2278E9AFB7C9391840B0B5A1</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1444,7 +1406,7 @@
 		<key>A9A70A053C2A7A62A90F5F12EF4E523E</key>
 		<dict>
 			<key>fileRef</key>
-			<string>B0D9773DD42372EC5C4F3E42FFBCD37F</string>
+			<string>84CA4535B17DEE15E230063CA1BFFA23</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1455,33 +1417,16 @@
 				</array>
 			</dict>
 		</dict>
-		<key>B0D9773DD42372EC5C4F3E42FFBCD37F</key>
+		<key>B10075678D3649A76AAEFA00851DC98C</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>children</key>
+			<array>
+				<string>F27A645BEBCD5113595F7E66BFFABE8F</string>
+			</array>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
+			<string>PBXGroup</string>
 			<key>name</key>
-			<string>SDWebImageOperation.h</string>
-			<key>path</key>
-			<string>SDWebImage/SDWebImageOperation.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B109750998ADF20B8220311398DF64F6</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>NSData+ImageContentType.h</string>
-			<key>path</key>
-			<string>SDWebImage/NSData+ImageContentType.h</string>
+			<string>Frameworks</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1498,10 +1443,40 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>B2E46FDB2278E9AFB7C9391840B0B5A1</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>UIView+WebCacheOperation.h</string>
+			<key>path</key>
+			<string>SDWebImage/UIView+WebCacheOperation.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B44D8A74BF7EBD578D99E8CC281C6467</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>UIImage+GIF.m</string>
+			<key>path</key>
+			<string>SDWebImage/UIImage+GIF.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>B4546C741F14C595694AAFE40D8E8C0E</key>
 		<dict>
 			<key>fileRef</key>
-			<string>DD0EE6401B194E10ED17CEC135BF4343</string>
+			<string>DB9DC8493769D9A8EDBB1357E3375F95</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1512,10 +1487,24 @@
 				</array>
 			</dict>
 		</dict>
+		<key>B45E01F304A911978AFF6F447DF7DC8A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>1BC7C946E87D003000C5901B6F226881</string>
+				<string>389DFD3E44AC1D4A8759A7BB0C2D1F02</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>B490C88FE04DB02B3AF78B508CAEE06E</key>
 		<dict>
 			<key>fileRef</key>
-			<string>48A09FE35ADF900277C8B50749A7A443</string>
+			<string>4069851F664AD0675D02809894E26FDD</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -1532,6 +1521,21 @@
 			<string>Release</string>
 			<key>isa</key>
 			<string>XCConfigurationList</string>
+		</dict>
+		<key>B6374789CB66A2FA28AEB16DF337E946</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>UIImageView+HighlightedWebCache.h</string>
+			<key>path</key>
+			<string>SDWebImage/UIImageView+HighlightedWebCache.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>B64FADCE890AB2C7DE5D1949D2BD48DF</key>
 		<dict>
@@ -1618,7 +1622,7 @@
 		<key>BD8EB9ED94A0F101529FBA7DC2C98448</key>
 		<dict>
 			<key>fileRef</key>
-			<string>C3ACBC3A61BEEFDC8AAF89B9E9C78E3F</string>
+			<string>968F595408B62BB12EAA2E19A7091C42</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -1642,19 +1646,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>BF4B13718B20D23D5B220FA33C2583D8</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>E91D80E105451EE1B94ED0C596D41B59</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>C24A6EC1EF211D88B141767276949C87</key>
 		<dict>
 			<key>fileRef</key>
@@ -1665,7 +1656,7 @@
 		<key>C301A089FDE06F7562F8FAEEEEFCE461</key>
 		<dict>
 			<key>fileRef</key>
-			<string>3D4B171E8C10A9B61871121F6B772057</string>
+			<string>1B4A24AB15BEF2FA261F2B6D2FEDE800</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1675,21 +1666,6 @@
 					<string>Public</string>
 				</array>
 			</dict>
-		</dict>
-		<key>C3ACBC3A61BEEFDC8AAF89B9E9C78E3F</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>SDWebImagePrefetcher.m</string>
-			<key>path</key>
-			<string>SDWebImage/SDWebImagePrefetcher.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>C4247EB919E3ED63BA1F6CF9B56CCF04</key>
 		<dict>
@@ -1776,7 +1752,7 @@
 		<key>C675691C60638751C1B85A97CCD6BA7A</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>98CD83782F73287ECE4013F9234F1CE5</string>
+			<string>213EE558FE41642D34DE6D8E49582BEF</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
@@ -1813,7 +1789,7 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>C9D46EB475239A56304616D49393AE1A</key>
+		<key>C975D80ABC964EF795CD3D1A6498E0D2</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1822,24 +1798,9 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
 			<key>name</key>
-			<string>UIImageView+WebCache.h</string>
+			<string>UIImage+GIF.h</string>
 			<key>path</key>
-			<string>SDWebImage/UIImageView+WebCache.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CAA9CDF50B3B3D72A40DDD6992A3F1AB</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>SDWebImageManager.h</string>
-			<key>path</key>
-			<string>SDWebImage/SDWebImageManager.h</string>
+			<string>SDWebImage/UIImage+GIF.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1860,7 +1821,7 @@
 		<key>CD8BDD71D593895072E06595BB860442</key>
 		<dict>
 			<key>fileRef</key>
-			<string>5B9DB2A002719436CEECAB3444646B64</string>
+			<string>F863235396A1196C5357BA3DFF5A4866</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1884,6 +1845,21 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
+		<key>CEE4048D34CAE26D0DCCAC7BFDD5899D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>SDWebImageDecoder.m</string>
+			<key>path</key>
+			<string>SDWebImage/SDWebImageDecoder.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>D12E72F60C5B8098E32399A68F90B246</key>
 		<dict>
 			<key>children</key>
@@ -1897,6 +1873,21 @@
 			<string>PBXGroup</string>
 			<key>name</key>
 			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D366F8591122627C87CB8E431A03E15A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>SDWebImageManager.h</string>
+			<key>path</key>
+			<string>SDWebImage/SDWebImageManager.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1954,6 +1945,62 @@
 				<string>3F16608AD03130C2917DEBD0BF2F916A</string>
 			</array>
 		</dict>
+		<key>D75BAF16C1AB6E0E373C45344D6C1CDC</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>NSData+ImageContentType.m</string>
+			<key>path</key>
+			<string>SDWebImage/NSData+ImageContentType.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D7D4D3C4D463B798E72BA2C04998585E</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>6CACE53D9BA398D0F3460F66AB43E902</string>
+				<string>D75BAF16C1AB6E0E373C45344D6C1CDC</string>
+				<string>34003EC4D995D4489CF571D57E4B9D13</string>
+				<string>F0E55FD5D03AE97D115012F50DB75CB9</string>
+				<string>4D1BD0B7B19F64224EE31F9486E86AB5</string>
+				<string>4069851F664AD0675D02809894E26FDD</string>
+				<string>520A4F57F523CEA0A8CAC98A13EE4D66</string>
+				<string>CEE4048D34CAE26D0DCCAC7BFDD5899D</string>
+				<string>6B376DCB576DA95D2704819EE44AEA22</string>
+				<string>80120355D5081A3D033DD6F2303A81C2</string>
+				<string>1B4A24AB15BEF2FA261F2B6D2FEDE800</string>
+				<string>432C0CA9657158443236AB134119A948</string>
+				<string>D366F8591122627C87CB8E431A03E15A</string>
+				<string>E9E718304632C5E7F32C8AB8ED4CE252</string>
+				<string>84CA4535B17DEE15E230063CA1BFFA23</string>
+				<string>DB9DC8493769D9A8EDBB1357E3375F95</string>
+				<string>968F595408B62BB12EAA2E19A7091C42</string>
+				<string>F863235396A1196C5357BA3DFF5A4866</string>
+				<string>9EDC797AA28603B66EF6AF2159EC9D16</string>
+				<string>C975D80ABC964EF795CD3D1A6498E0D2</string>
+				<string>B44D8A74BF7EBD578D99E8CC281C6467</string>
+				<string>E1CFCCBC01574CBABBAB1781B9CAFCDB</string>
+				<string>09A1ACBC3254700FE064856C43E34DC6</string>
+				<string>B6374789CB66A2FA28AEB16DF337E946</string>
+				<string>DBBAF88970FCAA54A284F0EA5643B657</string>
+				<string>13CAE85B849E930DAB6F6C800568A196</string>
+				<string>0CC9D002513E46FC51E52D171E96D7AF</string>
+				<string>B2E46FDB2278E9AFB7C9391840B0B5A1</string>
+				<string>E35AA0F945153F50D6ED37E979EEC273</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Core</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>D8D728F5880D7048203276CD0BB107F1</key>
 		<dict>
 			<key>baseConfigurationReference</key>
@@ -1994,29 +2041,7 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>D99686ED60C3C01FEED8B35B779A456A</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>SDWebImageDownloader.m</string>
-			<key>path</key>
-			<string>SDWebImage/SDWebImageDownloader.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>DBB7ABFCFA4E3BB3F9CB143FA7A3B735</key>
-		<dict>
-			<key>fileRef</key>
-			<string>FA165D45AFB745D2CC245D9F159DFBA0</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>DD0EE6401B194E10ED17CEC135BF4343</key>
+		<key>DB9DC8493769D9A8EDBB1357E3375F95</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -2028,6 +2053,28 @@
 			<string>SDWebImagePrefetcher.h</string>
 			<key>path</key>
 			<string>SDWebImage/SDWebImagePrefetcher.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>DBB7ABFCFA4E3BB3F9CB143FA7A3B735</key>
+		<dict>
+			<key>fileRef</key>
+			<string>E9E718304632C5E7F32C8AB8ED4CE252</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>DBBAF88970FCAA54A284F0EA5643B657</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>UIImageView+HighlightedWebCache.m</string>
+			<key>path</key>
+			<string>SDWebImage/UIImageView+HighlightedWebCache.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -2044,34 +2091,47 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>DD4F9FBA3D31CF3D331815B65E320DFF</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>98CD83782F73287ECE4013F9234F1CE5</string>
-				<string>053B5EB27371089DC3C748090DE33658</string>
-				<string>953F85FB45CB8BFFE32FE81C92CCE092</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Support Files</string>
-			<key>path</key>
-			<string>../Target Support Files/SDWebImage</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>E1A18087156CD43989AE6919F5956771</key>
 		<dict>
 			<key>fileRef</key>
-			<string>053B5EB27371089DC3C748090DE33658</string>
+			<string>1B767E8BEB6014E94F778DC3BE003173</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+		</dict>
+		<key>E1CFCCBC01574CBABBAB1781B9CAFCDB</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>UIImage+MultiFormat.h</string>
+			<key>path</key>
+			<string>SDWebImage/UIImage+MultiFormat.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E35AA0F945153F50D6ED37E979EEC273</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>UIView+WebCacheOperation.m</string>
+			<key>path</key>
+			<string>SDWebImage/UIView+WebCacheOperation.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>E81824CA060587E9A1617932E6DB653F</key>
 		<dict>
 			<key>fileRef</key>
-			<string>53C4EA1C4BFE3F13F74B288B217D2618</string>
+			<string>6B376DCB576DA95D2704819EE44AEA22</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -2082,23 +2142,7 @@
 				</array>
 			</dict>
 		</dict>
-		<key>E91D80E105451EE1B94ED0C596D41B59</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>465A2CEA0BE5A165BDD26F755CDC9516</string>
-				<string>DD4F9FBA3D31CF3D331815B65E320DFF</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>SDWebImage</string>
-			<key>path</key>
-			<string>SDWebImage</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>EA762DD93A06FB43F745DCCCBC1D6249</key>
+		<key>E9E718304632C5E7F32C8AB8ED4CE252</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -2107,16 +2151,16 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.objc</string>
 			<key>name</key>
-			<string>SDWebImageDownloaderOperation.m</string>
+			<string>SDWebImageManager.m</string>
 			<key>path</key>
-			<string>SDWebImage/SDWebImageDownloaderOperation.m</string>
+			<string>SDWebImage/SDWebImageManager.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
 		<key>EAD4F12C2E36750C79E2EBE3294EF644</key>
 		<dict>
 			<key>fileRef</key>
-			<string>24E0E5A3B8321A9A1884E99287933282</string>
+			<string>E35AA0F945153F50D6ED37E979EEC273</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -2133,42 +2177,53 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>ED05538C05B2A839D52553060101C23A</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>UIImageView+HighlightedWebCache.m</string>
-			<key>path</key>
-			<string>SDWebImage/UIImageView+HighlightedWebCache.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>EEA3218C18FD309EA41E929AD5FA7618</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>UIImage+MultiFormat.m</string>
-			<key>path</key>
-			<string>SDWebImage/UIImage+MultiFormat.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>EFF51E9CE670276CC6940CB2DE6166A4</key>
 		<dict>
 			<key>fileRef</key>
-			<string>250BAE81BE304B444F381CD6FD11B6EF</string>
+			<string>0CC9D002513E46FC51E52D171E96D7AF</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+		</dict>
+		<key>F0E55FD5D03AE97D115012F50DB75CB9</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>SDImageCache.m</string>
+			<key>path</key>
+			<string>SDWebImage/SDImageCache.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F27A645BEBCD5113595F7E66BFFABE8F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>path</key>
+			<string>AppsFlyerTracker.framework</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F863235396A1196C5357BA3DFF5A4866</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>UIButton+WebCache.h</string>
+			<key>path</key>
+			<string>SDWebImage/UIButton+WebCache.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>F9524C9340E524A9C62A78159C498562</key>
 		<dict>
@@ -2196,21 +2251,6 @@
 			<string>PBXSourcesBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
-		</dict>
-		<key>FA165D45AFB745D2CC245D9F159DFBA0</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>SDWebImageManager.m</string>
-			<key>path</key>
-			<string>SDWebImage/SDWebImageManager.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>FAEB9FEC21FC812239B669EBD758300F</key>
 		<dict>

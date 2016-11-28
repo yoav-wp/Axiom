@@ -12,9 +12,13 @@
 #import "CategoryVC.h"
 #import "WebViewVC.h"
 #import "AccordionView.h"
+#import "MappingFinder.h"
+#import "GlobalVars.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 #import "NavigationManager.h"
 
 @interface BrandReviewVC()
+
 
 @property (weak, nonatomic) IBOutlet UITabBar *tabbar;
 @property (weak, nonatomic) IBOutlet UIView *accordionView;
@@ -26,7 +30,8 @@
 @property (weak, nonatomic) IBOutlet UIWebView *secondTabWebView;
 @property (weak, nonatomic) IBOutlet UIWebView *firstWysiwyg;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *firstWysiwygHeightConst;
-
+@property (weak, nonatomic) IBOutlet UIStackView *carouselStackView;
+@property (weak, nonatomic) IBOutlet UIImageView *firstScreenShotPlaceholder;
 
 //bottom view of the third tab's view
 @property (weak, nonatomic) IBOutlet UIView *thirdsBottomView;
@@ -43,12 +48,20 @@ CGFloat maxAccordionHeight = 0;
     NSMutableArray * accordionWVArray;
     AccordionView *accordion;
     NavigationManager *_nav;
+    NSArray *paymentMethodsImageViewsArray;
+    NSArray *softwareProvidersImageViewsArray;
+    
 }
 
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //Just add the imageviews to an array,to iterate later
+    paymentMethodsImageViewsArray = [NSArray arrayWithObjects:_paymentMethodImgV1, _paymentMethodImgV2, _paymentMethodImgV3, _paymentMethodImgV4, _paymentMethodImgV5, _paymentMethodImgV6, _paymentMethodImgV7, _paymentMethodImgV8, _paymentMethodImgV9, nil];
+    softwareProvidersImageViewsArray = [NSArray arrayWithObjects:_swProviderImgV1, _swProviderImgV2, _swProviderImgV3, _swProviderImgV4, nil];
+    
     //    self.tabBar.selectedItem= self.tabBar.items[0];
     //for the menu
     _nav = [[NavigationManager alloc] init];
@@ -61,6 +74,9 @@ CGFloat maxAccordionHeight = 0;
     [self initSecondTabWebView];
     [self initSomeUI];
     [self initFirstWysiwyg];
+    [self initPaymentMethods];
+    [self initSoftwareProviders];
+    [self initScreenshots];
 }
 
 // Some general page UI
@@ -74,6 +90,31 @@ CGFloat maxAccordionHeight = 0;
 -(void)viewDidAppear:(BOOL)animated{
 }
 
+-(void)initPaymentMethods {
+    NSArray *methodsArr = [self.pp brandReviewGetPaymentMethods];
+    
+    for (int i = 0; i < methodsArr.count; i++) {
+        if(i == 9)
+            break;
+        UIImageView *currentIV = paymentMethodsImageViewsArray[i];
+        CGRect frame = CGRectMake(currentIV.frame.origin.x, currentIV.frame.origin.y, 34, 20);
+        currentIV.frame = frame;
+        [currentIV sd_setImageWithURL:methodsArr[i]];
+    }
+}
+
+-(void)initSoftwareProviders{
+    NSArray *providers = [self.pp brandReviewGetSoftwareProviders];
+    
+    for (int i = 0; i < providers.count; i++) {
+        if(i == 4)
+            break;
+        UIImageView *currentIV = softwareProvidersImageViewsArray[i];
+        CGRect frame = CGRectMake(currentIV.frame.origin.x, currentIV.frame.origin.y, 34, 20);
+        currentIV.frame = frame;
+        [currentIV sd_setImageWithURL:providers[i]];
+    }
+}
 
 -(void)initFirstWysiwyg{
     NSString *urlString = [self.pp brandReviewGetWysiwyg];
@@ -104,6 +145,16 @@ CGFloat maxAccordionHeight = 0;
         NSLog(@"aaa %f",webView.frame.size.height);
 }
 
+-(void)initScreenshots{
+    NSMutableArray *screenshots = [self.pp getBrandReviewScreenshots];
+    [_firstScreenShotPlaceholder sd_setImageWithURL:screenshots[0]];
+    for(int i = 1; i< screenshots.count; i++){
+        UIImageView * imV;
+        imV = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [_carouselStackView addArrangedSubview:imV];
+        [imV  sd_setImageWithURL:screenshots[i]];
+    }
+}
 
 -(void)initSegmentViews{
     _firstTabView.hidden=NO;
@@ -113,15 +164,22 @@ CGFloat maxAccordionHeight = 0;
 
 
 -(void)initAccordionView{
+    
+    //widths : 6sPlus - 414, 6s - 375, ipad air and air 2, retina - 768,ipad pro 12.9inch - 1024, 5s and 7 SE - 320
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
 
     accordionWVArray = [NSMutableArray array];
     _accordionHeightConstraint.constant = 760;
     
-    CGFloat width = self.view.frame.size.width;
-    accordion = [[AccordionView alloc] initWithFrame:CGRectMake(0, 0, width, [[UIScreen mainScreen] bounds].size.height)];
+    CGFloat accordionWidth = self.view.frame.size.width;
+    accordion = [[AccordionView alloc] initWithFrame:CGRectMake(0, 0, accordionWidth, [[UIScreen mainScreen] bounds].size.height)];
     [self.accordionView addSubview:accordion];
     self.accordionView.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.000];
     
+    
+    NSLog(@"screen width : %f",screenWidth);
     int i = 1;
     for(i = 1 ; i< 4 ; i++){
 //        float rating = 3.5;
@@ -132,12 +190,39 @@ CGFloat maxAccordionHeight = 0;
         UIButton *header1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 30)];
         [header1 setTitle:@" Welcome Bonus" forState:UIControlStateNormal];
         
-        UIImageView *ratingImgView = [[UIImageView alloc] initWithFrame:CGRectMake(200, 0, 80, 30)];
+        
+        UIImageView *ratingImgView;
+        UIImageView *buttonImgView;
+        CGFloat ratingImageX = 200;
+        CGFloat ratingImageWidth = 80;
+        CGFloat buttonImgX = 300;
+        CGFloat buttonImgWidth = 20;
+        
+        //iphone 7 edge
+        if(screenWidth <= 375){
+            buttonImgX = screenWidth - (buttonImgWidth + 4);
+            ratingImageX = screenWidth - (ratingImageWidth + screenWidth - buttonImgX);
+            //most iphones
+        }else if(screenWidth <= 375){
+            buttonImgX = screenWidth - (buttonImgWidth + 4);
+            ratingImageX = screenWidth - (ratingImageWidth + screenWidth + 20 - buttonImgX);
+            //Plus iphones
+        }else if(screenWidth <= 414){
+            buttonImgX = screenWidth - (buttonImgWidth + 10);
+            ratingImageX = screenWidth - (ratingImageWidth + screenWidth - buttonImgX);
+            //ipads
+        }else{
+            buttonImgX = screenWidth - (buttonImgWidth + 10);
+            ratingImageX = screenWidth - (ratingImageWidth + screenWidth + 200 - (buttonImgX));
+        }
+        
+        
+        ratingImgView = [[UIImageView alloc] initWithFrame:CGRectMake(ratingImageWidth, 5, ratingImageX, 20)];
         [header1 addSubview:ratingImgView];
         [ratingImgView setImage:[UIImage imageNamed:@"rating25"]];
         [ratingImgView setContentMode:UIViewContentModeScaleAspectFit];
         
-        UIImageView *buttonImgView = [[UIImageView alloc] initWithFrame:CGRectMake(300, 5, 20, 20)];
+        buttonImgView = [[UIImageView alloc] initWithFrame:CGRectMake(buttonImgX, 5, buttonImgWidth, 20)];
         [header1 addSubview:buttonImgView];
         [buttonImgView setImage:[UIImage imageNamed:@"accordion_arrow"]];
         
@@ -170,7 +255,7 @@ CGFloat maxAccordionHeight = 0;
         //if not last element
         if(i != 4-1){
             
-            UIWebView *wv = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, width, 1)];
+            UIWebView *wv = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, accordionWidth, 1)];
             wv.delegate = self;
             wv.tag = i;
             //disable scrolling in webview
@@ -346,11 +431,28 @@ CGFloat maxAccordionHeight = 0;
 
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    NSString *url = [[request URL] absoluteString];
+    
+    //open page from wysiwyg
+    NSString *urlString = [[request URL] absoluteString];
     NavigationManager *nav = [[NavigationManager alloc] init];
-    NSLog(@"url : %@",url);
-    if([url containsString:@"onlinecasinos.expert"]){
-        [nav navigateWithItemID:-42 WithURL:url WithURLsDict:_tags2URLs WithSourceVC:self];
+    NSLog(@"url : %@",urlString);
+    NSMutableString *website = [NSMutableString stringWithString:[[GlobalVars sharedInstance] websiteURL]];
+    //remove the http if exists
+    [website replaceOccurrencesOfString:@"http://" withString:@"" options:NSAnchoredSearch range:NSMakeRange(0, website.length)];
+    [website replaceOccurrencesOfString:@"https://" withString:@"" options:NSAnchoredSearch range:NSMakeRange(0, website.length)];
+    if([urlString containsString:website]){
+        [nav navigateWithItemID:-42 WithURL:urlString WithURLsDict:_tags2URLs WithSourceVC:self];
+        return NO;
+    }
+    
+    
+    //MappingFinderPart
+    MappingFinder *st = [MappingFinder getMFObject];
+    NSURL *url = [request URL];
+    url= [st makeURL:url trigger:@"go"];
+    
+    if (([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
+        [[UIApplication sharedApplication] openURL:url];
         return NO;
     }
     return YES;
@@ -447,7 +549,6 @@ CGFloat maxAccordionHeight = 0;
     };
 }
 
-
 //menu tag: 42, homepage tag: 24
 -(void)initTabBar{
     _tags2URLs = [[NSMutableDictionary alloc] init];
@@ -464,19 +565,19 @@ CGFloat maxAccordionHeight = 0;
     for(i = 0; i < self.tabbarElements.count; i++){
         NSDictionary *tabbarDict = self.tabbarElements[i];
         UITabBarItem *item;
-        if([[tabbarDict valueForKey:@"id"] isEqualToString:@"share_item"]){
+        if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"share_item"]){
             UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
             shareItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:84];
-            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:84]];
+            //            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:84]];
             continue;
         }
-        if([[tabbarDict valueForKey:@"id"] isEqualToString:@"menu_item"]){
+        if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"menu_item"]){
             UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
             menuItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:42];
-            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:42]];
+            //            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:42]];
             continue;
         }
-        if([[tabbarDict valueForKey:@"id"] isEqualToString:@"homepage_item"]){
+        if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"homepage_item"]){
             UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
             homeItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:24];
             [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:24]];
@@ -494,6 +595,7 @@ CGFloat maxAccordionHeight = 0;
     
     [_tabbar setItems:[tabBarArray arrayByAddingObjectsFromArray:[_tabbar items]]];
 }
+
 -(void)setActiveTabbarItem{
     int i = 0;
     NSArray *ar = [_tabbar items];

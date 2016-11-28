@@ -7,8 +7,11 @@
 //
 
 #import "MenuViewController.h"
+#import "NavigationManager.h"
 
-@implementation MenuViewController
+@implementation MenuViewController{
+    NavigationManager *_nav;
+}
 
 @synthesize firstArray,secondArray;
 @synthesize firstForTable,secondForTable;
@@ -17,6 +20,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _nav = [[NavigationManager alloc]  init];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentDirectoryPath = [paths objectAtIndex:0];
@@ -74,7 +78,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    int rows = 0;
+    NSInteger rows = 0;
     switch (section) {
         case 0:
             rows = [self.firstForTable count];
@@ -82,8 +86,6 @@
         case 1:
             rows = [self.secondForTable count];
             break;
-            
-            
     }
     return rows;
 }
@@ -198,8 +200,10 @@
             }
         }else
         {
-            NSLog(@"link: %@",[d valueForKey:@"link2"]);
-            NSLog(@"Leave Element:::%@ %@|",[d valueForKey:@"name"],[d valueForKey:@"book"]);
+            NSString *destLink = [d valueForKey:@"page_link2"];
+            NSLog(@"link: %@",destLink);
+            
+            [_nav navigateWithItemID:-42 WithURL:destLink WithURLsDict:nil WithSourceVC:self];
         }
     }
     

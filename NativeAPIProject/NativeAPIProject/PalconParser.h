@@ -21,6 +21,9 @@
 -(NSString *)getBaseURL;
 -(NSString *)brandReviewGetWysiwyg;
 -(NSString *)brandReviewGetSecondTabWysiwyg;
+-(NSMutableArray *)getBrandReviewScreenshots;
+-(NSArray *)brandReviewGetPaymentMethods;
+-(NSArray *)brandReviewGetSoftwareProviders;
 
 
 @end

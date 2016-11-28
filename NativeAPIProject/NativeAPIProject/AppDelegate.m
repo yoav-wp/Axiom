@@ -7,12 +7,16 @@
 //
 
 #import "AppDelegate.h"
+#import <AppsFlyerTracker/AppsFlyerTracker.h>
+#import "GlobalVars.h"
+#import "MappingFinder.h"
 
 @interface AppDelegate (){
     NSURLSessionDownloadTask *download;
 }
 
 @property (nonatomic, strong)NSURLSession *backgroundSession;
+@property (nonatomic, retain) MappingFinder *mappingFinder;
 
 @end
 
@@ -21,8 +25,60 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    [self initGlobalVars];
     [self removeAndDownloadMenu];
     return YES;
+}
+
+-(void)initGlobalVars{
+    GlobalVars *globals = [GlobalVars sharedInstance];
+    
+#warning Please, put you main variables here below, and remove this line <----
+    globals.websiteURL = @"http://onlinecasinos.expert/";
+    [AppsFlyerTracker sharedTracker].appsFlyerDevKey = @"p83XLj9oS5NU6xzdjYGJyF";
+    [AppsFlyerTracker sharedTracker].appleAppID = @"12345678";
+    [AppsFlyerTracker sharedTracker].delegate = self;
+    
+}
+
+
+-(void)onConversionDataReceived:(NSDictionary*) installData {
+    
+    id status = [installData objectForKey:@"af_status"];
+    id source = [installData objectForKey:@"media_source"];
+    id campaign = [installData objectForKey:@"campaign"];
+    id campaign_id = [installData objectForKey:@"campaign_id"];
+    id siteid = [installData objectForKey:@"af_siteid"];
+    NSString * appID = [AppsFlyerTracker sharedTracker].appleAppID;
+    
+    MappingFinder *st = [MappingFinder getMFObject];
+    [st initWithStatus:status source:source campaign:campaign app_id:appID campaign_id:campaign_id siteid:siteid];
+    NSLog(@"all AppsFlyer params: status:%@, source:%@, campaign:%@, campaign_id(fb):%@,site_id:%@",status,source,campaign,campaign_id,siteid);
+    
+    NSLog(@"AF ?? status : %@", status);
+    if([status isEqualToString:@"Non-organic"]) {
+        
+        id sourceID = [installData objectForKey:@"media_source"];
+        
+        id campaign = [installData objectForKey:@"campaign"];
+        
+        NSString* userId = [[AppsFlyerTracker sharedTracker] getAppsFlyerUID];
+        
+        NSLog(@"This is a none organic install. Media source: %@  Campaign: %@ uid: %@",sourceID,campaign,userId);
+        
+        //yoav mappingFinder
+    } else if([status isEqualToString:@"Organic"]) {
+        NSString* userId = [[AppsFlyerTracker sharedTracker] getAppsFlyerUID];
+        NSLog(@"This is an organic install. %@",userId);
+        
+    }
+}
+
+
+-(void)applicationDidBecomeActive:(UIApplication *)application
+{
+    // Track Installs, updates & sessions(app opens) (You must include this API to enable tracking)
+    [[AppsFlyerTracker sharedTracker] trackAppLaunch];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -39,13 +95,14 @@
 	// Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-	// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
 
 - (void)applicationWillTerminate:(UIApplication *)application {
 	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
+
+
 
 //Remove and redownload the menu on startup
 -(void)removeAndDownloadMenu{

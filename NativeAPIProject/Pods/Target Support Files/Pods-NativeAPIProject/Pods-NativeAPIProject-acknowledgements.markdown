@@ -1,6 +1,11 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
+## AppsFlyerFramework
+
+Copyright 2014 AppsFlyer Ltd. All rights reserved.
+
+
 ## SDWebImage
 
 Copyright (c) 2016 Olivier Poitrey rs@dailymotion.com

@@ -13,6 +13,11 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    _leftButtonLabel.layer.cornerRadius = 4;
+    _leftButtonLabel.clipsToBounds = YES;
+    _rightButtonLabel.layer.cornerRadius = 4;
+    _rightButtonLabel.clipsToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

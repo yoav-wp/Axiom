@@ -1,14 +1,17 @@
 PODS:
-  - SDWebImage (3.8.1):
-    - SDWebImage/Core (= 3.8.1)
-  - SDWebImage/Core (3.8.1)
+  - AppsFlyerFramework (4.5.9)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
 
 DEPENDENCIES:
+  - AppsFlyerFramework
   - SDWebImage (~> 3.7)
 
 SPEC CHECKSUMS:
-  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
+  AppsFlyerFramework: 93c3eda4d73b8477641fabe6952260ee70ee1077
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
 
-PODFILE CHECKSUM: 4cf5f6825caddfb4222354049a582d98f0364e49
+PODFILE CHECKSUM: 33ee1a1bf622cdbfe888329246ea37085c7ca6da
 
 COCOAPODS: 1.0.0

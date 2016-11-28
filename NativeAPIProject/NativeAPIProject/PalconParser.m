@@ -12,8 +12,9 @@
 @implementation PalconParser
 
 -(void) initWithFullURL:(NSString *)fullURL{
-        self.fullURL = [fullURL stringByAppendingString:@"?json_api=1"];
-        [self initDataDictionary];
+    
+    self.fullURL = [fullURL stringByAppendingString:@"?context_to_json=1"];
+    [self initDataDictionary];
 }
 
 -(void)initDataDictionary{
@@ -61,6 +62,12 @@
     return s;
 }
 
+-(NSMutableArray *)getBrandReviewScreenshots{
+    
+    NSMutableArray *screenshots = [self.pageDataDictionary valueForKey:@"screenshots"];
+    return screenshots;
+}
+
 
 //for now - private method to get the tabs (used in brandReviewGetSecondTabWysiwyg)
 -(NSMutableArray *)getBrandReviewTabs{
@@ -76,18 +83,17 @@
 
 
 -(NSMutableArray *)categoryGetCarousel {
-    NSMutableArray *carousel;
-    for(id key in self.pageDataDictionary){
-//        NSLog(@"key: %@, value: %@",key,[dict objectForKey:key]);
-        if([key isEqualToString:@"carousel"]){
-            //			NSLog(@" value class: %@", [dict[key] class]);
-            carousel = [self.pageDataDictionary objectForKey:key];
-            break;
-        }
-    }
-    
-    return carousel;
+    return [self.pageDataDictionary valueForKey:@"carousel"];
 }
+
+-(NSArray *)brandReviewGetPaymentMethods{
+    return [self.pageDataDictionary valueForKey:@"pay_method"];
+}
+
+-(NSArray *)brandReviewGetSoftwareProviders{
+    return [self.pageDataDictionary valueForKey:@"sof_providers"];
+}
+
 
 //ask R&D to have site url in each page, to avoid multiple connections to API
 -(NSString *)getBaseURL{

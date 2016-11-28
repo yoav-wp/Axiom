@@ -71,7 +71,6 @@
 
 //menu tag: 42, homepage tag: 24
 -(void)initTabBar{
-    //contains list of : a tag and a url for it
     _tags2URLs = [[NSMutableDictionary alloc] init];
     NSMutableArray *tabBarArray;
     int i;
@@ -79,29 +78,39 @@
     tabBarArray = [[NSMutableArray alloc] init];
     UITabBarItem *homeItem;
     UITabBarItem *menuItem;
+    UITabBarItem *shareItem;
     
     //set middle items
     //Homepage and menu position in the json array doesnt matter, for the others it does.
     for(i = 0; i < self.tabbarElements.count; i++){
         NSDictionary *tabbarDict = self.tabbarElements[i];
         UITabBarItem *item;
-        if([[tabbarDict valueForKey:@"id"] isEqualToString:@"menu_item"]){
-            menuItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:nil tag:42];
-            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:42]];
+        if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"share_item"]){
+            UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+            shareItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:84];
+            //            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:84]];
             continue;
         }
-        if([[tabbarDict valueForKey:@"id"] isEqualToString:@"homepage_item"]){
-            homeItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:nil tag:24];
+        if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"menu_item"]){
+            UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+            menuItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:42];
+            //            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:42]];
+            continue;
+        }
+        if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"homepage_item"]){
+            UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+            homeItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:24];
             [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:24]];
             continue;
         }
-        
-        item = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:nil tag:10+i];
+        UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+        item = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:10+i];
         [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:10+i]];
         [tabBarArray addObject:item];
     }
     //set menu and homepage items
     [tabBarArray insertObject:homeItem atIndex:0];
+    [tabBarArray addObject:shareItem];
     [tabBarArray addObject:menuItem];
     
     [_tabbar setItems:[tabBarArray arrayByAddingObjectsFromArray:[_tabbar items]]];
@@ -113,8 +122,8 @@
     _tabbar.layer.shadowColor = [UIColor redColor].CGColor;
     _tabbar.layer.shadowOpacity = 0.3;
     _tabbar.layer.backgroundColor = [UIColor whiteColor].CGColor;
-    
 }
+
 
 
 @end

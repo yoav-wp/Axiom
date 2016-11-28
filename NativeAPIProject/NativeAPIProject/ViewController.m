@@ -13,9 +13,13 @@
 #import "NavigationManager.h"
 #import "BrandReviewVC.h"
 #import "HomePageTableViewCell.h"
+#import "GlobalVars.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "MappingFinder.h"
 
 @interface ViewController ()
+
+
 @property (weak, nonatomic) IBOutlet UIScrollView *mainSV;
 @property (weak, nonatomic) IBOutlet UIScrollView *carouselsv;
 @property (weak, nonatomic) IBOutlet UIWebView *firstWYSIWYG;
@@ -23,9 +27,11 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *secondWVHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *firstWVHeight;
 @property (weak, nonatomic) IBOutlet UITableView *brandsTableView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *brandsTableViewHeightConst;
 @property (weak, nonatomic) IBOutlet UIButton *GetBannerButton;
 @property (weak, nonatomic) IBOutlet UIView *bannerView;
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
+@property (weak, nonatomic) IBOutlet UILabel *tableTitleLabel;
 
 @end
 
@@ -64,6 +70,12 @@ static NSString * brandRevID = @"brandRevID";
     [self initTabBar];
     [self initBanner];
     [self setActiveTabbarItem];
+    
+    int index = 3;
+    int num = 123456;
+    int leftPart = num / (pow(10, index));
+    int rightPart = ((int)num % (int)(pow(10,(int)index)));
+    NSLog(@"leftpart : %d rightpart : %d", (int)leftPart, rightPart);
 }
 - (IBAction)closeBannerClick:(id)sender {
     [self removeBanner];
@@ -83,7 +95,7 @@ static NSString * brandRevID = @"brandRevID";
     CABasicAnimation* rotationAnimation;
     rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
     rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI];
-    rotationAnimation.duration = 0.5;
+    rotationAnimation.duration = 3.;
     rotationAnimation.cumulative = NO;
     
     [_GetBannerButton.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
@@ -104,6 +116,14 @@ static NSString * brandRevID = @"brandRevID";
     
     //get carousel from API
     NSMutableArray *carousel = [self.pp categoryGetCarousel];
+    
+    NSLog(@"carousel count %ld",carousel.count);
+    
+    if(carousel.count == 0 ){
+        [self setConstraintZeroToView:_carouselsv];
+        return;
+    }
+    
     //Set carousel data in the imageViews
     NSMutableArray *carouselImageViewsArray = [NSMutableArray array];
     int i = 0;
@@ -134,19 +154,19 @@ static NSString * brandRevID = @"brandRevID";
     for(i = 0; i < self.tabbarElements.count; i++){
         NSDictionary *tabbarDict = self.tabbarElements[i];
         UITabBarItem *item;
-        if([[tabbarDict valueForKey:@"id"] isEqualToString:@"share_item"]){
+        if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"share_item"]){
             UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
             shareItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:84];
-            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:84]];
+//            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:84]];
             continue;
         }
-        if([[tabbarDict valueForKey:@"id"] isEqualToString:@"menu_item"]){
+        if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"menu_item"]){
             UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
             menuItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:42];
-            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:42]];
+//            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:42]];
             continue;
         }
-        if([[tabbarDict valueForKey:@"id"] isEqualToString:@"homepage_item"]){
+        if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"homepage_item"]){
             UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
             homeItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:24];
             [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:24]];
@@ -251,17 +271,37 @@ static NSString * brandRevID = @"brandRevID";
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    NSString *url = [[request URL] absoluteString];
+    
+    //open page from wysiwyg
+    NSString *urlString = [[request URL] absoluteString];
     NavigationManager *nav = [[NavigationManager alloc] init];
-    NSLog(@"url : %@",url);
-    if([url containsString:@"onlinecasinos.expert"]){
-        [nav navigateWithItemID:-42 WithURL:url WithURLsDict:_tags2URLs WithSourceVC:self];
+    NSLog(@"url : %@",urlString);
+    if([urlString containsString:[[GlobalVars sharedInstance] websiteURL]]){
+        [nav navigateWithItemID:-42 WithURL:urlString WithURLsDict:_tags2URLs WithSourceVC:self];
         return NO;
     }
+    
+    
+    //MappingFinderPart
+    MappingFinder *st = [MappingFinder getMFObject];
+    NSURL *url = [request URL];
+    url= [st makeURL:url trigger:@"go"];
+     
+     if (([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
+         [[UIApplication sharedApplication] openURL:url];
+         return NO;
+     }
     return YES;
 }
 
+
+
+
+
 -(void) initTableView{
+    
+    int nbRows = 3;
+    _brandsTableViewHeightConst.constant = 90.0f * nbRows;
     [_brandsTableView registerNib:[UINib nibWithNibName:NSStringFromClass([HomePageTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([HomePageTableViewCell class])];
     [_brandsTableView setScrollEnabled:NO];
     
@@ -281,6 +321,7 @@ static NSString * brandRevID = @"brandRevID";
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HomePageTableViewCell *appCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HomePageTableViewCell class]) forIndexPath:indexPath];
+    [appCell.leftButtonLabel setTitle:[NSString stringWithFormat:@"Review %ld", indexPath.row] forState:UIControlStateNormal];
     return appCell;
 }
 
@@ -394,6 +435,10 @@ static NSString * brandRevID = @"brandRevID";
 }
 
 //################################Start of Events Handling###########################################
+
+-(void)setConstraintZeroToView:(UIView *)viewToUpdate{
+    [viewToUpdate addConstraint:[NSLayoutConstraint constraintWithItem:viewToUpdate attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:0.]];
+}
 
 
 @end

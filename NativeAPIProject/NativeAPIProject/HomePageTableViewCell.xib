@@ -27,30 +27,33 @@
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating45" translatesAutoresizingMaskIntoConstraints="NO" id="kf2-eW-se1">
-                        <rect key="frame" x="107" y="27" width="85" height="15"/>
+                        <rect key="frame" x="107" y="27" width="70" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="YJX-nZ-VQl"/>
-                            <constraint firstAttribute="width" constant="85" id="gJN-95-c6R"/>
+                            <constraint firstAttribute="width" constant="70" id="gJN-95-c6R"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get $1500 Bonus" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ar-56-Oni">
-                        <rect key="frame" x="107" y="53" width="134" height="18"/>
+                        <rect key="frame" x="107" y="52" width="120" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SAf-Uf-eSM">
-                        <rect key="frame" x="362" y="22" width="70" height="25"/>
+                        <rect key="frame" x="358" y="22" width="74" height="25"/>
                         <color key="backgroundColor" red="0.82633310559999995" green="0.1112478897" blue="0.0099120773379999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <state key="normal" title="Button"/>
+                        <state key="normal" title="Claim"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UFH-tN-ZVH">
-                        <rect key="frame" x="278" y="22" width="70" height="25"/>
-                        <color key="backgroundColor" red="0.29803921570000003" green="0.29582667350000003" blue="0.3496193588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="278" y="22" width="74" height="25"/>
+                        <color key="backgroundColor" red="0.63317495584487915" green="0.63397121429443359" blue="0.71860367059707642" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="Z39-Tv-v9L"/>
                             <constraint firstAttribute="height" constant="25" id="lbe-cO-eBv"/>
                         </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <state key="normal" title="Button"/>
                     </button>
@@ -65,14 +68,21 @@
                     <constraint firstItem="kf2-eW-se1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="19" id="Nwd-8L-mLd"/>
                     <constraint firstItem="UFH-tN-ZVH" firstAttribute="height" secondItem="SAf-Uf-eSM" secondAttribute="height" id="XW5-T5-w7K"/>
                     <constraint firstItem="SAf-Uf-eSM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="14" id="c2W-Up-78G"/>
-                    <constraint firstItem="UFH-tN-ZVH" firstAttribute="leading" secondItem="kf2-eW-se1" secondAttribute="trailing" constant="86" id="cji-ab-BVA"/>
+                    <constraint firstItem="UFH-tN-ZVH" firstAttribute="leading" secondItem="kf2-eW-se1" secondAttribute="trailing" priority="999" constant="101" id="cji-ab-BVA"/>
                     <constraint firstItem="kf2-eW-se1" firstAttribute="leading" secondItem="few-44-hMS" secondAttribute="trailing" constant="8" id="dQb-vM-JBT"/>
-                    <constraint firstItem="SAf-Uf-eSM" firstAttribute="leading" secondItem="UFH-tN-ZVH" secondAttribute="trailing" constant="14" id="hv7-vt-8lC"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="6Ar-56-Oni" secondAttribute="trailing" constant="191" id="itF-3c-lsV"/>
+                    <constraint firstItem="SAf-Uf-eSM" firstAttribute="leading" secondItem="UFH-tN-ZVH" secondAttribute="trailing" constant="6" id="hv7-vt-8lC"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="6Ar-56-Oni" secondAttribute="trailing" priority="250" constant="191" id="itF-3c-lsV"/>
                     <constraint firstAttribute="topMargin" secondItem="few-44-hMS" secondAttribute="top" id="jOo-8w-UzY"/>
                     <constraint firstItem="UFH-tN-ZVH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="14" id="yWw-qz-8YI"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="bonusLabel" destination="6Ar-56-Oni" id="aDg-uU-caJ"/>
+                <outlet property="brandImageView" destination="few-44-hMS" id="zoU-tH-0JW"/>
+                <outlet property="leftButtonLabel" destination="UFH-tN-ZVH" id="lJB-LG-eYp"/>
+                <outlet property="ratingImageView" destination="kf2-eW-se1" id="lOK-pr-8Z4"/>
+                <outlet property="rightButtonLabel" destination="SAf-Uf-eSM" id="ncv-2y-6Sh"/>
+            </connections>
             <point key="canvasLocation" x="116" y="50"/>
         </tableViewCell>
     </objects>

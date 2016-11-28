@@ -15,4 +15,18 @@
 @property (nonatomic, strong) NSMutableArray *tabbarElements;
 @property (nonatomic) NSInteger activeTab;
 
+@property (weak, nonatomic) IBOutlet UIImageView *paymentMethodImgV2;
+@property (weak, nonatomic) IBOutlet UIImageView *paymentMethodImgV1;
+@property (weak, nonatomic) IBOutlet UIImageView *paymentMethodImgV3;
+@property (weak, nonatomic) IBOutlet UIImageView *paymentMethodImgV4;
+@property (weak, nonatomic) IBOutlet UIImageView *paymentMethodImgV5;
+@property (weak, nonatomic) IBOutlet UIImageView *paymentMethodImgV6;
+@property (weak, nonatomic) IBOutlet UIImageView *paymentMethodImgV7;
+@property (weak, nonatomic) IBOutlet UIImageView *paymentMethodImgV8;
+@property (weak, nonatomic) IBOutlet UIImageView *paymentMethodImgV9;
+@property (weak, nonatomic) IBOutlet UIImageView *swProviderImgV1;
+@property (weak, nonatomic) IBOutlet UIImageView *swProviderImgV2;
+@property (weak, nonatomic) IBOutlet UIImageView *swProviderImgV3;
+@property (weak, nonatomic) IBOutlet UIImageView *swProviderImgV4;
+
 @end
