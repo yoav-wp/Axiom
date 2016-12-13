@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -28,6 +28,8 @@
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating45" translatesAutoresizingMaskIntoConstraints="NO" id="kf2-eW-se1">
                         <rect key="frame" x="107" y="27" width="70" height="15"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="YJX-nZ-VQl"/>
                             <constraint firstAttribute="width" constant="70" id="gJN-95-c6R"/>
@@ -40,17 +42,16 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SAf-Uf-eSM">
-                        <rect key="frame" x="358" y="22" width="74" height="25"/>
+                        <rect key="frame" x="394" y="22" width="38" height="25"/>
                         <color key="backgroundColor" red="0.82633310559999995" green="0.1112478897" blue="0.0099120773379999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <state key="normal" title="Claim"/>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UFH-tN-ZVH">
-                        <rect key="frame" x="278" y="22" width="74" height="25"/>
+                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UFH-tN-ZVH">
+                        <rect key="frame" x="350" y="22" width="38" height="25"/>
                         <color key="backgroundColor" red="0.63317495584487915" green="0.63397121429443359" blue="0.71860367059707642" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="Z39-Tv-v9L"/>
                             <constraint firstAttribute="height" constant="25" id="lbe-cO-eBv"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -68,7 +69,7 @@
                     <constraint firstItem="kf2-eW-se1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="19" id="Nwd-8L-mLd"/>
                     <constraint firstItem="UFH-tN-ZVH" firstAttribute="height" secondItem="SAf-Uf-eSM" secondAttribute="height" id="XW5-T5-w7K"/>
                     <constraint firstItem="SAf-Uf-eSM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="14" id="c2W-Up-78G"/>
-                    <constraint firstItem="UFH-tN-ZVH" firstAttribute="leading" secondItem="kf2-eW-se1" secondAttribute="trailing" priority="999" constant="101" id="cji-ab-BVA"/>
+                    <constraint firstItem="UFH-tN-ZVH" firstAttribute="leading" secondItem="kf2-eW-se1" secondAttribute="trailing" priority="250" constant="20" id="cji-ab-BVA"/>
                     <constraint firstItem="kf2-eW-se1" firstAttribute="leading" secondItem="few-44-hMS" secondAttribute="trailing" constant="8" id="dQb-vM-JBT"/>
                     <constraint firstItem="SAf-Uf-eSM" firstAttribute="leading" secondItem="UFH-tN-ZVH" secondAttribute="trailing" constant="6" id="hv7-vt-8lC"/>
                     <constraint firstAttribute="trailingMargin" secondItem="6Ar-56-Oni" secondAttribute="trailing" priority="250" constant="191" id="itF-3c-lsV"/>
@@ -88,6 +89,6 @@
     </objects>
     <resources>
         <image name="betwaylogo" width="132" height="132"/>
-        <image name="rating45" width="329" height="65"/>
+        <image name="rating45" width="131" height="26"/>
     </resources>
 </document>

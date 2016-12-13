@@ -15,7 +15,7 @@
 -(void) initWithFullURL:(NSString *)fullURL;
 -(NSString *)homepageGetFirstWysiwyg;
 -(NSString *)homepageGetSecondWysiwyg;
--(NSMutableArray *)categoryGetCarousel;
+-(NSArray *)categoryGetCarousel;
 -(NSString *)getPageType;
 -(NSMutableArray *)getTabBarElements;
 -(NSString *)getBaseURL;
@@ -25,6 +25,8 @@
 -(NSArray *)brandReviewGetPaymentMethods;
 -(NSArray *)brandReviewGetSoftwareProviders;
 -(NSString *)brandReviewGetTOSWysiwyg;
+-(NSString *)homePageGetTableTitle;
+-(NSArray *)homepageGetTableWidget;
 
 
 @end

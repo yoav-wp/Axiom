@@ -13,6 +13,7 @@
 
 @interface AppDelegate (){
     NSURLSessionDownloadTask *download;
+    GlobalVars *globals;
 }
 
 @property (nonatomic, strong)NSURLSession *backgroundSession;
@@ -31,10 +32,11 @@
 }
 
 -(void)initGlobalVars{
-    GlobalVars *globals = [GlobalVars sharedInstance];
+    globals = [GlobalVars sharedInstance];
     
 #warning Please, put you main variables here below, and remove this line <----
-    globals.websiteURL = @"http://onlinecasinos.expert/";
+    globals.websiteURL = @"http://review.des/camilla";
+//    globals.websiteURL = @"http://onlinecasinos.expert/homepage.js";
     [AppsFlyerTracker sharedTracker].appsFlyerDevKey = @"p83XLj9oS5NU6xzdjYGJyF";
     [AppsFlyerTracker sharedTracker].appleAppID = @"12345678";
     [AppsFlyerTracker sharedTracker].delegate = self;
@@ -109,8 +111,9 @@
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSLog(@"docs path %@", documentsPath);
     //append file name to path
-    NSString *filePath = [documentsPath stringByAppendingPathComponent:@"plist.xml"];
+    NSString *filePath = [documentsPath stringByAppendingPathComponent:@"menu.plist"];
     NSError *error;
     //remove the file
     BOOL success = [fileManager removeItemAtPath:filePath error:&error];
@@ -129,7 +132,9 @@
     
     //create the download task and run it
     if(download == nil){
-        NSURL *url = [NSURL URLWithString:@"http://onlinecasinos.expert/plist.xml"];
+        NSString *urlString = [@"http://red.palcon.qa" stringByAppendingPathComponent:@"/wp-content/plugins/wcms_frontend/wcms_ajax_handler.php"];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?action=get_native_nav_menu",urlString]];
+//        url = [NSURL URLWithString:@"http://onlinecasinos.expert/plist.xml"];
         download = [_backgroundSession downloadTaskWithURL:url];
         [download resume];
     }
@@ -145,7 +150,7 @@
     NSString *documentDirectoryPath = [paths objectAtIndex:0];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
-    NSURL *destinationURL = [NSURL fileURLWithPath:[documentDirectoryPath stringByAppendingPathComponent:@"plist.xml"]];
+    NSURL *destinationURL = [NSURL fileURLWithPath:[documentDirectoryPath stringByAppendingPathComponent:@"menu.plist"]];
     
     NSError *error = nil;
     
@@ -167,14 +172,14 @@
     
 }
 
-//-(void)showFile:(NSString*)path{
-//    // Check if the file exists
-//    BOOL isFound = [[NSFileManager defaultManager] fileExistsAtPath:path];
-//    if (isFound) {
-//        NSData *data = [NSData dataWithContentsOfFile:path];
-//        NSLog(@" \n\n SHOWING FILE %@\n\n",data);
-//    }
-//}
+-(void)showFile:(NSString*)path{
+    // Check if the file exists
+    BOOL isFound = [[NSFileManager defaultManager] fileExistsAtPath:path];
+    if (isFound) {
+        NSData *data = [NSData dataWithContentsOfFile:path];
+        NSLog(@" \n\n SHOWING FILE %@\n\n",data);
+    }
+}
 
 
 -(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite{

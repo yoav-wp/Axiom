@@ -17,7 +17,9 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "NavigationManager.h"
 
-@interface BrandReviewVC()
+@interface BrandReviewVC(){
+    GlobalVars *globals;
+}
 
 
 @property (weak, nonatomic) IBOutlet UITabBar *tabbar;
@@ -59,7 +61,7 @@ CGFloat maxAccordionHeight = 0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    globals = [GlobalVars sharedInstance];
     //Just add the imageviews to an array,to iterate later
     paymentMethodsImageViewsArray = [NSArray arrayWithObjects:_paymentMethodImgV1, _paymentMethodImgV2, _paymentMethodImgV3, _paymentMethodImgV4, _paymentMethodImgV5, _paymentMethodImgV6, _paymentMethodImgV7, _paymentMethodImgV8, _paymentMethodImgV9, nil];
     softwareProvidersImageViewsArray = [NSArray arrayWithObjects:_swProviderImgV1, _swProviderImgV2, _swProviderImgV3, _swProviderImgV4, nil];
@@ -285,7 +287,6 @@ CGFloat maxAccordionHeight = 0;
 
             [view1 addSubview:wv];
             [wv loadHTMLString:@"<div>second WYSIWYG <b>this is bold</b><p>Lets <a href=\"http://www.onlinecasinos.expert/page4.js\">start</a> a new paragraph and close it</p> this is the second <i>WYSIWYG</i> for thisthe second <i>WYSIWYG</i> for this Homepage Homepage Homepage Homepage<i>WYSIWYG</i> for this Homepage Homepage HomepageHomepage Homepagthe second <i>WYSIWYG</i> for this Homepage Homepage Homepage Homepage<i>WYSIWYG</i> for this Homepage Homepage HomepageHomepage Homepagthe second <i>WYSIWYG</i> for this Homepage Homepage Homepage Homepage<i>WYSIWYG</i>page</div>" baseURL:nil];
-            
             [accordionWVArray addObject:wv];
             
             //update total height for best scrolling
@@ -455,11 +456,12 @@ CGFloat maxAccordionHeight = 0;
     NSString *urlString = [[request URL] absoluteString];
     NavigationManager *nav = [[NavigationManager alloc] init];
     NSLog(@"url : %@",urlString);
-    NSMutableString *website = [NSMutableString stringWithString:[[GlobalVars sharedInstance] websiteURL]];
+    NSMutableString *website = [NSMutableString stringWithString:globals.websiteURL];
     //remove the http if exists
     [website replaceOccurrencesOfString:@"http://" withString:@"" options:NSAnchoredSearch range:NSMakeRange(0, website.length)];
     [website replaceOccurrencesOfString:@"https://" withString:@"" options:NSAnchoredSearch range:NSMakeRange(0, website.length)];
     if([urlString containsString:website]){
+#warning hmm need to pass tags2URLs??
         [nav navigateWithItemID:-42 WithURL:urlString WithURLsDict:_tags2URLs WithSourceVC:self];
         return NO;
     }
@@ -641,6 +643,10 @@ CGFloat maxAccordionHeight = 0;
     }
 }
 
+
+-(void)setConstraintZeroToView:(UIView *)viewToUpdate{
+    [viewToUpdate addConstraint:[NSLayoutConstraint constraintWithItem:viewToUpdate attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:0.]];
+}
 
 
 @end

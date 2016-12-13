@@ -24,7 +24,7 @@
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentDirectoryPath = [paths objectAtIndex:0];
-    NSURL *destinationURL = [NSURL fileURLWithPath:[documentDirectoryPath stringByAppendingPathComponent:@"plist.xml"]];
+    NSURL *destinationURL = [NSURL fileURLWithPath:[documentDirectoryPath stringByAppendingPathComponent:@"menu.plist"]];
     
     NSDictionary *dTmp=[[NSDictionary alloc] initWithContentsOfFile:[destinationURL path]];
     

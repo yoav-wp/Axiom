@@ -17,7 +17,11 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MappingFinder.h"
 
-@interface ViewController ()
+@interface ViewController (){
+    
+    GlobalVars *globals;
+    NSArray *brandsTable;
+}
 
 
 @property (weak, nonatomic) IBOutlet UIScrollView *mainSV;
@@ -31,8 +35,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *GetBannerButton;
 @property (weak, nonatomic) IBOutlet UIView *bannerView;
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
+@property (weak, nonatomic) IBOutlet UIView *midView;
 @property (weak, nonatomic) IBOutlet UILabel *tableTitleLabel;
-
 @end
 
 static NSString * homepageID = @"HomePageSB";
@@ -48,15 +52,18 @@ static NSString * brandRevID = @"brandRevID";
 }
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    globals = [GlobalVars sharedInstance];
     self.pp = [[PalconParser alloc] init];
     _nav = [[NavigationManager alloc] init];
     self.activeTab = 24;
-    [self.pp initWithFullURL:@"http://www.onlinecasinos.expert/homepage.js"];
+    [self.pp initWithFullURL:globals.websiteURL];
 //    self.tabBar.selectedItem= self.tabBar.items[0];
     //for the menu
     self.revealViewController.rightViewRevealOverdraw=4;
     [self.revealViewController panGestureRecognizer];
     [self.revealViewController tapGestureRecognizer];
+    
+    brandsTable = [_pp homepageGetTableWidget];
 }
 
 //call all the widgets initializations
@@ -71,11 +78,6 @@ static NSString * brandRevID = @"brandRevID";
     [self initBanner];
     [self setActiveTabbarItem];
     
-    int index = 3;
-    int num = 123456;
-    int leftPart = num / (pow(10, index));
-    int rightPart = ((int)num % (int)(pow(10,(int)index)));
-    NSLog(@"leftpart : %d rightpart : %d", (int)leftPart, rightPart);
 }
 - (IBAction)closeBannerClick:(id)sender {
     [self removeBanner];
@@ -104,38 +106,53 @@ static NSString * brandRevID = @"brandRevID";
 //#############################Start initializations##############################################
 //Handle widgets initializations
 -(void)initCarousel{
-    
-    //init carousel UI
-    _carouselsv.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.width* 0.462);
-    CGFloat scrollViewWidth = self.carouselsv.frame.size.width;
-    CGFloat scrollViewHeight = self.carouselsv.frame.size.height;
-    //finish UI
-    self.carouselsv.contentSize = CGSizeMake
-    (self.carouselsv.frame.size.width * 4, self.carouselsv.frame.size.height);
-    self.carouselsv.delegate = self;
+
     
     //get carousel from API
-    NSMutableArray *carousel = [self.pp categoryGetCarousel];
+    NSArray *carousel = [_pp categoryGetCarousel];
     
-    NSLog(@"carousel count %ld",carousel.count);
+    NSLog(@"carousel count %@",carousel);
+
+    //init carousel UI
+    CGRect frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.width* 0.462);
+    _carouselsv.frame = frame;
+    CGFloat scrollViewWidth = self.carouselsv.frame.size.width;
+    CGFloat scrollViewHeight = self.carouselsv.frame.size.height;
+    self.carouselsv.contentSize = CGSizeMake(self.carouselsv.frame.size.width * carousel.count, self.carouselsv.frame.size.height);
+    self.carouselsv.delegate = self;
     
+    //Disable this for now, as we use a placeholder for the carousel
+    /*
     if(carousel.count == 0 ){
         [self setConstraintZeroToView:_carouselsv];
         return;
     }
+    */
     
-    //Set carousel data in the imageViews
-    NSMutableArray *carouselImageViewsArray = [NSMutableArray array];
-    int i = 0;
-    for(i = 0; i< carousel.count ; i++){
-        NSDictionary * carouselDict = carousel[i];
-        //NSLog(@"yoav Ya: %@",[carouselDict valueForKey:@"label"] );
+    
+    //first image is a placeholder
+    UIImageView *firstImgV  = [[UIImageView alloc]initWithFrame:CGRectMake(0 * scrollViewWidth, 0, scrollViewWidth, scrollViewHeight)];
+    [firstImgV setImage:[UIImage imageNamed:@"beting"]];
+    [self.carouselsv addSubview:firstImgV];
+    
+    int i;
+    for(i = 0; i < carousel.count; i++){
+        UIImageView *imView = [[UIImageView alloc]initWithFrame:CGRectMake((i+1) * scrollViewWidth, 0, scrollViewWidth, scrollViewHeight)];
+        NSURL *imgURL = [NSURL URLWithString:[carousel[i] valueForKey:@"brand_logo"]];
+        [imView sd_setImageWithURL:imgURL];
+        [self.carouselsv addSubview:imView];
         
-        carouselImageViewsArray[i] = [[UIImageView alloc]initWithFrame:CGRectMake(i * scrollViewWidth, 0, scrollViewWidth, scrollViewHeight)];
-        NSURL *imgURL = [NSURL URLWithString:[carouselDict valueForKey:@"image_url"]];
-        [carouselImageViewsArray[i] sd_setImageWithURL:imgURL];
-        [self.carouselsv addSubview:carouselImageViewsArray[i]];
+        //add touch event handler to the imageView
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navigateFromCarouselToURL)];
+        imView.tag = i;
+        [imView addGestureRecognizer:singleTap];
+        [imView setUserInteractionEnabled:YES];
+//        [imView performSelector:@selector(navigateFromCarouselToURL:) withObject:[carousel[i] valueForKey:@"review_url"]];
     }
+}
+
+-(void)navigateFromCarouselToURL{
+    [_nav navigateWithItemID:-42 WithURL:nil WithURLsDict:nil WithSourceVC:self];
 }
 
 //menu tag: 42, homepage tag: 24
@@ -153,26 +170,33 @@ static NSString * brandRevID = @"brandRevID";
     //Homepage and menu position in the json array doesnt matter, for the others it does.
     for(i = 0; i < self.tabbarElements.count; i++){
         NSDictionary *tabbarDict = self.tabbarElements[i];
+        UIImage * iconImage;
+        NSString *imageURL = [tabbarDict valueForKey:@"image_url"];
+        if(imageURL && [imageURL containsString:@"http"]){
+            iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+        }else{
+            imageURL = nil;
+        }
+        
         UITabBarItem *item;
         if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"share_item"]){
-            UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+            iconImage = [UIImage imageNamed:@"share_30x30"];
             shareItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:84];
 //            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:84]];
             continue;
         }
         if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"menu_item"]){
-            UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+            iconImage = [UIImage imageNamed:@"menu_30x30"];
             menuItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:42];
 //            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:42]];
             continue;
         }
         if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"homepage_item"]){
-            UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+            iconImage = [UIImage imageNamed:@"home_30x30"];
             homeItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:24];
             [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:24]];
             continue;
         }
-        UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
         item = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:10+i];
         [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:10+i]];
         [tabBarArray addObject:item];
@@ -203,10 +227,14 @@ static NSString * brandRevID = @"brandRevID";
     }
     
 //    NSLog(@"screen size %f, font size: %@", width, fontSize);
-    
-    NSString *htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:grey;font-size:%@\">%@</spann>",fontSize,[self.pp homepageGetFirstWysiwyg]];
-    [_firstWYSIWYG loadHTMLString:htmlString baseURL:nil];
-    _firstWYSIWYG.scrollView.scrollEnabled = NO;
+    NSString *htmlString = [self.pp homepageGetFirstWysiwyg];
+    if(htmlString.length < 8){
+        [self setConstraintZeroToView:_firstWYSIWYG];
+    }else{
+        htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:grey;font-size:%@\">%@</spann>",fontSize,htmlString];
+        [_firstWYSIWYG loadHTMLString:htmlString baseURL:nil];
+        _firstWYSIWYG.scrollView.scrollEnabled = NO;
+    }
 }
 
 
@@ -250,10 +278,14 @@ static NSString * brandRevID = @"brandRevID";
     }
     
     //    NSLog(@"screen size %f, font size: %@", width, fontSize);
-    
-    NSString *htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:grey;font-size:%@\">%@</span>",fontSize,[self.pp homepageGetSecondWysiwyg]];
-    [_secondWYSIWYG loadHTMLString:htmlString baseURL:nil];
-    _secondWYSIWYG.scrollView.scrollEnabled = NO;
+    NSString *htmlString = [self.pp homepageGetSecondWysiwyg];
+    if(htmlString.length < 8){
+        [self setConstraintZeroToView:_secondWYSIWYG];
+    }else{
+        htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:grey;font-size:%@\">%@</spann>",fontSize,htmlString];
+        [_secondWYSIWYG loadHTMLString:htmlString baseURL:nil];
+        _secondWYSIWYG.scrollView.scrollEnabled = NO;
+    }
 }
 
 
@@ -299,13 +331,14 @@ static NSString * brandRevID = @"brandRevID";
 
 
 -(void) initTableView{
+    NSUInteger nbRows = brandsTable.count;
     
-    int nbRows = 3;
+    if (nbRows < 1){
+        [self setConstraintZeroToView:_midView];
+    }
     _brandsTableViewHeightConst.constant = 90.0f * nbRows;
     [_brandsTableView registerNib:[UINib nibWithNibName:NSStringFromClass([HomePageTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([HomePageTableViewCell class])];
     [_brandsTableView setScrollEnabled:NO];
-    
-    
 }
 
 //handle tableView
@@ -321,7 +354,22 @@ static NSString * brandRevID = @"brandRevID";
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HomePageTableViewCell *appCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HomePageTableViewCell class]) forIndexPath:indexPath];
-    [appCell.leftButtonLabel setTitle:[NSString stringWithFormat:@"Review %ld", indexPath.row] forState:UIControlStateNormal];
+    
+    //2 buttons
+    [appCell.leftButtonLabel setTitle:[brandsTable[indexPath.row] valueForKey:@"review_link"] forState:UIControlStateNormal];
+    [appCell.rightButtonLabel setTitle:[brandsTable[indexPath.row] valueForKey:@"button_text"] forState:UIControlStateNormal];
+    
+    //brand logo
+    [appCell.brandImageView sd_setImageWithURL:[brandsTable[indexPath.row] valueForKey:@"brand_logo"]];
+    
+    //bonus text
+    [appCell.bonusLabel setText:[brandsTable[indexPath.row] valueForKey:@"bonus_text"]];
+    
+    //rating
+    [appCell.ratingImageView setImage:[UIImage imageNamed:@"rating35"]];
+    appCell.ratingImageView.image = [appCell.ratingImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [appCell.ratingImageView setTintColor:[UIColor grayColor]];
+    
     return appCell;
 }
 
@@ -337,7 +385,6 @@ static NSString * brandRevID = @"brandRevID";
 
 //Handle tabBar clicks
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
-    NSLog(@"tag : %ld",item.tag);
     if (item.tag == 42){
         [self.revealViewController rightRevealToggle:self];
     }else if(item.tag == 84){

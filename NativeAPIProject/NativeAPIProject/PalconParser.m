@@ -8,12 +8,15 @@
 
 #import "PalconParser.h"
 #import "CJSONDeserializer.h"
+#import "GlobalVars.h"
+#import <UIKit/UIKit.h>
 
 @implementation PalconParser
 
 -(void) initWithFullURL:(NSString *)fullURL{
     
     self.fullURL = [fullURL stringByAppendingString:@"?context_to_json=1"];
+    NSLog(@"full url after concat : %@",_fullURL);
     [self initDataDictionary];
 }
 
@@ -21,6 +24,7 @@
     NSError *theError = nil;
     NSData *theJSONData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.fullURL]];
     self.pageDataDictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:theJSONData error:&theError];
+    NSLog(@"page dictiona : %@",self.pageDataDictionary);
 }
 
 -(NSString *)getPageType{
@@ -30,13 +34,17 @@
 
 
 -(NSString *)homepageGetFirstWysiwyg {
-    NSString *baseString = [self.pageDataDictionary valueForKey:@"introduction_text"];
+    NSString *baseString = [self.pageDataDictionary valueForKey:@"introduction"];
     
     return baseString;
 }
 
+-(NSString *)homePageGetTableTitle{
+    return [self.pageDataDictionary valueForKey:@"page_title"];
+}
+
 -(NSString *)homepageGetSecondWysiwyg {
-    NSString *baseString = [self.pageDataDictionary valueForKey:@"second_wysiwyg"];
+    NSString *baseString = [self.pageDataDictionary valueForKey:@"content_text_2"];
     
     return baseString;
 }
@@ -82,8 +90,9 @@
 }
 
 
--(NSMutableArray *)categoryGetCarousel {
-    return [self.pageDataDictionary valueForKey:@"carousel"];
+-(NSArray *)categoryGetCarousel {
+    NSArray *arr = [[_pageDataDictionary valueForKey:@"native_app_widget_1"] valueForKey:@"widgets_arr"];
+    return arr;
 }
 
 -(NSArray *)brandReviewGetPaymentMethods{
@@ -98,19 +107,25 @@
     return [self.pageDataDictionary valueForKey:@"content_1"];
 }
 
-//ask R&D to have site url in each page, to avoid multiple connections to API
--(NSString *)getBaseURL{
-    return [self.pageDataDictionary valueForKey:@"website_url"];
+
+-(NSArray *)homepageGetTableWidget{
+    return [[_pageDataDictionary valueForKey:@"native_app_widget_2"] valueForKey:@"widgets_arr"];
 }
 
 -(NSMutableArray *)getTabBarElements{
-    NSString *baseURL = [self getBaseURL];
-    NSString *tabBarURL = [NSString stringWithFormat:@"%@/tabbar.js",baseURL];
+    GlobalVars *globals = [GlobalVars sharedInstance];
+    
+    NSURL *url = [[NSURL URLWithString:globals.websiteURL] URLByAppendingPathComponent:@"/wp-content/plugins/wcms_frontend/wcms_ajax_handler.php"];
+    url = [NSURL URLWithString:@"?action=get_app_tab_bar" relativeToURL:url];
+    
+    url = [NSURL URLWithString:@"http://onlinecasinos.expert/tabbar.php"];
+    NSLog(@"pp : TABBAR URL : %@",[url absoluteString]);
     NSError *theError = nil;
-    NSData *theJSONData = [NSData dataWithContentsOfURL:[NSURL URLWithString:tabBarURL]];
+    NSData *theJSONData = [NSData dataWithContentsOfURL:url];
+    
     NSDictionary *tabbarDict = [[CJSONDeserializer deserializer] deserializeAsDictionary:theJSONData error:&theError];
     NSMutableArray *tabbarArray;
-    
+    NSLog(@"tabbardata : %@", tabbarDict);
     for (id key in tabbarDict) {
         if([key isEqualToString:@"tabbar"]){
             tabbarArray =[tabbarDict objectForKey:key];
