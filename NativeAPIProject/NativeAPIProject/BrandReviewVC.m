@@ -244,7 +244,12 @@ CGFloat maxAccordionHeight = 0;
         
         buttonImgView = [[UIImageView alloc] initWithFrame:CGRectMake(buttonImgX, 5, buttonImgWidth, 20)];
         [header1 addSubview:buttonImgView];
-        [buttonImgView setImage:[UIImage imageNamed:@"accordion_arrow"]];
+        [buttonImgView setImage:[UIImage imageNamed:@"arrow_down"]];
+        [buttonImgView setBackgroundColor:[UIColor whiteColor]];
+        buttonImgView.image = [buttonImgView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [buttonImgView setTintColor:[UIColor grayColor]];
+        buttonImgView.backgroundColor = [UIColor whiteColor];
+        
         
         [buttonImgView setContentMode:UIViewContentModeScaleAspectFit];
         buttonImgView.tag = 10;
@@ -256,8 +261,11 @@ CGFloat maxAccordionHeight = 0;
         }
         //if last element, we rotate it 90
         if(i == 3){
-            UIImage *rotated = [self upsideDownBunny:M_PI/2 withImage:buttonImgView.image];
+            UIImage *rotated = [self upsideDownBunny:-M_PI/2 withImage:buttonImgView.image];
             buttonImgView.image = rotated;
+            //avoid rotating on click
+            buttonImgView.tag = 11;
+            [buttonImgView setTintColor:[UIColor redColor]];
         }
         
         [header1 addTarget:self action:@selector(changeAccordionArrowOrientation:) forControlEvents:UIControlEventTouchUpInside];
@@ -295,7 +303,6 @@ CGFloat maxAccordionHeight = 0;
             //if last element
             header1.backgroundColor = [UIColor colorWithRed:76/255.0 green:75/255.0 blue:89/255.0 alpha:1];
             [header1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [buttonImgView setTintColor:[UIColor redColor]];
         }
         
     }
@@ -321,6 +328,7 @@ CGFloat maxAccordionHeight = 0;
         imgSize = [img size]; // this size will be pre rotated
         orientation = [img imageOrientation];
         cgImg = CGImageRetain([img CGImage]); // this data is not rotated
+        
     };
     if([NSThread isMainThread]) {
         createStartImgBlock();
@@ -368,6 +376,8 @@ CGFloat maxAccordionHeight = 0;
     dispatch_block_t createRotatedImgBlock = ^(void) {
         // UIImages should only be accessed from the main thread
         newImage = [UIImage imageWithCGImage:newCgImg];
+        newImage = [newImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        
     };
     if([NSThread isMainThread]) {
         createRotatedImgBlock();
@@ -381,7 +391,7 @@ CGFloat maxAccordionHeight = 0;
 }
 
 
-
+// will rotate by 180
 -(void)changeAccordionArrowOrientation:(id) sender{
     UIButton *button = (UIButton *) sender;
     for (UIView *i in button.subviews){
@@ -389,40 +399,8 @@ CGFloat maxAccordionHeight = 0;
             UIImageView *imgV = (UIImageView *)i;
             if(imgV.tag == 10){
                 UIImage *rotated = [self upsideDownBunny:M_PI withImage:imgV.image];
+                [rotated imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
                 imgV.image = rotated;
-                
-                //attempts to display an animation - not working
-                
-                
-/*
-                [UIView animateWithDuration:0.5f animations:^{
-                    [imgV setTransform:CGAffineTransformMakeRotation(M_PI)];
-                }];
-
-
-                
-                CABasicAnimation* rotationAnimation;
-                rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-                rotationAnimation.fromValue = 0;
-                rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 1* 1 ];
-                rotationAnimation.duration = 0.5f;
-                rotationAnimation.cumulative = NO;
-                rotationAnimation.repeatCount = 0;
-                rotationAnimation.removedOnCompletion = YES;
-                
-                [imgV.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
-                
-                
-                
-                [UIView beginAnimations:nil context:NULL];
-                [UIView setAnimationDuration:0.25]; // Set how long your animation goes for
-                [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-                
-                imgV.transform = CGAffineTransformMakeRotation(M_PI); // if angle is in radians
-                
-                [UIView commitAnimations];
- */
-                
             }
         }
     }
