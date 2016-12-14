@@ -36,6 +36,7 @@
 @property (weak, nonatomic) IBOutlet UIView *bannerView;
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
 @property (weak, nonatomic) IBOutlet UIView *midView;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UILabel *tableTitleLabel;
 @end
 
@@ -77,7 +78,6 @@ static NSString * brandRevID = @"brandRevID";
     [self initTabBar];
     [self initBanner];
     [self setActiveTabbarItem];
-    
 }
 - (IBAction)closeBannerClick:(id)sender {
     [self removeBanner];
@@ -111,14 +111,16 @@ static NSString * brandRevID = @"brandRevID";
     //get carousel from API
     NSArray *carousel = [_pp categoryGetCarousel];
     
-    NSLog(@"carousel count %@",carousel);
+    //init pageControll number of dots (+1 if placeholder)
+    [_pageControl setNumberOfPages:carousel.count + 1];
 
     //init carousel UI
     CGRect frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.width* 0.462);
     _carouselsv.frame = frame;
     CGFloat scrollViewWidth = self.carouselsv.frame.size.width;
     CGFloat scrollViewHeight = self.carouselsv.frame.size.height;
-    self.carouselsv.contentSize = CGSizeMake(self.carouselsv.frame.size.width * carousel.count, self.carouselsv.frame.size.height);
+    //+1 if we use placeholder
+    self.carouselsv.contentSize = CGSizeMake(self.carouselsv.frame.size.width * (carousel.count+1), self.carouselsv.frame.size.height);
     self.carouselsv.delegate = self;
     
     //Disable this for now, as we use a placeholder for the carousel
@@ -143,16 +145,18 @@ static NSString * brandRevID = @"brandRevID";
         [self.carouselsv addSubview:imView];
         
         //add touch event handler to the imageView
-        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navigateFromCarouselToURL)];
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navigateFromCarouselToURL:)];
         imView.tag = i;
         [imView addGestureRecognizer:singleTap];
         [imView setUserInteractionEnabled:YES];
+#warning TODO
 //        [imView performSelector:@selector(navigateFromCarouselToURL:) withObject:[carousel[i] valueForKey:@"review_url"]];
     }
 }
 
--(void)navigateFromCarouselToURL{
-    [_nav navigateWithItemID:-42 WithURL:nil WithURLsDict:nil WithSourceVC:self];
+-(void)navigateFromCarouselToURL:(NSString *)urlStr{
+    NSLog(@"touched !");
+//    [_nav navigateWithItemID:-42 WithURL:nil WithURLsDict:nil WithSourceVC:self];
 }
 
 //menu tag: 42, homepage tag: 24
@@ -468,7 +472,9 @@ static NSString * brandRevID = @"brandRevID";
 //	CGFloat pageWidth = CGRectGetWidth(scrollView.frame);
 //	CGFloat currentPage = floor((scrollView.contentOffset.y - pageWidth/2)/pageWidth)+1;
 	
-	NSLog(@"scroll y: %f", scrollView.contentOffset.y);
+    NSInteger page = scrollView.contentOffset.x / 375;
+    _pageControl.currentPage = page;
+    
 }
 
 

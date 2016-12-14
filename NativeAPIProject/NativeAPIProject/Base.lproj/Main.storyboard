@@ -53,17 +53,26 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="598"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0kK-jM-Zxw">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="618.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="619.5"/>
                                         <subviews>
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jxa-lW-vQC" userLabel="CarouselSroll">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="173.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="174"/>
                                                 <color key="backgroundColor" red="0.17254901959999999" green="0.16862745100000001" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="jxa-lW-vQC" secondAttribute="height" multiplier="2.16" id="e57-j5-kHT"/>
                                                 </constraints>
                                             </scrollView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Online Betting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lxb-uB-M9O">
+                                                <rect key="frame" x="12" y="138.5" width="156.5" height="27.5"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Sqd-Ly-b0z">
+                                                <rect key="frame" x="328" y="141" width="39" height="37"/>
+                                            </pageControl>
                                             <webView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sxp-GM-tFt">
-                                                <rect key="frame" x="0.0" y="181" width="375" height="1"/>
+                                                <rect key="frame" x="0.0" y="182" width="375" height="1"/>
                                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="zBZ-FW-aE2"/>
@@ -73,7 +82,7 @@
                                                 </connections>
                                             </webView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4xd-r1-JDU" userLabel="Mid View">
-                                                <rect key="frame" x="0.0" y="218.5" width="375" height="300"/>
+                                                <rect key="frame" x="0.0" y="219.5" width="375" height="300"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="L5z-vP-emv">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
@@ -89,7 +98,7 @@
                                                                 <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KjB-A7-mW6" id="eop-eF-qDL">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </tableViewCellContentView>
                                                                 <color key="backgroundColor" red="0.96070343255996704" green="0.96083790063858032" blue="0.96066111326217651" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -110,7 +119,7 @@
                                                 </constraints>
                                             </view>
                                             <webView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZBB-Au-ysG">
-                                                <rect key="frame" x="0.0" y="518.5" width="375" height="100"/>
+                                                <rect key="frame" x="0.0" y="519.5" width="375" height="100"/>
                                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="ywN-1L-pZq"/>
@@ -120,7 +129,7 @@
                                                 </connections>
                                             </webView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u3p-5t-yXR">
-                                                <rect key="frame" x="8" y="190" width="42" height="20.5"/>
+                                                <rect key="frame" x="8" y="191" width="42" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -133,6 +142,9 @@
                                             <constraint firstItem="4xd-r1-JDU" firstAttribute="leading" secondItem="0kK-jM-Zxw" secondAttribute="leading" id="BXe-BW-YPd"/>
                                             <constraint firstItem="ZBB-Au-ysG" firstAttribute="leading" secondItem="0kK-jM-Zxw" secondAttribute="leading" id="FgI-Ei-rNh"/>
                                             <constraint firstAttribute="trailing" secondItem="sxp-GM-tFt" secondAttribute="trailing" id="HaJ-yJ-GHp"/>
+                                            <constraint firstItem="sxp-GM-tFt" firstAttribute="top" secondItem="Sqd-Ly-b0z" secondAttribute="bottom" constant="4" id="IIG-vH-UeP"/>
+                                            <constraint firstItem="sxp-GM-tFt" firstAttribute="top" secondItem="Lxb-uB-M9O" secondAttribute="bottom" constant="16" id="Jgp-Kk-aoZ"/>
+                                            <constraint firstAttribute="trailing" secondItem="Sqd-Ly-b0z" secondAttribute="trailing" constant="8" id="LNT-qD-lGN"/>
                                             <constraint firstAttribute="trailing" secondItem="jxa-lW-vQC" secondAttribute="trailing" id="NEj-oP-1Ko"/>
                                             <constraint firstItem="jxa-lW-vQC" firstAttribute="leading" secondItem="0kK-jM-Zxw" secondAttribute="leading" id="e4S-TO-W6o"/>
                                             <constraint firstItem="jxa-lW-vQC" firstAttribute="top" secondItem="0kK-jM-Zxw" secondAttribute="top" id="hyp-Rh-fSf"/>
@@ -142,6 +154,7 @@
                                             <constraint firstAttribute="trailing" secondItem="4xd-r1-JDU" secondAttribute="trailing" id="nrn-Fr-7eJ"/>
                                             <constraint firstItem="sxp-GM-tFt" firstAttribute="leading" secondItem="0kK-jM-Zxw" secondAttribute="leading" id="oC0-RQ-s3z"/>
                                             <constraint firstItem="sxp-GM-tFt" firstAttribute="top" secondItem="jxa-lW-vQC" secondAttribute="bottom" constant="8" id="tsF-ak-bTb"/>
+                                            <constraint firstItem="Lxb-uB-M9O" firstAttribute="leading" secondItem="0kK-jM-Zxw" secondAttribute="leading" constant="12" id="yoa-5N-QAx"/>
                                             <constraint firstItem="4xd-r1-JDU" firstAttribute="top" secondItem="u3p-5t-yXR" secondAttribute="bottom" constant="8" id="zZF-0G-1XH"/>
                                         </constraints>
                                     </view>
@@ -250,6 +263,7 @@
                         <outlet property="firstWYSIWYG" destination="sxp-GM-tFt" id="Ig0-L3-f0M"/>
                         <outlet property="mainSV" destination="tcn-ub-hmz" id="SgU-qT-bm9"/>
                         <outlet property="midView" destination="4xd-r1-JDU" id="lSh-pN-yec"/>
+                        <outlet property="pageControl" destination="Sqd-Ly-b0z" id="zjJ-rq-XiI"/>
                         <outlet property="secondWVHeight" destination="ywN-1L-pZq" id="DJ6-cc-Ydl"/>
                         <outlet property="secondWYSIWYG" destination="ZBB-Au-ysG" id="mO2-us-NPr"/>
                         <outlet property="tabBar" destination="X42-iA-NvH" id="T87-Re-w2v"/>
