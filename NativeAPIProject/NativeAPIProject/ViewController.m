@@ -17,6 +17,8 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MappingFinder.h"
 
+#define MAX_CAROUSEL_SIZE 10
+
 @interface ViewController (){
     
     GlobalVars *globals;
@@ -53,28 +55,31 @@ static NSString * brandRevID = @"brandRevID";
 }
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    
     globals = [GlobalVars sharedInstance];
+    
     self.pp = [[PalconParser alloc] init];
     _nav = [[NavigationManager alloc] init];
+    
     self.activeTab = 24;
     [self.pp initWithFullURL:globals.websiteURL];
-//    self.tabBar.selectedItem= self.tabBar.items[0];
+    
     //for the menu
     self.revealViewController.rightViewRevealOverdraw=4;
     [self.revealViewController panGestureRecognizer];
     [self.revealViewController tapGestureRecognizer];
     
     brandsTable = [_pp homepageGetTableWidget];
+    [self initTableView];
 }
 
 //call all the widgets initializations
 //better view WILL appear, did appear for debug
--(void)viewWillAppear:(BOOL)animated{
+-(void)viewDidAppear:(BOOL)animated{
     // Do any additional setup after loading the view, typically from a nib.
     [self initFirstWysiwyg];
     [self initSecondWysiwyg];
     [self initCarousel];
-    [self initTableView];
     [self initTabBar];
     [self initBanner];
     [self setActiveTabbarItem];
@@ -103,10 +108,8 @@ static NSString * brandRevID = @"brandRevID";
     [_GetBannerButton.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
 }
 
-//#############################Start initializations##############################################
 //Handle widgets initializations
 -(void)initCarousel{
-
     
     //get carousel from API
     NSArray *carousel = [_pp categoryGetCarousel];
@@ -119,7 +122,7 @@ static NSString * brandRevID = @"brandRevID";
     _carouselsv.frame = frame;
     CGFloat scrollViewWidth = self.carouselsv.frame.size.width;
     CGFloat scrollViewHeight = self.carouselsv.frame.size.height;
-    //+1 if we use placeholder
+    //+1 because we use placeholder
     self.carouselsv.contentSize = CGSizeMake(self.carouselsv.frame.size.width * (carousel.count+1), self.carouselsv.frame.size.height);
     self.carouselsv.delegate = self;
     
@@ -131,10 +134,12 @@ static NSString * brandRevID = @"brandRevID";
     }
     */
     
-    
     //first image is a placeholder
     UIImageView *firstImgV  = [[UIImageView alloc]initWithFrame:CGRectMake(0 * scrollViewWidth, 0, scrollViewWidth, scrollViewHeight)];
     [firstImgV setImage:[UIImage imageNamed:@"beting"]];
+    
+    //for now - placeholder - no navigation link
+    firstImgV.tag = 300;
     [self.carouselsv addSubview:firstImgV];
     
     int i;
@@ -149,17 +154,17 @@ static NSString * brandRevID = @"brandRevID";
         imView.tag = i;
         [imView addGestureRecognizer:singleTap];
         [imView setUserInteractionEnabled:YES];
-#warning TODO
-//        [imView performSelector:@selector(navigateFromCarouselToURL:) withObject:[carousel[i] valueForKey:@"review_url"]];
     }
 }
 
--(void)navigateFromCarouselToURL:(NSString *)urlStr{
-    NSLog(@"touched !");
-//    [_nav navigateWithItemID:-42 WithURL:nil WithURLsDict:nil WithSourceVC:self];
+-(void)navigateFromCarouselToURL:(UIGestureRecognizer *) sender{
+    if(sender.view.tag < MAX_CAROUSEL_SIZE){
+        NSArray *carousel = [_pp categoryGetCarousel];
+        NSString *urlString = [carousel[0] valueForKey:@"review_url"];
+        [_nav navigateWithItemID:-42 WithURL:urlString WithURLsDict:nil WithSourceVC:self];
+    }
 }
 
-//menu tag: 42, homepage tag: 24
 -(void)initTabBar{
     _tags2URLs = [[NSMutableDictionary alloc] init];
     NSMutableArray *tabBarArray;
@@ -181,18 +186,15 @@ static NSString * brandRevID = @"brandRevID";
         }else{
             imageURL = nil;
         }
-        
         UITabBarItem *item;
         if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"share_item"]){
             iconImage = [UIImage imageNamed:@"share_30x30"];
             shareItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:84];
-//            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:84]];
             continue;
         }
         if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"menu_item"]){
             iconImage = [UIImage imageNamed:@"menu_30x30"];
             menuItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:42];
-//            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:42]];
             continue;
         }
         if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"homepage_item"]){
@@ -230,7 +232,6 @@ static NSString * brandRevID = @"brandRevID";
         fontSize = @"2em";
     }
     
-//    NSLog(@"screen size %f, font size: %@", width, fontSize);
     NSString *htmlString = [self.pp homepageGetFirstWysiwyg];
     if(htmlString.length < 8){
         [self setConstraintZeroToView:_firstWYSIWYG];
@@ -251,7 +252,6 @@ static NSString * brandRevID = @"brandRevID";
         frame.size = fittingSize;
         _firstWYSIWYG.frame = frame;
         _firstWVHeight.constant = frame.size.height;
-        NSLog(@"aaa%f", frame.size.height);
     }
     else if(webView.tag == 2){
         CGRect frame = _secondWYSIWYG.frame;
@@ -261,7 +261,6 @@ static NSString * brandRevID = @"brandRevID";
         frame.size = fittingSize;
         _secondWYSIWYG.frame = frame;
         _secondWVHeight.constant = frame.size.height;
-        NSLog(@"bbb%f", frame.size.height);
     }
     
 }
@@ -272,7 +271,6 @@ static NSString * brandRevID = @"brandRevID";
     
     CGFloat width = screenRect.size.width;
     NSString *fontSize = @"";
-//    NSLog(@"screen size %f", width);
     if(width <= 400){
         fontSize = @"1em";
     }else if(width <= 500){
@@ -292,31 +290,15 @@ static NSString * brandRevID = @"brandRevID";
     }
 }
 
-
-/**
- If I wanna handle click on link on a TextView, impl. this
-
- @param textView
- @param URL
- @param characterRange
- @return
- */
-- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange{
-    NSLog(@"bla bla %@", [URL absoluteString]);
-    return NO;
-}
-
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     
     //open page from wysiwyg
     NSString *urlString = [[request URL] absoluteString];
     NavigationManager *nav = [[NavigationManager alloc] init];
-    NSLog(@"url : %@",urlString);
     if([urlString containsString:[[GlobalVars sharedInstance] websiteURL]]){
         [nav navigateWithItemID:-42 WithURL:urlString WithURLsDict:_tags2URLs WithSourceVC:self];
         return NO;
     }
-    
     
     //MappingFinderPart
     MappingFinder *st = [MappingFinder getMFObject];
@@ -329,10 +311,6 @@ static NSString * brandRevID = @"brandRevID";
      }
     return YES;
 }
-
-
-
-
 
 -(void) initTableView{
     NSUInteger nbRows = brandsTable.count;
@@ -382,10 +360,6 @@ static NSString * brandRevID = @"brandRevID";
     // Dispose of any resources that can be recreated.
 }
 
-//################################End of initializations###########################################
-
-//################################Start of Events Handling###########################################
-
 
 //Handle tabBar clicks
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
@@ -404,8 +378,9 @@ static NSString * brandRevID = @"brandRevID";
 //Sharing
 -(void)handleSharingEvent{
     // create a message
-    NSString *theMessage = [self.pp fullURL];
-    NSArray *items = @[@"hello", [UIImage imageNamed:@"betwaylogo"]];
+    NSString *urlToShare = [self.pp fullURL];
+//    NSArray *items = @[theMessage, [UIImage imageNamed:@"betwaylogo"]];
+    NSArray *items = @[urlToShare];
     
     // build an activity view controller
     UIActivityViewController *controller = [[UIActivityViewController alloc]initWithActivityItems:items applicationActivities:nil];
@@ -439,13 +414,10 @@ static NSString * brandRevID = @"brandRevID";
             
             // user shared an item
             NSLog(@"We used activity type%@", activityType);
-            
         } else {
-            
             // user cancelled
             NSLog(@"We didn't want to share anything after all.");
         }
-        
         if (error) {
             NSLog(@"An Error occured: %@, %@", error.localizedDescription, error.localizedFailureReason);
         }
@@ -477,17 +449,6 @@ static NSString * brandRevID = @"brandRevID";
     
 }
 
-
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-//	if(scrollView.tag == 1){
-//		NSLog(@"moving main");
-//	}
-//	if(scrollView.tag == 2){
-//		NSLog(@"moving carousel");
-//	}
-}
-
-//################################Start of Events Handling###########################################
 
 -(void)setConstraintZeroToView:(UIView *)viewToUpdate{
     [viewToUpdate addConstraint:[NSLayoutConstraint constraintWithItem:viewToUpdate attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:0.]];

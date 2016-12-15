@@ -16,15 +16,15 @@
 -(void) initWithFullURL:(NSString *)fullURL{
     
     self.fullURL = [fullURL stringByAppendingString:@"?context_to_json=1"];
-    NSLog(@"full url after concat : %@",_fullURL);
     [self initDataDictionary];
 }
 
 -(void)initDataDictionary{
     NSError *theError = nil;
+    NSLog(@"pp - starting page download download");
     NSData *theJSONData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.fullURL]];
     self.pageDataDictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:theJSONData error:&theError];
-    NSLog(@"page dictiona : %@",self.pageDataDictionary);
+    NSLog(@"pp - finished page download");
 }
 
 -(NSString *)getPageType{
@@ -61,7 +61,6 @@
     int i = 0;
     NSMutableArray *tabs = [self getBrandReviewTabs];
     for(i = 0; i< tabs.count; i++){
-        NSLog(@" yo yo%@ ",[tabs[i] valueForKey:@"id"]);
         if([[tabs[i] valueForKey:@"id"] integerValue] == 2){
             s = [tabs[i] valueForKey:@"wysiwyg"];
             break;
@@ -119,13 +118,12 @@
     url = [NSURL URLWithString:@"?action=get_app_tab_bar" relativeToURL:url];
     
     url = [NSURL URLWithString:@"http://onlinecasinos.expert/tabbar.php"];
-    NSLog(@"pp : TABBAR URL : %@",[url absoluteString]);
     NSError *theError = nil;
+    NSLog(@"starting tabbar download");
     NSData *theJSONData = [NSData dataWithContentsOfURL:url];
-    
+    NSLog(@"finished tabbar download");
     NSDictionary *tabbarDict = [[CJSONDeserializer deserializer] deserializeAsDictionary:theJSONData error:&theError];
     NSMutableArray *tabbarArray;
-    NSLog(@"tabbardata : %@", tabbarDict);
     for (id key in tabbarDict) {
         if([key isEqualToString:@"tabbar"]){
             tabbarArray =[tabbarDict objectForKey:key];
