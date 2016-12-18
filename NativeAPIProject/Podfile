@@ -6,6 +6,8 @@ target 'NativeAPIProject' do
   # use_frameworks!
 pod 'SDWebImage', '~>3.7'
 pod ‘AppsFlyerFramework'
+pod 'GoogleAppIndexing'
+pod 'Firebase'
   # Pods for NativeAPIProject
   target 'NativeAPIProjectTests' do
     inherit! :search_paths

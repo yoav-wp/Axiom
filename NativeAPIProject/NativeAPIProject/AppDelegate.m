@@ -10,6 +10,7 @@
 #import <AppsFlyerTracker/AppsFlyerTracker.h>
 #import "GlobalVars.h"
 #import "MappingFinder.h"
+@import Firebase;
 
 @interface AppDelegate (){
     NSURLSessionDownloadTask *download;
@@ -27,6 +28,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self initGlobalVars];
+    //[FIRApp configure];
     [self removeAndDownloadMenu];
     return YES;
 }
@@ -41,6 +43,16 @@
     [AppsFlyerTracker sharedTracker].appleAppID = @"12345678";
     [AppsFlyerTracker sharedTracker].delegate = self;
     
+}
+
+-(BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler{
+    if([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]){
+        NSURL *url = userActivity.webpageURL;
+        NSDictionary *aDict=[NSDictionary dictionaryWithObject:url.absoluteString forKey:@"urlToLoad"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadRequestFromAppDel" object:Nil userInfo:aDict];
+    }
+    NSLog(@"bla");
+    return YES;
 }
 
 

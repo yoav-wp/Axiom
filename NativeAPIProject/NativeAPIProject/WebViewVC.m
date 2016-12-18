@@ -54,6 +54,10 @@ static NSString * categoryID = @"categoryVC";
     NSString *url = [[request URL] absoluteString];
     NavigationManager *nav = [[NavigationManager alloc] init];
     NSLog(@"url : %@",url);
+    
+    if(webView.tag == 1){
+        return YES;
+    }
     if([url containsString:@"onlinecasinos.expert"]){
         [nav navigateWithItemID:-42 WithURL:url WithURLsDict:_tags2URLs WithSourceVC:self];
         return NO;
@@ -82,7 +86,7 @@ static NSString * categoryID = @"categoryVC";
 
 -(void) initWebView{
 //    NSURL *url = [NSURL URLWithString:[self.pp getBaseURL]];
-    NSURL *url = [NSURL URLWithString:@"http://www.norskcasino.com/"];
+    NSURL *url = [NSURL URLWithString:[_pp fullURL]];
     NSLog(@"Gonna load %@", url);
     NSURLRequest *rq =[NSURLRequest requestWithURL:url];
     [self.webView loadRequest:rq];

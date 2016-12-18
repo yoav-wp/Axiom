@@ -55,6 +55,7 @@ static NSString * brandRevID = @"brandRevID";
 }
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LoadRequestFromAppDel:) name:@"LoadRequestFromAppDel" object:Nil];
     
     globals = [GlobalVars sharedInstance];
     
@@ -84,6 +85,13 @@ static NSString * brandRevID = @"brandRevID";
     [self initBanner];
     [self setActiveTabbarItem];
 }
+
+-(void)LoadRequestFromAppDel:(NSNotification*)aNotif
+{
+    NSString *aStrUrl=[[aNotif userInfo] objectForKey:@"urlToLoad"];
+    [_nav navigateWithItemID:-42 WithURL:aStrUrl WithURLsDict:nil WithSourceVC:self];
+}
+
 - (IBAction)closeBannerClick:(id)sender {
     [self removeBanner];
 }
