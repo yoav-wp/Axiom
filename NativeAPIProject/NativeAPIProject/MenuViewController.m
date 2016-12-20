@@ -132,28 +132,21 @@
     if(indexPath.section==0)
     {
         int lvl = [[[self.firstForTable objectAtIndex:indexPath.row] valueForKey:@"level"] intValue];
-        NSLog(@"level: %d", lvl);
-        
         
         if(lvl == 0){
             cell.backgroundColor = [UIColor colorWithWhite:0.65 alpha:1.0];
-            NSLog(@"lvl 0");
         }
         if(lvl == 1){
             cell.backgroundColor = [UIColor colorWithWhite:0.71 alpha:1.0];
-            NSLog(@"lvl 1");
         }
         if(lvl == 2){
             cell.backgroundColor = [UIColor colorWithWhite:0.78 alpha:1.0];
-            NSLog(@"lvl 2");
         }
         if(lvl == 3){
             cell.backgroundColor = [UIColor colorWithWhite:0.84 alpha:1.0];
-            NSLog(@"lvl 3");
         }
         if(lvl == 4){
             cell.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-            NSLog(@"lvl 4");
         }
         
         

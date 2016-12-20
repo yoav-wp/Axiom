@@ -141,7 +141,6 @@ CGFloat maxAccordionHeight = 0;
         frame.size = fittingSize;
         _firstWysiwyg.frame = frame;
         _firstWysiwygHeightConst.constant = frame.size.height;
-        NSLog(@"aaa%f", frame.size.height);
     }else if (webView.tag == 15){
         CGRect frame = _tosWV.frame;
         frame.size.height = 1;
@@ -150,7 +149,6 @@ CGFloat maxAccordionHeight = 0;
         frame.size = fittingSize;
         _tosWV.frame = frame;
         _tosWysiwygHeightConstraint.constant = frame.size.height;
-        NSLog(@"yyyyy%f", frame.size.height);
     }
         NSLog(@"enter finishload for  : %ld", (long)webView.tag);
         //get best fitting size
@@ -162,7 +160,6 @@ CGFloat maxAccordionHeight = 0;
         newFrame.size = fittingSize;
         //set newFrame for the wv
         webView.frame = newFrame;
-        NSLog(@"aaa %f",webView.frame.size.height);
 }
 
 -(void)initScreenshots{
@@ -500,7 +497,7 @@ CGFloat maxAccordionHeight = 0;
 //Sharing
 -(void)handleSharingEvent{
     // create a message
-    NSString *theMessage = [self.pp fullURL];
+    NSString *theMessage = _pp.pageURL;
     NSArray *items = @[@"My Share Item - Yoav", [UIImage imageNamed:@"betwaylogo"]];
     
     // build an activity view controller

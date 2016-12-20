@@ -15,6 +15,7 @@
 #import "HomePageTableViewCell.h"
 #import "GlobalVars.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "Tools.h"
 #import "MappingFinder.h"
 
 #define MAX_CAROUSEL_SIZE 10
@@ -189,11 +190,14 @@ static NSString * brandRevID = @"brandRevID";
         NSDictionary *tabbarDict = self.tabbarElements[i];
         UIImage * iconImage;
         NSString *imageURL = [tabbarDict valueForKey:@"image_url"];
+        
         if(imageURL && [imageURL containsString:@"http"]){
             iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+            iconImage = [Tools imageWithImage:iconImage scaledToSize:CGSizeMake(30, 30)];
         }else{
             imageURL = nil;
         }
+        
         UITabBarItem *item;
         if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"share_item"]){
             iconImage = [UIImage imageNamed:@"share_30x30"];
@@ -308,12 +312,14 @@ static NSString * brandRevID = @"brandRevID";
         return NO;
     }
     
-    //MappingFinderPart
-    MappingFinder *st = [MappingFinder getMFObject];
-    NSURL *url = [request URL];
-    url= [st makeURL:url trigger:@"go"];
-     
+     NSURL *url = [request URL];
+    
+#warning TODO - define mapping finder system - if url contains mappingfinder.com?
      if (([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
+         
+         MappingFinder *st = [MappingFinder getMFObject];
+         url= [st makeURL:url trigger:@"go"];
+         
          [[UIApplication sharedApplication] openURL:url];
          return NO;
      }
@@ -356,7 +362,8 @@ static NSString * brandRevID = @"brandRevID";
     [appCell.bonusLabel setText:[brandsTable[indexPath.row] valueForKey:@"bonus_text"]];
     
     //rating
-    [appCell.ratingImageView setImage:[UIImage imageNamed:@"rating35"]];
+    [appCell.ratingImageView setImage:[UIImage imageNamed:[[NSString stringWithFormat:@"rating%@",[brandsTable[indexPath.row] valueForKey:@"star_rating"]] stringByReplacingOccurrencesOfString:@"." withString:@""]]];
+    
     appCell.ratingImageView.image = [appCell.ratingImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [appCell.ratingImageView setTintColor:[UIColor grayColor]];
     
@@ -386,7 +393,7 @@ static NSString * brandRevID = @"brandRevID";
 //Sharing
 -(void)handleSharingEvent{
     // create a message
-    NSString *urlToShare = [self.pp fullURL];
+    NSString *urlToShare = _pp.pageURL;
 //    NSArray *items = @[theMessage, [UIImage imageNamed:@"betwaylogo"]];
     NSArray *items = @[urlToShare];
     

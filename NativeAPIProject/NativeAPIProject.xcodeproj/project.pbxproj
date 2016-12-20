@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		066C1E5559895CDCC5BDCF5B /* libPods-NativeAPIProjectUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4170A1B5F4B09D684A67381A /* libPods-NativeAPIProjectUITests.a */; };
 		7773B1F0F1D1B74C28E4FF37 /* libPods-NativeAPIProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E253A927D2EB113502984E52 /* libPods-NativeAPIProject.a */; };
+		EB0F05221E09239800D11C3B /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0F05211E09239800D11C3B /* Tools.m */; };
 		EB12E1411DE33773009DB2FF /* GlobalVars.m in Sources */ = {isa = PBXBuildFile; fileRef = EB12E1401DE33773009DB2FF /* GlobalVars.m */; };
 		EB5752191D609DB300CF9565 /* CategoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5752181D609DB300CF9565 /* CategoryVC.m */; };
 		EB6199101D5C9E2600E54823 /* menu_icons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EB61990F1D5C9E2600E54823 /* menu_icons.bundle */; };
@@ -64,6 +65,8 @@
 		932D3E00FFD455DAC8CC45C4 /* Pods-NativeAPIProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeAPIProjectTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NativeAPIProjectTests/Pods-NativeAPIProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B4D54F78130130F184A1D2CD /* Pods-NativeAPIProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeAPIProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-NativeAPIProject/Pods-NativeAPIProject.release.xcconfig"; sourceTree = "<group>"; };
 		E253A927D2EB113502984E52 /* libPods-NativeAPIProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NativeAPIProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB0F05201E09239800D11C3B /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
+		EB0F05211E09239800D11C3B /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
 		EB12E13F1DE33773009DB2FF /* GlobalVars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalVars.h; sourceTree = "<group>"; };
 		EB12E1401DE33773009DB2FF /* GlobalVars.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalVars.m; sourceTree = "<group>"; };
 		EB5752171D609DB300CF9565 /* CategoryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryVC.h; sourceTree = "<group>"; };
@@ -166,6 +169,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		EB0F051F1E09237200D11C3B /* tools */ = {
+			isa = PBXGroup;
+			children = (
+				EB0F05201E09239800D11C3B /* Tools.h */,
+				EB0F05211E09239800D11C3B /* Tools.m */,
+			);
+			name = tools;
+			sourceTree = "<group>";
+		};
 		EB5704E11DAA241C0006869B /* storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -200,6 +212,7 @@
 		EBAFFCA31D5C99BB0021732B /* NativeAPIProject */ = {
 			isa = PBXGroup;
 			children = (
+				EB0F051F1E09237200D11C3B /* tools */,
 				EB12E13F1DE33773009DB2FF /* GlobalVars.h */,
 				EB12E1401DE33773009DB2FF /* GlobalVars.m */,
 				EBB3DCB91D61AF50003B93A0 /* libs */,
@@ -609,6 +622,7 @@
 				EBB3DCB81D61AF3E003B93A0 /* PalconParser.m in Sources */,
 				EBAFFCA61D5C99BB0021732B /* main.m in Sources */,
 				EB5752191D609DB300CF9565 /* CategoryVC.m in Sources */,
+				EB0F05221E09239800D11C3B /* Tools.m in Sources */,
 				EB7F73CA1DAF92050069A9E2 /* GameReviewVC.m in Sources */,
 				EB72EE9C1DE70DE3004335DB /* MappingFinder.m in Sources */,
 				EBB3DCC51D61B67C003B93A0 /* CJSONDeserializer.m in Sources */,

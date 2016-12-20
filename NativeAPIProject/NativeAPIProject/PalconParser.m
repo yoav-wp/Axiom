@@ -15,14 +15,15 @@
 
 -(void) initWithFullURL:(NSString *)fullURL{
     
-    self.fullURL = [fullURL stringByAppendingString:@"?context_to_json=1"];
+    self.urlWithQueryString = [fullURL stringByAppendingString:@"?context_to_json=1"];
+    self.pageURL = fullURL;
     [self initDataDictionary];
 }
 
 -(void)initDataDictionary{
     NSError *theError = nil;
     NSLog(@"pp - starting page download download");
-    NSData *theJSONData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.fullURL]];
+    NSData *theJSONData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.urlWithQueryString]];
     self.pageDataDictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:theJSONData error:&theError];
     NSLog(@"pp - finished page download");
 }
@@ -115,9 +116,9 @@
     GlobalVars *globals = [GlobalVars sharedInstance];
     
     NSURL *url = [[NSURL URLWithString:globals.websiteURL] URLByAppendingPathComponent:@"/wp-content/plugins/wcms_frontend/wcms_ajax_handler.php"];
-    url = [NSURL URLWithString:@"?action=get_app_tab_bar" relativeToURL:url];
+    url = [NSURL URLWithString:@"?action=get_native_app_tab_bar" relativeToURL:url];
     
-    url = [NSURL URLWithString:@"http://onlinecasinos.expert/tabbar.php"];
+//    url = [NSURL URLWithString:@"http://onlinecasinos.expert/tabbar.php"];
     NSError *theError = nil;
     NSLog(@"starting tabbar download");
     NSData *theJSONData = [NSData dataWithContentsOfURL:url];

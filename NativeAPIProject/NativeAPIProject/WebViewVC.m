@@ -53,7 +53,6 @@ static NSString * categoryID = @"categoryVC";
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     NSString *url = [[request URL] absoluteString];
     NavigationManager *nav = [[NavigationManager alloc] init];
-    NSLog(@"url : %@",url);
     
     if(webView.tag == 1){
         return YES;
@@ -86,7 +85,7 @@ static NSString * categoryID = @"categoryVC";
 
 -(void) initWebView{
 //    NSURL *url = [NSURL URLWithString:[self.pp getBaseURL]];
-    NSURL *url = [NSURL URLWithString:[_pp fullURL]];
+    NSURL *url = [NSURL URLWithString:_pp.pageURL];
     NSLog(@"Gonna load %@", url);
     NSURLRequest *rq =[NSURLRequest requestWithURL:url];
     [self.webView loadRequest:rq];
@@ -159,7 +158,7 @@ static NSString * categoryID = @"categoryVC";
 //Sharing
 -(void)handleSharingEvent{
     // create a message
-    NSString *theMessage = [self.pp fullURL];
+    NSString *theMessage = _pp.pageURL;
     NSArray *items = @[@"hello", [UIImage imageNamed:@"betwaylogo"]];
     
     // build an activity view controller

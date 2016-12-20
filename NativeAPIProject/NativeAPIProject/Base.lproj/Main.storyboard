@@ -98,7 +98,7 @@
                                                                 <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KjB-A7-mW6" id="eop-eF-qDL">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </tableViewCellContentView>
                                                                 <color key="backgroundColor" red="0.96070343255996704" green="0.96083790063858032" blue="0.96066111326217651" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -308,8 +308,8 @@
                         <constraints>
                             <constraint firstItem="zUB-MT-p9w" firstAttribute="top" secondItem="J2c-0a-8Mu" secondAttribute="bottom" id="1Fh-fC-YUO"/>
                             <constraint firstItem="J2c-0a-8Mu" firstAttribute="leading" secondItem="jvE-2x-XhE" secondAttribute="leading" id="Kcl-gK-rGp"/>
-                            <constraint firstItem="J2c-0a-8Mu" firstAttribute="top" secondItem="XUz-3S-9Vd" secondAttribute="bottom" id="TPr-DL-xCl"/>
                             <constraint firstItem="1G4-Fk-afd" firstAttribute="top" secondItem="zUB-MT-p9w" secondAttribute="bottom" id="VWz-Xb-VpS"/>
+                            <constraint firstItem="J2c-0a-8Mu" firstAttribute="top" secondItem="XUz-3S-9Vd" secondAttribute="bottom" id="WrZ-6N-SGm"/>
                             <constraint firstItem="zUB-MT-p9w" firstAttribute="top" secondItem="J2c-0a-8Mu" secondAttribute="bottom" id="njp-ww-TZI"/>
                             <constraint firstItem="zUB-MT-p9w" firstAttribute="leading" secondItem="jvE-2x-XhE" secondAttribute="leading" id="pBc-Bz-5kJ"/>
                             <constraint firstAttribute="trailing" secondItem="zUB-MT-p9w" secondAttribute="trailing" id="rZG-QS-Gmd"/>
@@ -323,7 +323,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B60-7F-WQP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="542" y="989"/>
+            <point key="canvasLocation" x="541.60000000000002" y="988.15592203898063"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="Hk3-Tp-LdL">
@@ -338,7 +338,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ovu-d4-d6Y" id="vEc-RN-g9K">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>

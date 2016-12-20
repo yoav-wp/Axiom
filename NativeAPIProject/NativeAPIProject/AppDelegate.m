@@ -144,8 +144,9 @@
     
     //create the download task and run it
     if(download == nil){
-        NSString *urlString = [@"http://red.palcon.qa" stringByAppendingPathComponent:@"/wp-content/plugins/wcms_frontend/wcms_ajax_handler.php"];
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?action=get_native_nav_menu",urlString]];
+        NSURL *url = [[NSURL URLWithString:globals.websiteURL] URLByAppendingPathComponent:@"/wp-content/plugins/wcms_frontend/wcms_ajax_handler.php"];
+        url = [NSURL URLWithString:@"?action=get_native_nav_menu" relativeToURL:url];
+        NSLog(@"my url : %@", url.absoluteString);
 //        url = [NSURL URLWithString:@"http://onlinecasinos.expert/plist.xml"];
         download = [_backgroundSession downloadTaskWithURL:url];
         [download resume];

@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface PalconParser : NSObject
-@property (nonatomic, strong) NSString *fullURL;
+@property (nonatomic, strong) NSString *urlWithQueryString;
+@property (nonatomic, strong) NSString *pageURL;
 @property (nonatomic, strong) NSDictionary *pageDataDictionary;
 
 -(void) initWithFullURL:(NSString *)fullURL;
