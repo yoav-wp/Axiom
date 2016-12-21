@@ -63,8 +63,8 @@
                                                 </constraints>
                                             </scrollView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Online Betting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lxb-uB-M9O">
-                                                <rect key="frame" x="12" y="138.5" width="156.5" height="27.5"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                                <rect key="frame" x="12" y="128.5" width="149.5" height="27.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="23"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -98,7 +98,7 @@
                                                                 <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KjB-A7-mW6" id="eop-eF-qDL">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </tableViewCellContentView>
                                                                 <color key="backgroundColor" red="0.96070343255996704" green="0.96083790063858032" blue="0.96066111326217651" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -143,7 +143,7 @@
                                             <constraint firstItem="ZBB-Au-ysG" firstAttribute="leading" secondItem="0kK-jM-Zxw" secondAttribute="leading" id="FgI-Ei-rNh"/>
                                             <constraint firstAttribute="trailing" secondItem="sxp-GM-tFt" secondAttribute="trailing" id="HaJ-yJ-GHp"/>
                                             <constraint firstItem="sxp-GM-tFt" firstAttribute="top" secondItem="Sqd-Ly-b0z" secondAttribute="bottom" constant="4" id="IIG-vH-UeP"/>
-                                            <constraint firstItem="sxp-GM-tFt" firstAttribute="top" secondItem="Lxb-uB-M9O" secondAttribute="bottom" constant="16" id="Jgp-Kk-aoZ"/>
+                                            <constraint firstItem="sxp-GM-tFt" firstAttribute="top" secondItem="Lxb-uB-M9O" secondAttribute="bottom" constant="26" id="Jgp-Kk-aoZ"/>
                                             <constraint firstAttribute="trailing" secondItem="Sqd-Ly-b0z" secondAttribute="trailing" constant="8" id="LNT-qD-lGN"/>
                                             <constraint firstAttribute="trailing" secondItem="jxa-lW-vQC" secondAttribute="trailing" id="NEj-oP-1Ko"/>
                                             <constraint firstItem="jxa-lW-vQC" firstAttribute="leading" secondItem="0kK-jM-Zxw" secondAttribute="leading" id="e4S-TO-W6o"/>
@@ -338,7 +338,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ovu-d4-d6Y" id="vEc-RN-g9K">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>

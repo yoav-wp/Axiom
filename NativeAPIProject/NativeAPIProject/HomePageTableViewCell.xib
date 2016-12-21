@@ -16,19 +16,19 @@
             <rect key="frame" x="0.0" y="0.0" width="440" height="90"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="440" height="90"/>
+                <rect key="frame" x="0.0" y="0.0" width="440" height="89"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="betwaylogo" translatesAutoresizingMaskIntoConstraints="NO" id="few-44-hMS">
-                        <rect key="frame" x="8" y="8" width="91" height="74"/>
+                        <rect key="frame" x="8" y="17.5" width="70" height="55"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="91" id="Go1-e9-fO1"/>
-                            <constraint firstAttribute="height" constant="74" id="kSy-e8-9Lj"/>
+                            <constraint firstAttribute="width" constant="70" id="Go1-e9-fO1"/>
+                            <constraint firstAttribute="height" constant="55" id="kSy-e8-9Lj"/>
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating45" translatesAutoresizingMaskIntoConstraints="NO" id="kf2-eW-se1">
-                        <rect key="frame" x="107" y="27" width="70" height="15"/>
+                        <rect key="frame" x="86" y="27" width="70" height="15"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -37,7 +37,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get $1500 Bonus" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ar-56-Oni">
-                        <rect key="frame" x="107" y="52" width="120" height="18"/>
+                        <rect key="frame" x="86" y="52" width="120" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -53,6 +53,7 @@
                         <rect key="frame" x="350" y="22" width="38" height="25"/>
                         <color key="backgroundColor" red="0.63317495584487915" green="0.63397121429443359" blue="0.71860367059707642" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="100" id="UHT-7D-6M5"/>
                             <constraint firstAttribute="height" constant="25" id="lbe-cO-eBv"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -69,12 +70,12 @@
                     <constraint firstItem="6Ar-56-Oni" firstAttribute="leading" secondItem="few-44-hMS" secondAttribute="trailing" constant="8" id="H2m-dL-Ke4"/>
                     <constraint firstItem="kf2-eW-se1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="19" id="Nwd-8L-mLd"/>
                     <constraint firstItem="UFH-tN-ZVH" firstAttribute="height" secondItem="SAf-Uf-eSM" secondAttribute="height" id="XW5-T5-w7K"/>
+                    <constraint firstItem="few-44-hMS" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Zmb-v4-teT"/>
                     <constraint firstItem="SAf-Uf-eSM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="14" id="c2W-Up-78G"/>
                     <constraint firstItem="UFH-tN-ZVH" firstAttribute="leading" secondItem="kf2-eW-se1" secondAttribute="trailing" priority="250" constant="20" id="cji-ab-BVA"/>
                     <constraint firstItem="kf2-eW-se1" firstAttribute="leading" secondItem="few-44-hMS" secondAttribute="trailing" constant="8" id="dQb-vM-JBT"/>
                     <constraint firstItem="SAf-Uf-eSM" firstAttribute="leading" secondItem="UFH-tN-ZVH" secondAttribute="trailing" constant="6" id="hv7-vt-8lC"/>
                     <constraint firstAttribute="trailingMargin" secondItem="6Ar-56-Oni" secondAttribute="trailing" priority="250" constant="191" id="itF-3c-lsV"/>
-                    <constraint firstAttribute="topMargin" secondItem="few-44-hMS" secondAttribute="top" id="jOo-8w-UzY"/>
                     <constraint firstItem="UFH-tN-ZVH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="14" id="yWw-qz-8YI"/>
                 </constraints>
             </tableViewCellContentView>

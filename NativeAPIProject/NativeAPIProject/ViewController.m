@@ -123,9 +123,12 @@ static NSString * brandRevID = @"brandRevID";
     //get carousel from API
     NSArray *carousel = [_pp categoryGetCarousel];
     
-    //init pageControll number of dots (+1 if placeholder)
-    [_pageControl setNumberOfPages:carousel.count + 1];
-
+    if(carousel.count == 0){
+        _pageControl.hidden = YES;
+    }else{
+        //init pageControll number of dots (+1 if placeholder)
+        [_pageControl setNumberOfPages:carousel.count + 1];
+    }
     //init carousel UI
     CGRect frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.width* 0.462);
     _carouselsv.frame = frame;
