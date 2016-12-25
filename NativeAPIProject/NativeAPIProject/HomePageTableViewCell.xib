@@ -20,37 +20,37 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="betwaylogo" translatesAutoresizingMaskIntoConstraints="NO" id="few-44-hMS">
-                        <rect key="frame" x="8" y="17.5" width="70" height="55"/>
+                        <rect key="frame" x="8" y="15" width="80" height="60"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="70" id="Go1-e9-fO1"/>
-                            <constraint firstAttribute="height" constant="55" id="kSy-e8-9Lj"/>
+                            <constraint firstAttribute="width" constant="80" id="Go1-e9-fO1"/>
+                            <constraint firstAttribute="height" constant="60" id="kSy-e8-9Lj"/>
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating45" translatesAutoresizingMaskIntoConstraints="NO" id="kf2-eW-se1">
-                        <rect key="frame" x="86" y="27" width="70" height="15"/>
+                        <rect key="frame" x="96" y="27" width="65" height="14"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="15" id="YJX-nZ-VQl"/>
-                            <constraint firstAttribute="width" constant="70" id="gJN-95-c6R"/>
+                            <constraint firstAttribute="height" constant="14" id="YJX-nZ-VQl"/>
+                            <constraint firstAttribute="width" constant="65" id="gJN-95-c6R"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get $1500 Bonus" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ar-56-Oni">
-                        <rect key="frame" x="86" y="52" width="120" height="18"/>
+                        <rect key="frame" x="96" y="48.5" width="120" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SAf-Uf-eSM">
-                        <rect key="frame" x="394" y="22" width="38" height="25"/>
+                        <rect key="frame" x="400" y="22" width="32" height="25"/>
                         <color key="backgroundColor" red="0.82633310559999995" green="0.1112478897" blue="0.0099120773379999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <state key="normal" title="Claim"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UFH-tN-ZVH">
-                        <rect key="frame" x="350" y="22" width="38" height="25"/>
+                        <rect key="frame" x="362" y="22" width="32" height="25"/>
                         <color key="backgroundColor" red="0.63317495584487915" green="0.63397121429443359" blue="0.71860367059707642" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="100" id="UHT-7D-6M5"/>
@@ -58,7 +58,7 @@
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <state key="normal" title="Button"/>
+                        <state key="normal" title="claim"/>
                     </button>
                 </subviews>
                 <color key="backgroundColor" red="0.96070343255996704" green="0.96083790063858032" blue="0.96066111326217651" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -66,7 +66,7 @@
                     <constraint firstItem="SAf-Uf-eSM" firstAttribute="width" secondItem="UFH-tN-ZVH" secondAttribute="width" id="3wI-aQ-xOs"/>
                     <constraint firstAttribute="trailingMargin" secondItem="SAf-Uf-eSM" secondAttribute="trailing" id="5ug-8O-Tc2"/>
                     <constraint firstAttribute="leadingMargin" secondItem="few-44-hMS" secondAttribute="leading" id="7IZ-uj-FiG"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="6Ar-56-Oni" secondAttribute="bottom" constant="11" id="Djz-ia-kag"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="6Ar-56-Oni" secondAttribute="bottom" constant="15" id="Djz-ia-kag"/>
                     <constraint firstItem="6Ar-56-Oni" firstAttribute="leading" secondItem="few-44-hMS" secondAttribute="trailing" constant="8" id="H2m-dL-Ke4"/>
                     <constraint firstItem="kf2-eW-se1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="19" id="Nwd-8L-mLd"/>
                     <constraint firstItem="UFH-tN-ZVH" firstAttribute="height" secondItem="SAf-Uf-eSM" secondAttribute="height" id="XW5-T5-w7K"/>

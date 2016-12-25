@@ -46,12 +46,12 @@
 }
 
 -(BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler{
+    
     if([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]){
         NSURL *url = userActivity.webpageURL;
         NSDictionary *aDict=[NSDictionary dictionaryWithObject:url.absoluteString forKey:@"urlToLoad"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadRequestFromAppDel" object:Nil userInfo:aDict];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"navigationRequestFromAppDel" object:Nil userInfo:aDict];
     }
-    NSLog(@"bla");
     return YES;
 }
 

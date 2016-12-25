@@ -56,7 +56,7 @@ static NSString * brandRevID = @"brandRevID";
 }
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LoadRequestFromAppDel:) name:@"LoadRequestFromAppDel" object:Nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navigationRequestFromAppDel:) name:@"navigationRequestFromAppDel" object:Nil];
     
     globals = [GlobalVars sharedInstance];
     
@@ -77,7 +77,7 @@ static NSString * brandRevID = @"brandRevID";
 
 //call all the widgets initializations
 //better view WILL appear, did appear for debug
--(void)viewDidAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated{
     // Do any additional setup after loading the view, typically from a nib.
     [self initFirstWysiwyg];
     [self initSecondWysiwyg];
@@ -87,7 +87,8 @@ static NSString * brandRevID = @"brandRevID";
     [self setActiveTabbarItem];
 }
 
--(void)LoadRequestFromAppDel:(NSNotification*)aNotif
+//Google app indexing
+-(void)navigationRequestFromAppDel:(NSNotification*)aNotif
 {
     NSString *aStrUrl=[[aNotif userInfo] objectForKey:@"urlToLoad"];
     [_nav navigateWithItemID:-42 WithURL:aStrUrl WithURLsDict:nil WithSourceVC:self];
@@ -101,7 +102,7 @@ static NSString * brandRevID = @"brandRevID";
 -(void)initBanner{
     _GetBannerButton.layer.cornerRadius = 14;
     _GetBannerButton.layer.zPosition = 1;
-    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(removeBanner) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(removeBanner) userInfo:nil repeats:NO];
 }
 
 -(void)removeBanner{
@@ -228,6 +229,13 @@ static NSString * brandRevID = @"brandRevID";
     [tabBarArray addObject:menuItem];
     
     [_tabBar setItems:[tabBarArray arrayByAddingObjectsFromArray:[_tabBar items]]];
+    
+    //some shadow UI
+    _tabBar.layer.shadowOffset = CGSizeMake(0, 0);
+    _tabBar.layer.shadowRadius = 8;
+    _tabBar.layer.shadowColor = [UIColor blackColor].CGColor;
+    _tabBar.layer.shadowOpacity = 0.2;
+    _tabBar.layer.backgroundColor = [UIColor whiteColor].CGColor;
 }
 
 
@@ -355,11 +363,15 @@ static NSString * brandRevID = @"brandRevID";
     HomePageTableViewCell *appCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HomePageTableViewCell class]) forIndexPath:indexPath];
     
     //2 buttons
-    [appCell.leftButtonLabel setTitle:[brandsTable[indexPath.row] valueForKey:@"review_link"] forState:UIControlStateNormal];
-    [appCell.rightButtonLabel setTitle:[brandsTable[indexPath.row] valueForKey:@"button_text"] forState:UIControlStateNormal];
+//    [appCell.leftButtonLabel setTitle:[brandsTable[indexPath.row] valueForKey:@"review_link"] forState:UIControlStateNormal];
+//    [appCell.rightButtonLabel setTitle:[brandsTable[indexPath.row] valueForKey:@"button_text"] forState:UIControlStateNormal];
     
     //brand logo
     [appCell.brandImageView sd_setImageWithURL:[brandsTable[indexPath.row] valueForKey:@"brand_logo"]];
+    
+    //add border
+    appCell.brandImageView.layer.borderColor = [UIColor colorWithRed:230/255.0f green:230/255.0f blue:230/255.0f alpha:1].CGColor;
+    appCell.brandImageView.layer.borderWidth = 0.9f;
     
     //bonus text
     [appCell.bonusLabel setText:[brandsTable[indexPath.row] valueForKey:@"bonus_text"]];
