@@ -14,7 +14,7 @@
         <!--Reveal View Controller-->
         <scene sceneID="KZU-hs-lf6">
             <objects>
-                <viewController storyboardIdentifier="HomePageSB" id="DdO-53-HlT" customClass="SWRevealViewController" sceneMemberID="viewController">
+                <viewController id="DdO-53-HlT" customClass="SWRevealViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Fyt-VG-BSD"/>
                         <viewControllerLayoutGuide type="bottom" id="G2S-wL-WFj"/>
@@ -30,17 +30,52 @@
                         <segue destination="mRq-Yd-f0l" kind="custom" identifier="" customClass="SWRevealViewControllerSegueSetController" id="GQb-od-IuJ"/>
                         <segue destination="Nbz-E4-Ce5" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="gvI-RC-1tl"/>
                         <segue destination="YdD-tX-VAs" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="DC7-EV-XXS"/>
-                        <segue destination="VL9-9R-S8z" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="rgL-p2-2C2"/>
+                        <segue destination="VL9-9R-S8z" kind="custom" identifier="" customClass="SWRevealViewControllerSegueSetController" id="rgL-p2-2C2"/>
+                        <segue destination="qWd-Jm-6Az" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="V0i-sB-R1G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xRM-kK-JRD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-538" y="207"/>
         </scene>
+        <!--SplashScreenVC-->
+        <scene sceneID="2sq-eO-GLr">
+            <objects>
+                <viewController id="qWd-Jm-6Az" userLabel="SplashScreenVC" customClass="SplashScreenVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kbe-bz-6gk"/>
+                        <viewControllerLayoutGuide type="bottom" id="2Sz-UG-xTX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TZr-aD-Ibu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AgO-d2-dRK">
+                                <rect key="frame" x="57" y="163" width="260" height="340"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="340" id="gaS-uj-jIf"/>
+                                    <constraint firstAttribute="width" constant="260" id="wbM-n4-JlP"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.80392156862745101" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="AgO-d2-dRK" firstAttribute="centerY" secondItem="TZr-aD-Ibu" secondAttribute="centerY" id="QmW-In-mAg"/>
+                            <constraint firstItem="AgO-d2-dRK" firstAttribute="centerX" secondItem="TZr-aD-Ibu" secondAttribute="centerX" id="atH-Ac-SnG"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imgView" destination="AgO-d2-dRK" id="iKJ-cR-poK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Std-LB-Amy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-538" y="-482"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="bPO-3U-ZGd">
             <objects>
-                <viewController id="VL9-9R-S8z" customClass="ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomePageSB" id="VL9-9R-S8z" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rQj-ip-zZ5"/>
                         <viewControllerLayoutGuide type="bottom" id="p1R-Zh-TdG"/>

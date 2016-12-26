@@ -118,7 +118,7 @@
     NSURL *url = [[NSURL URLWithString:globals.websiteURL] URLByAppendingPathComponent:@"/wp-content/plugins/wcms_frontend/wcms_ajax_handler.php"];
     url = [NSURL URLWithString:@"?action=get_native_app_tab_bar" relativeToURL:url];
     
-//    url = [NSURL URLWithString:@"http://onlinecasinos.expert/tabbar.php"];
+    url = [NSURL URLWithString:@"http://onlinecasinos.expert/tabbar.php"];
     NSError *theError = nil;
     NSLog(@"starting tabbar download");
     NSData *theJSONData = [NSData dataWithContentsOfURL:url];

@@ -83,7 +83,7 @@ static NSString * brandRevID = @"brandRevID";
     [self initSecondWysiwyg];
     [self initCarousel];
     [self initTabBar];
-    [self initBanner];
+//    [self initBanner];
     [self setActiveTabbarItem];
 }
 

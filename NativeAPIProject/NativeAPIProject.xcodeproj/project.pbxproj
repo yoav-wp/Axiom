@@ -18,6 +18,7 @@
 		EB8C6F8E1DDDA4EE00B441BE /* HomePageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C6F8C1DDDA4EE00B441BE /* HomePageTableViewCell.m */; };
 		EB8C6F8F1DDDA4EE00B441BE /* HomePageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB8C6F8D1DDDA4EE00B441BE /* HomePageTableViewCell.xib */; };
 		EBA9DD921D85578E005C5255 /* AccordionView.m in Sources */ = {isa = PBXBuildFile; fileRef = EBA9DD911D85578E005C5255 /* AccordionView.m */; };
+		EBAE718A1E1115F700AABC50 /* SplashScreenVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EBAE71891E1115F700AABC50 /* SplashScreenVC.m */; };
 		EBAFFCA61D5C99BB0021732B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EBAFFCA51D5C99BB0021732B /* main.m */; };
 		EBAFFCA91D5C99BB0021732B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EBAFFCA81D5C99BB0021732B /* AppDelegate.m */; };
 		EBAFFCAC1D5C99BB0021732B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBAFFCAB1D5C99BB0021732B /* ViewController.m */; };
@@ -81,6 +82,8 @@
 		EB8C6F8D1DDDA4EE00B441BE /* HomePageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomePageTableViewCell.xib; sourceTree = "<group>"; };
 		EBA9DD901D85578E005C5255 /* AccordionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccordionView.h; sourceTree = "<group>"; };
 		EBA9DD911D85578E005C5255 /* AccordionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccordionView.m; sourceTree = "<group>"; };
+		EBAE71881E1115F700AABC50 /* SplashScreenVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashScreenVC.h; sourceTree = "<group>"; };
+		EBAE71891E1115F700AABC50 /* SplashScreenVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashScreenVC.m; sourceTree = "<group>"; };
 		EBAFFCA11D5C99BB0021732B /* NativeAPIProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeAPIProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBAFFCA51D5C99BB0021732B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EBAFFCA71D5C99BB0021732B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -303,6 +306,8 @@
 				EB8C6F8B1DDDA4EE00B441BE /* HomePageTableViewCell.h */,
 				EB8C6F8C1DDDA4EE00B441BE /* HomePageTableViewCell.m */,
 				EB8C6F8D1DDDA4EE00B441BE /* HomePageTableViewCell.xib */,
+				EBAE71881E1115F700AABC50 /* SplashScreenVC.h */,
+				EBAE71891E1115F700AABC50 /* SplashScreenVC.m */,
 			);
 			name = viewControllers;
 			sourceTree = "<group>";
@@ -616,6 +621,7 @@
 				EBB3DCC71D61B67C003B93A0 /* NSDictionary_JSONExtensions.m in Sources */,
 				EBAFFCDC1D5C9A070021732B /* WebViewVC.m in Sources */,
 				EBAFFCAC1D5C99BB0021732B /* ViewController.m in Sources */,
+				EBAE718A1E1115F700AABC50 /* SplashScreenVC.m in Sources */,
 				EBA9DD921D85578E005C5255 /* AccordionView.m in Sources */,
 				EBAFFCA91D5C99BB0021732B /* AppDelegate.m in Sources */,
 				EBBA49391DA4E93500904C90 /* NavigationManager.m in Sources */,
