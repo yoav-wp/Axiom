@@ -110,9 +110,9 @@ CGFloat maxAccordionHeight = 0;
 
 -(void)initSoftwareProviders{
     NSArray *providers = [self.pp brandReviewGetSoftwareProviders];
-    
     for (int i = 0; i < providers.count; i++) {
-        if(i == 4)
+        //lets take max 3 now
+        if(i == 3)
             break;
         UIImageView *currentIV = softwareProvidersImageViewsArray[i];
         CGRect frame = CGRectMake(currentIV.frame.origin.x, currentIV.frame.origin.y, 34, 20);

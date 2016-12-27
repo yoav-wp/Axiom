@@ -83,7 +83,7 @@ static NSString * brandRevID = @"brandRevID";
     [self initSecondWysiwyg];
     [self initCarousel];
     [self initTabBar];
-//    [self initBanner];
+    [self initBanner];
     [self setActiveTabbarItem];
 }
 
@@ -363,8 +363,11 @@ static NSString * brandRevID = @"brandRevID";
     HomePageTableViewCell *appCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HomePageTableViewCell class]) forIndexPath:indexPath];
     
     //2 buttons
-//    [appCell.leftButtonLabel setTitle:[brandsTable[indexPath.row] valueForKey:@"review_link"] forState:UIControlStateNormal];
-//    [appCell.rightButtonLabel setTitle:[brandsTable[indexPath.row] valueForKey:@"button_text"] forState:UIControlStateNormal];
+    [appCell.leftButtonLabel setTitle:[brandsTable[indexPath.row] valueForKey:@"review_link"] forState:UIControlStateNormal];
+    [appCell.rightButtonLabel setTitle:[brandsTable[indexPath.row] valueForKey:@"button_text"] forState:UIControlStateNormal];
+    [[appCell.leftButtonLabel layer] setValue:[brandsTable[indexPath.row] valueForKey:@"review_url"] forKey:@"urlToLoad"];
+    [appCell.leftButtonLabel addTarget:self action:@selector(openPageOrSafariWithURL:) forControlEvents:UIControlEventTouchUpInside];
+    [appCell.rightButtonLabel addTarget:self action:@selector(openPageOrSafariWithURL:) forControlEvents:UIControlEventTouchUpInside];
     
     //brand logo
     [appCell.brandImageView sd_setImageWithURL:[brandsTable[indexPath.row] valueForKey:@"brand_logo"]];
@@ -383,6 +386,20 @@ static NSString * brandRevID = @"brandRevID";
     [appCell.ratingImageView setTintColor:[UIColor grayColor]];
     
     return appCell;
+}
+-(void)openPageOrSafariWithURL:(id) sender{
+    NSString *urlStr = [[sender layer] valueForKey:@"urlToLoad"];
+    urlStr = @"http://onlinecasinos.expert/leo-vegas";
+    if([urlStr containsString:@"onlinecasinos.expert"]){
+        //do mf
+        MappingFinder *st = [MappingFinder getMFObject];
+        NSURL *url= [st makeURL:[NSURL URLWithString:urlStr] trigger:@"go"];
+        
+        [[UIApplication sharedApplication] openURL:url];
+    }else{
+        [_nav navigateWithItemID:-42 WithURL:urlStr WithURLsDict:nil WithSourceVC:self];
+    }
+    NSLog(@"url to load :::: %@", urlStr);
 }
 
 - (void)didReceiveMemoryWarning {

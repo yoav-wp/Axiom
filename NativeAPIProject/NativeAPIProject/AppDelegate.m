@@ -37,8 +37,8 @@
     globals = [GlobalVars sharedInstance];
     
 #warning Please, put you main variables here below, and remove this line <----
-//    globals.websiteURL = @"http://review.des/camilla";
-    globals.websiteURL = @"http://onlinecasinos.expert/homepage.js";
+    globals.websiteURL = @"http://review.des/camilla";
+//    globals.websiteURL = @"http://onlinecasinos.expert/homepage.js";
     [AppsFlyerTracker sharedTracker].appsFlyerDevKey = @"p83XLj9oS5NU6xzdjYGJyF";
     [AppsFlyerTracker sharedTracker].appleAppID = @"12345678";
     [AppsFlyerTracker sharedTracker].delegate = self;
@@ -145,7 +145,7 @@
     //create the download task and run it
     if(download == nil){
         NSURL *url = [[NSURL URLWithString:globals.websiteURL] URLByAppendingPathComponent:@"/wp-content/plugins/wcms_frontend/wcms_ajax_handler.php"];
-        url = [NSURL URLWithString:@"?action=get_native_nav_menu" relativeToURL:url];
+        url = [NSURL URLWithString:@"?action=get_native_app_nav_menu" relativeToURL:url];
         NSLog(@"my url : %@", url.absoluteString);
 //        url = [NSURL URLWithString:@"http://onlinecasinos.expert/plist.xml"];
         download = [_backgroundSession downloadTaskWithURL:url];

@@ -57,17 +57,7 @@
 
 
 -(NSString *)brandReviewGetSecondTabWysiwyg{
-    NSString *s;
-    
-    int i = 0;
-    NSMutableArray *tabs = [self getBrandReviewTabs];
-    for(i = 0; i< tabs.count; i++){
-        if([[tabs[i] valueForKey:@"id"] integerValue] == 2){
-            s = [tabs[i] valueForKey:@"wysiwyg"];
-            break;
-        }
-    }
-    return s;
+    return [_pageDataDictionary valueForKey:@"content_text_2"];
 }
 
 -(NSMutableArray *)getBrandReviewScreenshots{
@@ -118,7 +108,7 @@
     NSURL *url = [[NSURL URLWithString:globals.websiteURL] URLByAppendingPathComponent:@"/wp-content/plugins/wcms_frontend/wcms_ajax_handler.php"];
     url = [NSURL URLWithString:@"?action=get_native_app_tab_bar" relativeToURL:url];
     
-    url = [NSURL URLWithString:@"http://onlinecasinos.expert/tabbar.php"];
+//    url = [NSURL URLWithString:@"http://onlinecasinos.expert/tabbar.php"];
     NSError *theError = nil;
     NSLog(@"starting tabbar download");
     NSData *theJSONData = [NSData dataWithContentsOfURL:url];
