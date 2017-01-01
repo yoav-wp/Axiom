@@ -26,7 +26,9 @@
 -(NSArray *)brandReviewGetSoftwareProviders;
 -(NSString *)brandReviewGetTOSWysiwyg;
 -(NSString *)homePageGetTableTitle;
+-(NSString *)getIsPageNative;
 -(NSArray *)homepageGetTableWidget;
+-(NSArray *)brandReviewGetSegmentText;
 
 
 @end

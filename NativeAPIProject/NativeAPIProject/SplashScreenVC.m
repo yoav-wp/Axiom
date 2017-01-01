@@ -28,8 +28,8 @@
 //    NSArray *imgArray = @[@"img1",@"img2",@"img3",@"img4",@"img5",@"img6",@"img7",@"img8"];
     NSMutableArray *imgArray = [[NSMutableArray alloc]init];
     
-    for(int i = 1 ;i < 9; i++){
-        [imgArray addObject:[NSString stringWithFormat:@"img%i",i]];
+    for(int i = 1 ;i < 43; i++){
+        [imgArray addObject:[NSString stringWithFormat:@"splash%i",i]];
     }
     
     NSMutableArray *images = [[NSMutableArray alloc] init];
@@ -38,7 +38,7 @@
     }
     
     _imgView.animationImages = images;
-    _imgView.animationDuration = 1.5;
+    _imgView.animationDuration = 2;
     _imgView.animationRepeatCount = 1;
     _imgView.image = [_imgView.animationImages lastObject];
     [_imgView startAnimating];

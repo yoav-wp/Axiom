@@ -97,9 +97,17 @@
     return [self.pageDataDictionary valueForKey:@"content_1"];
 }
 
+-(NSString *)getIsPageNative{
+    return [self.pageDataDictionary valueForKey:@"app_native"];
+}
 
 -(NSArray *)homepageGetTableWidget{
     return [[_pageDataDictionary valueForKey:@"native_app_widget_2"] valueForKey:@"widgets_arr"];
+}
+
+-(NSArray *)brandReviewGetSegmentText{
+    NSArray *ar = [NSArray arrayWithObjects:[_pageDataDictionary valueForKey:@"trans_review_summary"],[_pageDataDictionary valueForKey:@"trans_review_full"],[_pageDataDictionary valueForKey:@"trans_review_info"],nil];
+    return ar;
 }
 
 -(NSMutableArray *)getTabBarElements{

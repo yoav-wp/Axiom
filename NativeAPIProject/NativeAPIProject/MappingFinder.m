@@ -53,7 +53,6 @@ static BOOL initialized = NO;
 	}
 	
 	if ([status isEqualToString:@"Organic"]){
-		NSLog(@"organic");
 		NSURLComponents *components = [NSURLComponents componentsWithString:[tempUrl absoluteString]];
 		NSURLQueryItem *appID=[NSURLQueryItem queryItemWithName:@"mf_app_id" value:app_id];
 		components.queryItems = @[appID];

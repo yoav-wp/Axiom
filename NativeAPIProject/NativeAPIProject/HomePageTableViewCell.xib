@@ -51,7 +51,7 @@
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UFH-tN-ZVH">
                         <rect key="frame" x="362" y="22" width="32" height="25"/>
-                        <color key="backgroundColor" red="0.63317495584487915" green="0.63397121429443359" blue="0.71860367059707642" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.5725490196078431" green="0.55686274509803924" blue="0.66274509803921566" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="100" id="UHT-7D-6M5"/>
                             <constraint firstAttribute="height" constant="25" id="lbe-cO-eBv"/>

@@ -36,9 +36,10 @@
 -(void)initGlobalVars{
     globals = [GlobalVars sharedInstance];
     
-#warning Please, put you main variables here below, and remove this line <----
-    globals.websiteURL = @"http://review.des/camilla";
+#warning Please, put your main variables here below, and remove this line <----
+//    globals.websiteURL = @"http://www.online-casinos-canada.ca";
 //    globals.websiteURL = @"http://onlinecasinos.expert/homepage.js";
+    globals.websiteURL = @"http://review.des/camilla";
     [AppsFlyerTracker sharedTracker].appsFlyerDevKey = @"p83XLj9oS5NU6xzdjYGJyF";
     [AppsFlyerTracker sharedTracker].appleAppID = @"12345678";
     [AppsFlyerTracker sharedTracker].delegate = self;

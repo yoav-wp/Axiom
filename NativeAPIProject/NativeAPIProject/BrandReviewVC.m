@@ -35,6 +35,16 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *firstWysiwygHeightConst;
 @property (weak, nonatomic) IBOutlet UIStackView *carouselStackView;
 @property (weak, nonatomic) IBOutlet UIImageView *firstScreenShotPlaceholder;
+@property (weak, nonatomic) IBOutlet UIScrollView *screenShotsCarousel;
+@property (weak, nonatomic) IBOutlet UIView *tosPartView;
+@property (weak, nonatomic) IBOutlet UILabel *websiteLabel;
+@property (weak, nonatomic) IBOutlet UITextView *websiteValue;
+@property (weak, nonatomic) IBOutlet UILabel *softwareProvidersLabel;
+@property (weak, nonatomic) IBOutlet UILabel *activeSinceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *activeSinceValue;
+@property (weak, nonatomic) IBOutlet UILabel *supportLabel;
+@property (weak, nonatomic) IBOutlet UITextView *supportValue;
+@property (weak, nonatomic) IBOutlet UILabel *paymentMethodsLabel;
 
 //bottom view of the third tab's view
 @property (weak, nonatomic) IBOutlet UIView *thirdsBottomView;
@@ -80,19 +90,41 @@ CGFloat maxAccordionHeight = 0;
     [self initFirstWysiwyg];
     [self initPaymentMethods];
     [self initSoftwareProviders];
+    [self initSegmentText];
     [self initScreenshots];
+    [self initLabelsValues];
     [self initTOSWV];
+    [self initTosBottomImages];
 }
+
+
+//call all the widgets initializations
+//better view WILL appear, did appear for debug
+-(void)viewDidAppear:(BOOL)animated{
+    // Do any additional setup after loading the view, typically from a nib.
+    //otherwise items are added on page reload (after failed share action)
+    if([[_tabbar items] count] == 0)
+        [self initTabBar];
+    [self setActiveTabbarItem];
+}
+
+
 
 // Some general page UI
 -(void)initSomeUI{
     //borders
     _thirdsBottomView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     _thirdsBottomView.layer.borderWidth = 0.5f;
+    _tosPartView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _tosPartView.layer.borderWidth = 0.5f;
+    
 }
 
-
--(void)viewDidAppear:(BOOL)animated{
+-(void)initSegmentText{
+    NSArray *ar = [_pp brandReviewGetSegmentText];
+    [_segment setTitle:ar[0] forSegmentAtIndex:0];
+    [_segment setTitle:ar[1] forSegmentAtIndex:1];
+    [_segment setTitle:ar[2] forSegmentAtIndex:2];
 }
 
 -(void)initPaymentMethods {
@@ -106,6 +138,24 @@ CGFloat maxAccordionHeight = 0;
         currentIV.frame = frame;
         [currentIV sd_setImageWithURL:methodsArr[i]];
     }
+}
+
+-(void)initLabelsValues{
+    _websiteLabel.text = @"Website1:";
+    _websiteValue.text = @"http://www.occ.ca";
+    _softwareProvidersLabel.text = @"Software Providers:";
+    _activeSinceLabel.text = @"Active since:";
+    _activeSinceValue.text = @"2042";
+    _supportLabel.text = @"Support:";
+    _supportValue.text = @"support@betwaycasino.com";
+    _paymentMethodsLabel.text = @"Payment methods:";
+}
+
+-(void)initTosBottomImages{
+//    NSArray *providers = [self.pp brandReviewGetSoftwareProviders];
+//    [_bottomBrandInfoImgV1 sd_setImageWithURL:providers[0]];
+//    [_bottomBrandInfoImgV2 sd_setImageWithURL:providers[1]];
+//    [_bottomBrandInfoImgV3 sd_setImageWithURL:providers[2]];
 }
 
 -(void)initSoftwareProviders{
@@ -195,7 +245,7 @@ CGFloat maxAccordionHeight = 0;
     [self.accordionView addSubview:accordion];
     self.accordionView.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.000];
     
-    
+#warning 4 is an example, lets get the real count
     NSLog(@"screen width : %f",screenWidth);
     int i = 1;
     for(i = 1 ; i< 4 ; i++){
@@ -238,13 +288,15 @@ CGFloat maxAccordionHeight = 0;
         [header1 addSubview:ratingImgView];
         [ratingImgView setImage:[UIImage imageNamed:@"rating25"]];
         [ratingImgView setContentMode:UIViewContentModeScaleAspectFit];
+        ratingImgView.image = [ratingImgView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [ratingImgView setTintColor:[UIColor colorWithRed:59/255.0 green:58/255.0 blue:71/255.0 alpha:1]];
         
         buttonImgView = [[UIImageView alloc] initWithFrame:CGRectMake(buttonImgX, 5, buttonImgWidth, 20)];
         [header1 addSubview:buttonImgView];
         [buttonImgView setImage:[UIImage imageNamed:@"arrow_down"]];
         [buttonImgView setBackgroundColor:[UIColor whiteColor]];
         buttonImgView.image = [buttonImgView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        [buttonImgView setTintColor:[UIColor grayColor]];
+        [buttonImgView setTintColor:[UIColor colorWithRed:146/255.0 green:142/255.0 blue:169/255.0 alpha:1]];
         buttonImgView.backgroundColor = [UIColor whiteColor];
         
         
@@ -256,13 +308,16 @@ CGFloat maxAccordionHeight = 0;
             UIImage *rotated = [self upsideDownBunny:M_PI withImage:buttonImgView.image];
             buttonImgView.image = rotated;
         }
+#warning 4 is an example, lets get the real count
         //if last element, we rotate it 90
-        if(i == 3){
+        if(i == 4-1){
             UIImage *rotated = [self upsideDownBunny:-M_PI/2 withImage:buttonImgView.image];
             buttonImgView.image = rotated;
             //avoid rotating on click
             buttonImgView.tag = 11;
             [buttonImgView setTintColor:[UIColor redColor]];
+            [buttonImgView setTintColor:[UIColor colorWithRed:205/255.0 green:0/255.0 blue:0/255.0 alpha:1]];
+            [ratingImgView setTintColor:[UIColor whiteColor]];
         }
         
         [header1 addTarget:self action:@selector(changeAccordionArrowOrientation:) forControlEvents:UIControlEventTouchUpInside];
@@ -482,15 +537,6 @@ CGFloat maxAccordionHeight = 0;
             //default show 0
             break;
     }
-}
-
-
-//call all the widgets initializations
-//better view WILL appear, did appear for debug
--(void)viewWillAppear:(BOOL)animated{
-    // Do any additional setup after loading the view, typically from a nib.
-    [self initTabBar];
-    [self setActiveTabbarItem];
 }
 
 

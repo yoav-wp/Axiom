@@ -82,8 +82,13 @@ static NSString * brandRevID = @"brandRevID";
     [self initFirstWysiwyg];
     [self initSecondWysiwyg];
     [self initCarousel];
-    [self initTabBar];
-    [self initBanner];
+//    [self initBanner];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    //otherwise items are added on page reload (after failed share action)
+    if([[_tabBar items] count] == 0)
+        [self initTabBar];
     [self setActiveTabbarItem];
 }
 
@@ -162,19 +167,12 @@ static NSString * brandRevID = @"brandRevID";
         [imView sd_setImageWithURL:imgURL];
         [self.carouselsv addSubview:imView];
         
+        [[imView layer] setValue:[carousel[i] valueForKey:@"review_url"] forKey:@"urlToLoad"];
+        
         //add touch event handler to the imageView
-        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navigateFromCarouselToURL:)];
-        imView.tag = i;
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openPageOrSafariWithURL:)];
         [imView addGestureRecognizer:singleTap];
         [imView setUserInteractionEnabled:YES];
-    }
-}
-
--(void)navigateFromCarouselToURL:(UIGestureRecognizer *) sender{
-    if(sender.view.tag < MAX_CAROUSEL_SIZE){
-        NSArray *carousel = [_pp categoryGetCarousel];
-        NSString *urlString = [carousel[0] valueForKey:@"review_url"];
-        [_nav navigateWithItemID:-42 WithURL:urlString WithURLsDict:nil WithSourceVC:self];
     }
 }
 
@@ -350,7 +348,7 @@ static NSString * brandRevID = @"brandRevID";
 
 //handle tableView
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return brandsTable.count;
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -366,6 +364,7 @@ static NSString * brandRevID = @"brandRevID";
     [appCell.leftButtonLabel setTitle:[brandsTable[indexPath.row] valueForKey:@"review_link"] forState:UIControlStateNormal];
     [appCell.rightButtonLabel setTitle:[brandsTable[indexPath.row] valueForKey:@"button_text"] forState:UIControlStateNormal];
     [[appCell.leftButtonLabel layer] setValue:[brandsTable[indexPath.row] valueForKey:@"review_url"] forKey:@"urlToLoad"];
+    [[appCell.rightButtonLabel layer] setValue:[brandsTable[indexPath.row] valueForKey:@"aff_url"] forKey:@"urlToLoad"];
     [appCell.leftButtonLabel addTarget:self action:@selector(openPageOrSafariWithURL:) forControlEvents:UIControlEventTouchUpInside];
     [appCell.rightButtonLabel addTarget:self action:@selector(openPageOrSafariWithURL:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -377,29 +376,36 @@ static NSString * brandRevID = @"brandRevID";
     appCell.brandImageView.layer.borderWidth = 0.9f;
     
     //bonus text
-    [appCell.bonusLabel setText:[brandsTable[indexPath.row] valueForKey:@"bonus_text"]];
+    [appCell.bonusLabel setText:[NSString stringWithFormat:@"%@ %@",[brandsTable[indexPath.row] valueForKey:@"trans_get"],[brandsTable[indexPath.row] valueForKey:@"bonus_text"]]];
     
     //rating
     [appCell.ratingImageView setImage:[UIImage imageNamed:[[NSString stringWithFormat:@"rating%@",[brandsTable[indexPath.row] valueForKey:@"star_rating"]] stringByReplacingOccurrencesOfString:@"." withString:@""]]];
     
     appCell.ratingImageView.image = [appCell.ratingImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    [appCell.ratingImageView setTintColor:[UIColor grayColor]];
+    [appCell.ratingImageView setTintColor:[UIColor colorWithRed:146/255.0 green:142/255.0 blue:169/255.0 alpha:1]];
     
     return appCell;
 }
 -(void)openPageOrSafariWithURL:(id) sender{
-    NSString *urlStr = [[sender layer] valueForKey:@"urlToLoad"];
-    urlStr = @"http://onlinecasinos.expert/leo-vegas";
+    
+    NSString *urlStr;
+#warning could be dangerous - watch it
+    if([sender isKindOfClass:[UIButton class]]){
+        urlStr = [[sender layer] valueForKey:@"urlToLoad"];
+    }else{
+        urlStr = [[[sender view] layer] valueForKey:@"urlToLoad"];
+    }
+    
+//    urlStr = @"http://onlinecasinos.expert/go/leo-vegas";
     if([urlStr containsString:@"onlinecasinos.expert"]){
         //do mf
         MappingFinder *st = [MappingFinder getMFObject];
         NSURL *url= [st makeURL:[NSURL URLWithString:urlStr] trigger:@"go"];
         
-        [[UIApplication sharedApplication] openURL:url];
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
     }else{
         [_nav navigateWithItemID:-42 WithURL:urlStr WithURLsDict:nil WithSourceVC:self];
     }
-    NSLog(@"url to load :::: %@", urlStr);
 }
 
 - (void)didReceiveMemoryWarning {

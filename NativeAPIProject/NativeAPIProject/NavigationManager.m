@@ -44,6 +44,20 @@ static NSString * gameRevID = @"gameRevID";
         [destPP initWithFullURL:destURL];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
         
+        if([[destPP getIsPageNative] isEqualToString:@"wrapped"]){
+            WebViewVC *vc = [storyboard instantiateViewControllerWithIdentifier:webviewID];
+            vc.pp = destPP;
+            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:sourceVC destination:vc];
+            [segue perform];
+            return;
+        }
+        if([[destPP getIsPageNative] isEqualToString:@"excluse"]){
+            //send to safari
+            NSURL *excludeCaseURL = [NSURL URLWithString:destURL];
+            [[UIApplication sharedApplication] openURL:excludeCaseURL options:@{} completionHandler:nil];
+            return;
+        }
+        
         //if page-type is nil, send to webview
         if([destPP getPageType] == nil){
             WebViewVC *vc = [storyboard instantiateViewControllerWithIdentifier:webviewID];
@@ -119,6 +133,23 @@ static NSString * gameRevID = @"gameRevID";
             SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:sourceVC destination:vc];
             [segue perform];
         }
+        
+        if([[destPP getIsPageNative] isEqualToString:@"wrapped"]){
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            WebViewVC *vc = [storyboard instantiateViewControllerWithIdentifier:webviewID];
+            vc.pp = destPP;
+            vc.activeTab = tag;
+            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:sourceVC destination:vc];
+            [segue perform];
+            return;
+        }
+        if([[destPP getIsPageNative] isEqualToString:@"excluse"]){
+            //send to safari
+            NSURL *excludeCaseURL = [NSURL URLWithString:targetURL];
+            [[UIApplication sharedApplication] openURL:excludeCaseURL options:@{} completionHandler:nil];
+            return;
+        }
+        
         else if([[destPP getPageType]isEqualToString:@"brand-review"]){
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
             BrandReviewVC *vc = [storyboard instantiateViewControllerWithIdentifier:brandRevID];
