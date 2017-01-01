@@ -33,19 +33,22 @@
     return [self.pageDataDictionary valueForKey:@"page_type"];
 }
 
-
--(NSString *)homepageGetFirstWysiwyg {
-    NSString *baseString = [self.pageDataDictionary valueForKey:@"introduction"];
-    
-    return baseString;
+-(NSString *)homepageGetAppTitle{
+    return [self.pageDataDictionary valueForKey:@"app_title"];
 }
 
 -(NSString *)homePageGetTableTitle{
-    return [self.pageDataDictionary valueForKey:@"page_title"];
+    NSDictionary *dict = [self.pageDataDictionary valueForKey:@"native_app_widget_1"];
+    return [dict valueForKey:@"widget_header"];
 }
 
+-(NSString *)homepageGetFirstWysiwyg {
+    NSString *baseString = [self.pageDataDictionary valueForKey:@"app_intro"];
+    
+    return baseString;
+}
 -(NSString *)homepageGetSecondWysiwyg {
-    NSString *baseString = [self.pageDataDictionary valueForKey:@"content_text_2"];
+    NSString *baseString = [self.pageDataDictionary valueForKey:@"app_content_text_1"];
     
     return baseString;
 }
@@ -101,8 +104,8 @@
     return [self.pageDataDictionary valueForKey:@"app_native"];
 }
 
--(NSArray *)homepageGetTableWidget{
-    return [[_pageDataDictionary valueForKey:@"native_app_widget_2"] valueForKey:@"widgets_arr"];
+-(NSDictionary *)homepageGetTableWidget{
+    return [_pageDataDictionary valueForKey:@"native_app_widget_2"];
 }
 
 -(NSArray *)brandReviewGetSegmentText{

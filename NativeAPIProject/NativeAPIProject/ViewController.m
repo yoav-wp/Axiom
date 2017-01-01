@@ -23,7 +23,7 @@
 @interface ViewController (){
     
     GlobalVars *globals;
-    NSArray *brandsTable;
+    NSDictionary *brandsTable;
 }
 
 
@@ -34,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *secondWVHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *firstWVHeight;
 @property (weak, nonatomic) IBOutlet UITableView *brandsTableView;
+@property (weak, nonatomic) IBOutlet UILabel *appTitleLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *brandsTableViewHeightConst;
 @property (weak, nonatomic) IBOutlet UIButton *GetBannerButton;
 @property (weak, nonatomic) IBOutlet UIView *bannerView;
@@ -82,7 +83,8 @@ static NSString * brandRevID = @"brandRevID";
     [self initFirstWysiwyg];
     [self initSecondWysiwyg];
     [self initCarousel];
-//    [self initBanner];
+    [self initAppTitle];
+    [self initBanner];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -101,6 +103,9 @@ static NSString * brandRevID = @"brandRevID";
 
 - (IBAction)closeBannerClick:(id)sender {
     [self removeBanner];
+}
+-(void)initAppTitle{
+    _appTitleLabel.text = [_pp homepageGetAppTitle];
 }
 
 //init banner, show and remove it after 5 sec
@@ -336,7 +341,10 @@ static NSString * brandRevID = @"brandRevID";
 }
 
 -(void) initTableView{
-    NSUInteger nbRows = brandsTable.count;
+    
+    [_tableTitleLabel setText:[brandsTable valueForKey:@"widget_header"]];
+    NSArray *ar = [brandsTable valueForKey:@"widgets_arr"];
+    NSUInteger nbRows = ar.count;
     
     if (nbRows < 1){
         [self setConstraintZeroToView:_midView];
@@ -348,7 +356,8 @@ static NSString * brandRevID = @"brandRevID";
 
 //handle tableView
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return brandsTable.count;
+    NSArray *ar = [brandsTable valueForKey:@"widgets_arr"];
+    return ar.count;
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -360,26 +369,27 @@ static NSString * brandRevID = @"brandRevID";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HomePageTableViewCell *appCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HomePageTableViewCell class]) forIndexPath:indexPath];
     
+    NSArray *ar = [brandsTable valueForKey:@"widgets_arr"];
     //2 buttons
-    [appCell.leftButtonLabel setTitle:[brandsTable[indexPath.row] valueForKey:@"review_link"] forState:UIControlStateNormal];
-    [appCell.rightButtonLabel setTitle:[brandsTable[indexPath.row] valueForKey:@"button_text"] forState:UIControlStateNormal];
-    [[appCell.leftButtonLabel layer] setValue:[brandsTable[indexPath.row] valueForKey:@"review_url"] forKey:@"urlToLoad"];
-    [[appCell.rightButtonLabel layer] setValue:[brandsTable[indexPath.row] valueForKey:@"aff_url"] forKey:@"urlToLoad"];
+    [appCell.leftButtonLabel setTitle:[ar[indexPath.row] valueForKey:@"review_link"] forState:UIControlStateNormal];
+    [appCell.rightButtonLabel setTitle:[ar[indexPath.row] valueForKey:@"button_text"] forState:UIControlStateNormal];
+    [[appCell.leftButtonLabel layer] setValue:[ar[indexPath.row] valueForKey:@"review_url"] forKey:@"urlToLoad"];
+    [[appCell.rightButtonLabel layer] setValue:[ar[indexPath.row] valueForKey:@"aff_url"] forKey:@"urlToLoad"];
     [appCell.leftButtonLabel addTarget:self action:@selector(openPageOrSafariWithURL:) forControlEvents:UIControlEventTouchUpInside];
     [appCell.rightButtonLabel addTarget:self action:@selector(openPageOrSafariWithURL:) forControlEvents:UIControlEventTouchUpInside];
     
     //brand logo
-    [appCell.brandImageView sd_setImageWithURL:[brandsTable[indexPath.row] valueForKey:@"brand_logo"]];
+    [appCell.brandImageView sd_setImageWithURL:[ar[indexPath.row] valueForKey:@"brand_logo"]];
     
     //add border
     appCell.brandImageView.layer.borderColor = [UIColor colorWithRed:230/255.0f green:230/255.0f blue:230/255.0f alpha:1].CGColor;
     appCell.brandImageView.layer.borderWidth = 0.9f;
     
     //bonus text
-    [appCell.bonusLabel setText:[NSString stringWithFormat:@"%@ %@",[brandsTable[indexPath.row] valueForKey:@"trans_get"],[brandsTable[indexPath.row] valueForKey:@"bonus_text"]]];
+    [appCell.bonusLabel setText:[NSString stringWithFormat:@"%@ %@",[ar[indexPath.row] valueForKey:@"trans_get"],[ar[indexPath.row] valueForKey:@"bonus_text"]]];
     
     //rating
-    [appCell.ratingImageView setImage:[UIImage imageNamed:[[NSString stringWithFormat:@"rating%@",[brandsTable[indexPath.row] valueForKey:@"star_rating"]] stringByReplacingOccurrencesOfString:@"." withString:@""]]];
+    [appCell.ratingImageView setImage:[UIImage imageNamed:[[NSString stringWithFormat:@"rating%@",[ar[indexPath.row] valueForKey:@"star_rating"]] stringByReplacingOccurrencesOfString:@"." withString:@""]]];
     
     appCell.ratingImageView.image = [appCell.ratingImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [appCell.ratingImageView setTintColor:[UIColor colorWithRed:146/255.0 green:142/255.0 blue:169/255.0 alpha:1]];

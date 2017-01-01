@@ -17,6 +17,7 @@
 -(NSString *)homepageGetFirstWysiwyg;
 -(NSString *)homepageGetSecondWysiwyg;
 -(NSArray *)categoryGetCarousel;
+-(NSString *)homepageGetAppTitle;
 -(NSString *)getPageType;
 -(NSMutableArray *)getTabBarElements;
 -(NSString *)brandReviewGetWysiwyg;
@@ -27,7 +28,7 @@
 -(NSString *)brandReviewGetTOSWysiwyg;
 -(NSString *)homePageGetTableTitle;
 -(NSString *)getIsPageNative;
--(NSArray *)homepageGetTableWidget;
+-(NSDictionary *)homepageGetTableWidget;
 -(NSArray *)brandReviewGetSegmentText;
 
 
