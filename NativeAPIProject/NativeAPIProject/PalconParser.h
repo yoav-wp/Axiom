@@ -27,8 +27,10 @@
 -(NSArray *)brandReviewGetSoftwareProviders;
 -(NSString *)brandReviewGetTOSWysiwyg;
 -(NSString *)homePageGetTableTitle;
+-(NSArray *)brandReviewGetRatingDetails;
 -(NSString *)getIsPageNative;
 -(NSDictionary *)homepageGetTableWidget;
+-(NSDictionary *)brandReviewGetBasicBrandInfoDict;
 -(NSArray *)brandReviewGetSegmentText;
 
 

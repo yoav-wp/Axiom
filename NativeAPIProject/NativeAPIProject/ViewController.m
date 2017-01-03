@@ -36,6 +36,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *brandsTableView;
 @property (weak, nonatomic) IBOutlet UILabel *appTitleLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *brandsTableViewHeightConst;
+@property (weak, nonatomic) IBOutlet UILabel *bannerBrand;
+@property (weak, nonatomic) IBOutlet UILabel *bannerBonus;
 @property (weak, nonatomic) IBOutlet UIButton *GetBannerButton;
 @property (weak, nonatomic) IBOutlet UIView *bannerView;
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
@@ -259,6 +261,7 @@ static NSString * brandRevID = @"brandRevID";
     }
     
     NSString *htmlString = [self.pp homepageGetFirstWysiwyg];
+    NSLog(@"ooooooo %@",htmlString);
     if(htmlString.length < 8){
         [self setConstraintZeroToView:_firstWYSIWYG];
     }else{
@@ -389,7 +392,7 @@ static NSString * brandRevID = @"brandRevID";
     [appCell.bonusLabel setText:[NSString stringWithFormat:@"%@ %@",[ar[indexPath.row] valueForKey:@"trans_get"],[ar[indexPath.row] valueForKey:@"bonus_text"]]];
     
     //rating
-    [appCell.ratingImageView setImage:[UIImage imageNamed:[[NSString stringWithFormat:@"rating%@",[ar[indexPath.row] valueForKey:@"star_rating"]] stringByReplacingOccurrencesOfString:@"." withString:@""]]];
+    [appCell.ratingImageView setImage:[UIImage imageNamed:[[NSString stringWithFormat:@"rating%@",[ar[indexPath.row] valueForKey:@"star_rating"]] stringByReplacingOccurrencesOfString:@"." withString:@"-"]]];
     
     appCell.ratingImageView.image = [appCell.ratingImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [appCell.ratingImageView setTintColor:[UIColor colorWithRed:146/255.0 green:142/255.0 blue:169/255.0 alpha:1]];

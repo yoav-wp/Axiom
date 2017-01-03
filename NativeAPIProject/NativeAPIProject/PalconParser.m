@@ -14,8 +14,10 @@
 @implementation PalconParser
 
 -(void) initWithFullURL:(NSString *)fullURL{
-    
-    self.urlWithQueryString = [fullURL stringByAppendingString:@"?context_to_json=1"];
+    NSString *arrangedURL;
+    if(! [[fullURL substringFromIndex:fullURL.length-1] isEqualToString:@"/"])
+        arrangedURL = [fullURL stringByAppendingString:@"/"];
+    self.urlWithQueryString = [arrangedURL stringByAppendingString:@"?context_to_json=1"];
     self.pageURL = fullURL;
     [self initDataDictionary];
 }
@@ -54,13 +56,39 @@
 }
 
 -(NSString *)brandReviewGetWysiwyg{
-    NSString *s = [self.pageDataDictionary valueForKey:@"first_wysiwyg"];
+    NSString *s = [self.pageDataDictionary valueForKey:@"app_intro"];
     return s;
 }
 
+-(NSArray *)brandReviewGetRatingDetails{
+    NSMutableArray *ar = [self.pageDataDictionary valueForKey:@"rating_details"];
+    [ar removeObjectAtIndex:ar.count-1];
+    [ar addObject:[self.pageDataDictionary valueForKey:@"avg_rating"]];
+    return ar;
+}
+
+/**
+ Returns keys - values names for basic brand infos : website_key, website_value, software_key, active_since_key, active_since_value, support_key, support_value, payment_key
+
+ @return a dict
+ */
+-(NSDictionary *)brandReviewGetBasicBrandInfoDict{
+    NSMutableDictionary *infosDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                      [_pageDataDictionary valueForKey:@"trans_website"],@"website_key",
+                                      [_pageDataDictionary valueForKey:@"website"],@"website_value",
+                                      [_pageDataDictionary valueForKey:@"trans_software"],@"software_key",
+                                      [_pageDataDictionary valueForKey:@"trans_active_since"],@"active_since_key",
+                                      [_pageDataDictionary valueForKey:@"year_established"],@"active_since_value",
+                                      [_pageDataDictionary valueForKey:@"trans_support"],@"support_key",
+                                      [_pageDataDictionary valueForKey:@"support_email"],@"support_value",
+                                      [_pageDataDictionary valueForKey:@"trans_payment_methods"],@"payment_key",
+                                      nil];
+    return infosDict;
+    
+}
 
 -(NSString *)brandReviewGetSecondTabWysiwyg{
-    return [_pageDataDictionary valueForKey:@"content_text_2"];
+    return [_pageDataDictionary valueForKey:@"app_review"];
 }
 
 -(NSMutableArray *)getBrandReviewScreenshots{
@@ -133,7 +161,6 @@
         }
     }
     return tabbarArray;
-    
 }
 
 @end

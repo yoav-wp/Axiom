@@ -14,6 +14,7 @@
 #import "AccordionView.h"
 #import "MappingFinder.h"
 #import "GlobalVars.h"
+#import "Tools.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "NavigationManager.h"
 
@@ -28,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIView *secondTabView;
 @property (weak, nonatomic) IBOutlet UIView *thirdTabView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segment;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tosImagesStackViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *accordionHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tosWysiwygHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIWebView *secondTabWebView;
@@ -84,7 +86,6 @@ CGFloat maxAccordionHeight = 0;
     [self.revealViewController tapGestureRecognizer];
     [self initSegmentViews];
     [self initAccordionView];
-    [self initWV];
     [self initSecondTabWebView];
     [self initSomeUI];
     [self initFirstWysiwyg];
@@ -120,11 +121,29 @@ CGFloat maxAccordionHeight = 0;
     
 }
 
+-(void)initFirstWysiwyg{
+    NSString *urlString = [self.pp brandReviewGetWysiwyg];
+    [_firstWysiwyg loadHTMLString:urlString baseURL:nil];
+}
+
 -(void)initSegmentText{
     NSArray *ar = [_pp brandReviewGetSegmentText];
     [_segment setTitle:ar[0] forSegmentAtIndex:0];
     [_segment setTitle:ar[1] forSegmentAtIndex:1];
     [_segment setTitle:ar[2] forSegmentAtIndex:2];
+}
+
+
+-(void)initLabelsValues{
+    NSDictionary *dict = [_pp brandReviewGetBasicBrandInfoDict];
+    _websiteLabel.text = [NSString stringWithFormat:@"%@: ",[dict valueForKey:@"website_key"]];
+    _websiteValue.text = [dict valueForKey:@"website_value"];
+    _softwareProvidersLabel.text = [NSString stringWithFormat:@"%@: ",[dict valueForKey:@"software_key"]];
+    _activeSinceLabel.text = [NSString stringWithFormat:@"%@: ",[dict valueForKey:@"active_since_key"]];
+    _activeSinceValue.text = [dict valueForKey:@"active_since_value"];
+    _supportLabel.text = [NSString stringWithFormat:@"%@: ",[dict valueForKey:@"support_key"]];
+    _supportValue.text = [dict valueForKey:@"support_value"];
+    _paymentMethodsLabel.text = [NSString stringWithFormat:@"%@: ",[dict valueForKey:@"payment_key"]];
 }
 
 -(void)initPaymentMethods {
@@ -140,23 +159,6 @@ CGFloat maxAccordionHeight = 0;
     }
 }
 
--(void)initLabelsValues{
-    _websiteLabel.text = @"Website1:";
-    _websiteValue.text = @"http://www.occ.ca";
-    _softwareProvidersLabel.text = @"Software Providers:";
-    _activeSinceLabel.text = @"Active since:";
-    _activeSinceValue.text = @"2042";
-    _supportLabel.text = @"Support:";
-    _supportValue.text = @"support@betwaycasino.com";
-    _paymentMethodsLabel.text = @"Payment methods:";
-}
-
--(void)initTosBottomImages{
-//    NSArray *providers = [self.pp brandReviewGetSoftwareProviders];
-//    [_bottomBrandInfoImgV1 sd_setImageWithURL:providers[0]];
-//    [_bottomBrandInfoImgV2 sd_setImageWithURL:providers[1]];
-//    [_bottomBrandInfoImgV3 sd_setImageWithURL:providers[2]];
-}
 
 -(void)initSoftwareProviders{
     NSArray *providers = [self.pp brandReviewGetSoftwareProviders];
@@ -171,16 +173,22 @@ CGFloat maxAccordionHeight = 0;
     }
 }
 
+
+-(void)initTosBottomImages{
+    //scoped out for now
+    _tosImagesStackViewHeightConstraint.constant = 0;
+//    NSArray *providers = [self.pp brandReviewGetSoftwareProviders];
+//    [_bottomBrandInfoImgV1 sd_setImageWithURL:providers[0]];
+//    [_bottomBrandInfoImgV2 sd_setImageWithURL:providers[1]];
+//    [_bottomBrandInfoImgV3 sd_setImageWithURL:providers[2]];
+}
+
 -(void)initTOSWV{
     _tosWV.scrollView.scrollEnabled = NO;
     NSString *urlString = [self.pp brandReviewGetTOSWysiwyg];
     [_tosWV loadHTMLString:urlString baseURL:nil];
 }
 
--(void)initFirstWysiwyg{
-    NSString *urlString = [self.pp brandReviewGetWysiwyg];
-    [_firstWysiwyg loadHTMLString:urlString baseURL:nil];
-}
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     if(webView.tag == 14){
@@ -232,31 +240,42 @@ CGFloat maxAccordionHeight = 0;
 
 -(void)initAccordionView{
     
+    NSArray *ratingDetails = [_pp brandReviewGetRatingDetails];
     //widths : 6sPlus - 414, 6s - 375, ipad air and air 2, retina - 768,ipad pro 12.9inch - 1024, 5s and 7 SE - 320
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
-    CGFloat screenHeight = screenRect.size.height;
+    
 
     accordionWVArray = [NSMutableArray array];
-    _accordionHeightConstraint.constant = 760;
+    _accordionHeightConstraint.constant = 500;
     
     CGFloat accordionWidth = self.view.frame.size.width;
     accordion = [[AccordionView alloc] initWithFrame:CGRectMake(0, 0, accordionWidth, [[UIScreen mainScreen] bounds].size.height)];
     [self.accordionView addSubview:accordion];
     self.accordionView.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.000];
     
-#warning 4 is an example, lets get the real count
-    NSLog(@"screen width : %f",screenWidth);
-    int i = 1;
-    for(i = 1 ; i< 4 ; i++){
+    for(int i = 0 ; i< ratingDetails.count ; i++){
+        
 //        float rating = 3.5;
 //        rating *=10;
 //        NSString *filename= [NSString stringWithFormat:@"rating%.0fup",rating];
 //        NSLog(@" filename %@",filename);
         // Only height is taken into account, so other parameters are just dummy
         UIButton *header1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 30)];
-        [header1 setTitle:@" Welcome Bonus" forState:UIControlStateNormal];
         
+        
+        //otherwise stringwithFormat writes (null) cause last elements has no rating title
+        if(i != ratingDetails.count-1)
+            [header1 setTitle:[NSString stringWithFormat:@" %@",[ratingDetails[i] valueForKey:@"rating_title"]] forState:UIControlStateNormal];
+        
+//        header1.layer.borderColor = [UIColor colorWithRed:230/255.0f green:230/255.0f blue:230/255.0f alpha:1].CGColor;
+//        header1.layer.borderWidth = 0.9f;
+        
+        UIView *border = [UIView new];
+        border.backgroundColor = [UIColor colorWithRed:230/255.0f green:230/255.0f blue:230/255.0f alpha:1];
+        [border setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin];
+        border.frame = CGRectMake(0, 0, header1.frame.size.width, 1.0f);
+        [header1 addSubview:border];
         
         UIImageView *ratingImgView;
         UIImageView *buttonImgView;
@@ -286,7 +305,7 @@ CGFloat maxAccordionHeight = 0;
         
         ratingImgView = [[UIImageView alloc] initWithFrame:CGRectMake(ratingImageWidth, 5, ratingImageX, 20)];
         [header1 addSubview:ratingImgView];
-        [ratingImgView setImage:[UIImage imageNamed:@"rating25"]];
+        [ratingImgView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"rating%@", [ratingDetails[i] valueForKey:@"rating"]]]];
         [ratingImgView setContentMode:UIViewContentModeScaleAspectFit];
         ratingImgView.image = [ratingImgView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [ratingImgView setTintColor:[UIColor colorWithRed:59/255.0 green:58/255.0 blue:71/255.0 alpha:1]];
@@ -304,13 +323,13 @@ CGFloat maxAccordionHeight = 0;
         buttonImgView.tag = 10;
         
         //if first element, we rotate the image, as tab is open.
-        if(i == 1){
+        if(i == 0){
             UIImage *rotated = [self upsideDownBunny:M_PI withImage:buttonImgView.image];
             buttonImgView.image = rotated;
         }
-#warning 4 is an example, lets get the real count
+        
         //if last element, we rotate it 90
-        if(i == 4-1){
+        if(i == ratingDetails.count-1){
             UIImage *rotated = [self upsideDownBunny:-M_PI/2 withImage:buttonImgView.image];
             buttonImgView.image = rotated;
             //avoid rotating on click
@@ -325,7 +344,7 @@ CGFloat maxAccordionHeight = 0;
         header1.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 //        header1.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.000];
         [header1 setTitleColor:[UIColor colorWithRed:10/255.0 green:10/255.0 blue:10/255.0 alpha:1.000] forState:UIControlStateNormal];
-        UIView *view1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 242)];
+        UIView *view1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 100)];
         view1.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.000];
         
         [accordion addHeader:header1 withView:view1];
@@ -333,24 +352,23 @@ CGFloat maxAccordionHeight = 0;
         
         
         //if not last element
-        if(i != 4-1){
+        if(i != ratingDetails.count-1){
             
             UIWebView *wv = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, accordionWidth, 1)];
             wv.delegate = self;
             wv.tag = i;
             //disable scrolling in webview
             [[wv scrollView] setScrollEnabled:NO];
-            [wv setUserInteractionEnabled:NO];
             //disable background color in webview
             [wv setBackgroundColor:[UIColor clearColor]];
             [wv setOpaque:NO];
 
             [view1 addSubview:wv];
-            [wv loadHTMLString:@"<div>second WYSIWYG <b>this is bold</b><p>Lets <a href=\"http://www.onlinecasinos.expert/page4.js\">start</a> a new paragraph and close it</p> this is the second <i>WYSIWYG</i> for thisthe second <i>WYSIWYG</i> for this Homepage Homepage Homepage Homepage<i>WYSIWYG</i> for this Homepage Homepage HomepageHomepage Homepagthe second <i>WYSIWYG</i> for this Homepage Homepage Homepage Homepage<i>WYSIWYG</i> for this Homepage Homepage HomepageHomepage Homepagthe second <i>WYSIWYG</i> for this Homepage Homepage Homepage Homepage<i>WYSIWYG</i>page</div>" baseURL:nil];
+            [wv loadHTMLString:[ratingDetails[i] valueForKey:@"rating_description"] baseURL:nil];
             [accordionWVArray addObject:wv];
             
             //update total height for best scrolling
-            maxAccordionHeight += 300;
+            maxAccordionHeight += 140;
         }else{
             //if last element
             header1.backgroundColor = [UIColor colorWithRed:76/255.0 green:75/255.0 blue:89/255.0 alpha:1];
@@ -458,11 +476,6 @@ CGFloat maxAccordionHeight = 0;
     }
 }
 
-
--(void)initWV{
-    
-}
-
 -(void)initSecondTabWebView{
     NSString *s = [self.pp brandReviewGetSecondTabWysiwyg];
     [_secondTabWebView loadHTMLString:s baseURL:nil];
@@ -540,11 +553,26 @@ CGFloat maxAccordionHeight = 0;
 }
 
 
+//Handle tabBar clicks
+-(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
+    if (item.tag == 42){
+        [self.revealViewController rightRevealToggle:self];
+    }else if(item.tag == 84){
+        [self handleSharingEvent];
+    }
+    else if(item.tag == _activeTab){
+        return;
+    }else{
+        [_nav navigateWithItemID:item.tag WithURL:nil WithURLsDict:_tags2URLs WithSourceVC:self];
+    }
+}
+
 //Sharing
 -(void)handleSharingEvent{
     // create a message
-    NSString *theMessage = _pp.pageURL;
-    NSArray *items = @[@"My Share Item - Yoav", [UIImage imageNamed:@"betwaylogo"]];
+    NSString *urlToShare = _pp.pageURL;
+    //    NSArray *items = @[theMessage, [UIImage imageNamed:@"betwaylogo"]];
+    NSArray *items = @[urlToShare];
     
     // build an activity view controller
     UIActivityViewController *controller = [[UIActivityViewController alloc]initWithActivityItems:items applicationActivities:nil];
@@ -578,20 +606,16 @@ CGFloat maxAccordionHeight = 0;
             
             // user shared an item
             NSLog(@"We used activity type%@", activityType);
-            
         } else {
-            
             // user cancelled
             NSLog(@"We didn't want to share anything after all.");
         }
-        
         if (error) {
             NSLog(@"An Error occured: %@, %@", error.localizedDescription, error.localizedFailureReason);
         }
     };
 }
 
-//menu tag: 42, homepage tag: 24
 -(void)initTabBar{
     _tags2URLs = [[NSMutableDictionary alloc] init];
     NSMutableArray *tabBarArray;
@@ -608,22 +632,23 @@ CGFloat maxAccordionHeight = 0;
         NSDictionary *tabbarDict = self.tabbarElements[i];
         UIImage * iconImage;
         NSString *imageURL = [tabbarDict valueForKey:@"image_url"];
+        
         if(imageURL && [imageURL containsString:@"http"]){
             iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+            iconImage = [Tools imageWithImage:iconImage scaledToSize:CGSizeMake(30, 30)];
         }else{
             imageURL = nil;
         }
+        
         UITabBarItem *item;
         if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"share_item"]){
             iconImage = [UIImage imageNamed:@"share_30x30"];
             shareItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:84];
-            //            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:84]];
             continue;
         }
         if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"menu_item"]){
             iconImage = [UIImage imageNamed:@"menu_30x30"];
             menuItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:42];
-            //            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:42]];
             continue;
         }
         if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"homepage_item"]){
@@ -642,7 +667,15 @@ CGFloat maxAccordionHeight = 0;
     [tabBarArray addObject:menuItem];
     
     [_tabbar setItems:[tabBarArray arrayByAddingObjectsFromArray:[_tabbar items]]];
+    
+    //some shadow UI
+    _tabbar.layer.shadowOffset = CGSizeMake(0, 0);
+    _tabbar.layer.shadowRadius = 8;
+    _tabbar.layer.shadowColor = [UIColor blackColor].CGColor;
+    _tabbar.layer.shadowOpacity = 0.2;
+    _tabbar.layer.backgroundColor = [UIColor whiteColor].CGColor;
 }
+
 
 -(void)setActiveTabbarItem{
     int i = 0;
@@ -653,20 +686,6 @@ CGFloat maxAccordionHeight = 0;
             _tabbar.selectedItem = it;
             break;
         }
-    }
-}
-
--(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
-    NSLog(@"tag : %ld",item.tag);
-    if (item.tag == 42){
-        [self.revealViewController rightRevealToggle:self];
-    }else if(item.tag == 84){
-        [self handleSharingEvent];
-    }
-    else if(item.tag == _activeTab){
-        return;
-    }else{
-        [_nav navigateWithItemID:item.tag WithURL:nil WithURLsDict:_tags2URLs WithSourceVC:self];
     }
 }
 

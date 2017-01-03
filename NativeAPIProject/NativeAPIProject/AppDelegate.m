@@ -42,8 +42,9 @@
     globals.websiteURL = @"http://review.des/camilla";
     [AppsFlyerTracker sharedTracker].appsFlyerDevKey = @"p83XLj9oS5NU6xzdjYGJyF";
     [AppsFlyerTracker sharedTracker].appleAppID = @"12345678";
-    [AppsFlyerTracker sharedTracker].delegate = self;
     
+    
+    [AppsFlyerTracker sharedTracker].delegate = self;
 }
 
 -(BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler{
@@ -130,11 +131,10 @@
     NSError *error;
     //remove the file
     BOOL success = [fileManager removeItemAtPath:filePath error:&error];
-    if (success) {
+    if(success) {
         NSLog(@"successfully removed");
     }
-    else
-    {
+    else{
         NSLog(@"Could not delete file -:%@ ",[error localizedDescription]);
     }
     

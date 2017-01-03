@@ -27,7 +27,7 @@
                             <constraint firstAttribute="height" constant="60" id="kSy-e8-9Lj"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating45" translatesAutoresizingMaskIntoConstraints="NO" id="kf2-eW-se1">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating4-5" translatesAutoresizingMaskIntoConstraints="NO" id="kf2-eW-se1">
                         <rect key="frame" x="96" y="27" width="65" height="14"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -91,6 +91,6 @@
     </objects>
     <resources>
         <image name="betwaylogo" width="132" height="132"/>
-        <image name="rating45" width="131" height="26"/>
+        <image name="rating4-5" width="131" height="26"/>
     </resources>
 </document>
