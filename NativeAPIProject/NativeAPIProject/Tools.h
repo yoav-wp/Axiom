@@ -12,5 +12,4 @@
 @interface Tools : NSObject
 
 +(UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
-+(void)prefix_addUpperBorder:(UIView *)myView;
 @end

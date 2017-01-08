@@ -22,13 +22,4 @@ static int number = 1;
 }
 
 
-+(void)prefix_addUpperBorder:(UIView *)myView
-{
-    CALayer *upperBorder = [CALayer layer];
-    upperBorder.backgroundColor = [[UIColor greenColor] CGColor];
-    upperBorder.frame = CGRectMake(0, 0, CGRectGetWidth(myView.frame), 1.0f);
-    [myView.layer addSublayer:upperBorder];
-}
-
-
 @end

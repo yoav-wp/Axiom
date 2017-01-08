@@ -114,7 +114,7 @@ static NSString * brandRevID = @"brandRevID";
 -(void)initBanner{
     _GetBannerButton.layer.cornerRadius = 14;
     _GetBannerButton.layer.zPosition = 1;
-    [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(removeBanner) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:8 target:self selector:@selector(removeBanner) userInfo:nil repeats:NO];
 }
 
 -(void)removeBanner{
@@ -261,7 +261,6 @@ static NSString * brandRevID = @"brandRevID";
     }
     
     NSString *htmlString = [self.pp homepageGetFirstWysiwyg];
-    NSLog(@"ooooooo %@",htmlString);
     if(htmlString.length < 8){
         [self setConstraintZeroToView:_firstWYSIWYG];
     }else{

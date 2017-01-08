@@ -86,7 +86,7 @@ static NSString * categoryID = @"categoryVC";
 -(void) initWebView{
 //    NSURL *url = [NSURL URLWithString:[self.pp getBaseURL]];
     NSURL *url = [NSURL URLWithString:_pp.pageURL];
-    NSLog(@"Gonna load %@", url);
+    NSLog(@"Gonna load %@", _pp.pageDataDictionary);
     NSURLRequest *rq =[NSURLRequest requestWithURL:url];
     [self.webView loadRequest:rq];
 }

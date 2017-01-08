@@ -37,13 +37,19 @@
     globals = [GlobalVars sharedInstance];
     
 #warning Please, put your main variables here below, and remove this line <----
-//    globals.websiteURL = @"http://www.online-casinos-canada.ca";
+//    globals.websiteURL = @"http://www.online-casinos-canada.ca/";
 //    globals.websiteURL = @"http://onlinecasinos.expert/homepage.js";
-    globals.websiteURL = @"http://review.des/camilla";
+    globals.websiteURL = @"http://review.des/camilla/";
     [AppsFlyerTracker sharedTracker].appsFlyerDevKey = @"p83XLj9oS5NU6xzdjYGJyF";
     [AppsFlyerTracker sharedTracker].appleAppID = @"12345678";
     
+   
     
+    
+    if(! [[globals.websiteURL substringFromIndex:globals.websiteURL.length-1] isEqualToString:@"/"]){
+        NSLog(@"missing trainling slash");
+        globals.websiteURL = [globals.websiteURL stringByAppendingString:@"/"];
+    }
     [AppsFlyerTracker sharedTracker].delegate = self;
 }
 
@@ -86,7 +92,6 @@
     } else if([status isEqualToString:@"Organic"]) {
         NSString* userId = [[AppsFlyerTracker sharedTracker] getAppsFlyerUID];
         NSLog(@"This is an organic install. %@",userId);
-        
     }
 }
 
@@ -147,8 +152,6 @@
     if(download == nil){
         NSURL *url = [[NSURL URLWithString:globals.websiteURL] URLByAppendingPathComponent:@"/wp-content/plugins/wcms_frontend/wcms_ajax_handler.php"];
         url = [NSURL URLWithString:@"?action=get_native_app_nav_menu" relativeToURL:url];
-        NSLog(@"my url : %@", url.absoluteString);
-//        url = [NSURL URLWithString:@"http://onlinecasinos.expert/plist.xml"];
         download = [_backgroundSession downloadTaskWithURL:url];
         [download resume];
     }

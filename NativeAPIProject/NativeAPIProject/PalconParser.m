@@ -15,55 +15,59 @@
 
 -(void) initWithFullURL:(NSString *)fullURL{
     NSString *arrangedURL;
-    if(! [[fullURL substringFromIndex:fullURL.length-1] isEqualToString:@"/"])
-        arrangedURL = [fullURL stringByAppendingString:@"/"];
-    self.urlWithQueryString = [arrangedURL stringByAppendingString:@"?context_to_json=1"];
-    self.pageURL = fullURL;
+    NSURL *url = [NSURL URLWithString:fullURL];
+    url = [NSURL URLWithString:@"?context_to_json=1" relativeToURL:url];
+    arrangedURL = url.absoluteString;
+    
+    NSLog(@"arranged url : %@",arrangedURL);
+    _urlWithQueryString = arrangedURL;
+    _pageURL = fullURL;
     [self initDataDictionary];
 }
 
 -(void)initDataDictionary{
     NSError *theError = nil;
+    NSError *downloadError = nil;
     NSLog(@"pp - starting page download download");
-    NSData *theJSONData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.urlWithQueryString]];
-    self.pageDataDictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:theJSONData error:&theError];
-    NSLog(@"pp - finished page download");
+    NSData *theJSONData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_urlWithQueryString] options:NSDataReadingUncached error:&downloadError];
+    _pageDataDictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:theJSONData error:&theError];
+    NSLog(@"pp : init data dict url : %@, dict: %@, json data : %@, the error : %@ data error : %@",_urlWithQueryString ,_pageDataDictionary, theJSONData, downloadError, theError);
 }
 
 -(NSString *)getPageType{
 //    NSLog(@"file %@",self.pageDataDictionary);
-    return [self.pageDataDictionary valueForKey:@"page_type"];
+    return [_pageDataDictionary valueForKey:@"page_type"];
 }
 
 -(NSString *)homepageGetAppTitle{
-    return [self.pageDataDictionary valueForKey:@"app_title"];
+    return [_pageDataDictionary valueForKey:@"app_title"];
 }
 
 -(NSString *)homePageGetTableTitle{
-    NSDictionary *dict = [self.pageDataDictionary valueForKey:@"native_app_widget_1"];
+    NSDictionary *dict = [_pageDataDictionary valueForKey:@"native_app_widget_1"];
     return [dict valueForKey:@"widget_header"];
 }
 
 -(NSString *)homepageGetFirstWysiwyg {
-    NSString *baseString = [self.pageDataDictionary valueForKey:@"app_intro"];
+    NSString *baseString = [_pageDataDictionary valueForKey:@"app_intro"];
     
     return baseString;
 }
 -(NSString *)homepageGetSecondWysiwyg {
-    NSString *baseString = [self.pageDataDictionary valueForKey:@"app_content_text_1"];
+    NSString *baseString = [_pageDataDictionary valueForKey:@"app_content_text_1"];
     
     return baseString;
 }
 
 -(NSString *)brandReviewGetWysiwyg{
-    NSString *s = [self.pageDataDictionary valueForKey:@"app_intro"];
+    NSString *s = [_pageDataDictionary valueForKey:@"app_intro"];
     return s;
 }
 
 -(NSArray *)brandReviewGetRatingDetails{
-    NSMutableArray *ar = [self.pageDataDictionary valueForKey:@"rating_details"];
+    NSMutableArray *ar = [_pageDataDictionary valueForKey:@"app_rating_details"];
     [ar removeObjectAtIndex:ar.count-1];
-    [ar addObject:[self.pageDataDictionary valueForKey:@"avg_rating"]];
+    [ar addObject:[_pageDataDictionary valueForKey:@"avg_rating"]];
     return ar;
 }
 
@@ -93,7 +97,7 @@
 
 -(NSMutableArray *)getBrandReviewScreenshots{
     
-    NSMutableArray *screenshots = [self.pageDataDictionary valueForKey:@"screenshots"];
+    NSMutableArray *screenshots = [_pageDataDictionary valueForKey:@"screenshots"];
     return screenshots;
 }
 
@@ -101,9 +105,9 @@
 //for now - private method to get the tabs (used in brandReviewGetSecondTabWysiwyg)
 -(NSMutableArray *)getBrandReviewTabs{
     NSMutableArray *tabs;
-    for (id key in self.pageDataDictionary) {
+    for (id key in _pageDataDictionary) {
         if([key isEqualToString:@"tabs"]){
-            tabs = [self.pageDataDictionary objectForKey:key];
+            tabs = [_pageDataDictionary objectForKey:key];
             break;
         }
     }
@@ -117,19 +121,19 @@
 }
 
 -(NSArray *)brandReviewGetPaymentMethods{
-    return [self.pageDataDictionary valueForKey:@"pay_method"];
+    return [_pageDataDictionary valueForKey:@"pay_method"];
 }
 
 -(NSArray *)brandReviewGetSoftwareProviders{
-    return [self.pageDataDictionary valueForKey:@"sof_providers"];
+    return [_pageDataDictionary valueForKey:@"sof_providers"];
 }
 
 -(NSString *)brandReviewGetTOSWysiwyg{
-    return [self.pageDataDictionary valueForKey:@"content_1"];
+    return [_pageDataDictionary valueForKey:@"content_1"];
 }
 
 -(NSString *)getIsPageNative{
-    return [self.pageDataDictionary valueForKey:@"app_native"];
+    return [_pageDataDictionary valueForKey:@"native_app"];
 }
 
 -(NSDictionary *)homepageGetTableWidget{

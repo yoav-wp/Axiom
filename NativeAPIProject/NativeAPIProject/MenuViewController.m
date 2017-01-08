@@ -194,8 +194,6 @@
         }else
         {
             NSString *destLink = [d valueForKey:@"page_link2"];
-            NSLog(@"link: %@",destLink);
-            
             [_nav navigateWithItemID:-42 WithURL:destLink WithURLsDict:nil WithSourceVC:self];
         }
     }

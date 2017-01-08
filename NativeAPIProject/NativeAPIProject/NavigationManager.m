@@ -42,6 +42,7 @@ static NSString * gameRevID = @"gameRevID";
         NSLog(@"tag -42 %@",destURL);
         PalconParser *destPP = [[PalconParser alloc] init];
         [destPP initWithFullURL:destURL];
+        NSLog(@"nav manager : this is pp dict :%@",destPP.pageDataDictionary);
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
         
         if([[destPP getIsPageNative] isEqualToString:@"wrapped"]){
@@ -51,7 +52,7 @@ static NSString * gameRevID = @"gameRevID";
             [segue perform];
             return;
         }
-        if([[destPP getIsPageNative] isEqualToString:@"excluse"]){
+        if([[destPP getIsPageNative] isEqualToString:@"exclude"]){
             //send to safari
             NSURL *excludeCaseURL = [NSURL URLWithString:destURL];
             [[UIApplication sharedApplication] openURL:excludeCaseURL options:@{} completionHandler:nil];
@@ -72,11 +73,6 @@ static NSString * gameRevID = @"gameRevID";
             [segue perform];
         }
         else if([[destPP getPageType]isEqualToString:@"category_page"]){
-            //for now :
-            WebViewVC *vc = [storyboard instantiateViewControllerWithIdentifier:webviewID];
-            vc.pp = destPP;
-            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:sourceVC destination:vc];
-            [segue perform];
 //            CategoryVC *vc = [storyboard instantiateViewControllerWithIdentifier:categoryID];
 //            vc.pp = destPP;
 //            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:sourceVC destination:vc];
@@ -89,11 +85,6 @@ static NSString * gameRevID = @"gameRevID";
             [segue perform];
         }
         else if([[destPP getPageType]isEqualToString:@"game_review"]){
-            //for now :
-            WebViewVC *vc = [storyboard instantiateViewControllerWithIdentifier:webviewID];
-            vc.pp = destPP;
-            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:sourceVC destination:vc];
-            [segue perform];
 //            GameReviewVC *vc = [storyboard instantiateViewControllerWithIdentifier:gameRevID];
 //            vc.pp = destPP;
 //            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:sourceVC destination:vc];
@@ -118,7 +109,6 @@ static NSString * gameRevID = @"gameRevID";
     
     //These are clicks from the tabbar (tags 11-20)
     else{
-        NSLog(@"tag else");
         NSString *targetURL = [tags2URLs objectForKey:[NSNumber numberWithInteger:tag]];
         PalconParser *destPP = [[PalconParser alloc] init];
         [destPP initWithFullURL:targetURL];
@@ -157,6 +147,7 @@ static NSString * gameRevID = @"gameRevID";
             vc.activeTab = tag;
             SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:sourceVC destination:vc];
             [segue perform];
+            return;
         }
         else if([[destPP getPageType]isEqualToString:@"product-review"]){
 //            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
@@ -165,12 +156,6 @@ static NSString * gameRevID = @"gameRevID";
 //            vc.activeTab = tag;
 //            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:sourceVC destination:vc];
 //            [segue perform];
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            WebViewVC *vc = [storyboard instantiateViewControllerWithIdentifier:webviewID];
-            vc.pp = destPP;
-            vc.activeTab = tag;
-            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:sourceVC destination:vc];
-            [segue perform];
         }
         else if([[destPP getPageType]isEqualToString:@"webview_page"]){
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
@@ -179,6 +164,7 @@ static NSString * gameRevID = @"gameRevID";
             vc.activeTab = tag;
             SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:sourceVC destination:vc];
             [segue perform];
+            return;
         }
         else if([[destPP getPageType]isEqualToString:@"category_page"]){
 //            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
@@ -187,12 +173,6 @@ static NSString * gameRevID = @"gameRevID";
 //            vc.activeTab = tag;
 //            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:sourceVC destination:vc];
 //            [segue perform];
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-            WebViewVC *vc = [storyboard instantiateViewControllerWithIdentifier:webviewID];
-            vc.pp = destPP;
-            vc.activeTab = tag;
-            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:sourceVC destination:vc];
-            [segue perform];
         }
         //if unknown page-type
         else{
@@ -202,6 +182,7 @@ static NSString * gameRevID = @"gameRevID";
             vc.activeTab = tag;
             SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:sourceVC destination:vc];
             [segue perform];
+            return;
         }
     }
 }

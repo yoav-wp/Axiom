@@ -102,7 +102,6 @@ CGFloat maxAccordionHeight = 0;
 //call all the widgets initializations
 //better view WILL appear, did appear for debug
 -(void)viewDidAppear:(BOOL)animated{
-    // Do any additional setup after loading the view, typically from a nib.
     //otherwise items are added on page reload (after failed share action)
     if([[_tabbar items] count] == 0)
         [self initTabBar];
@@ -247,7 +246,7 @@ CGFloat maxAccordionHeight = 0;
     
 
     accordionWVArray = [NSMutableArray array];
-    _accordionHeightConstraint.constant = 500;
+    _accordionHeightConstraint.constant = 600;
     
     CGFloat accordionWidth = self.view.frame.size.width;
     accordion = [[AccordionView alloc] initWithFrame:CGRectMake(0, 0, accordionWidth, [[UIScreen mainScreen] bounds].size.height)];
@@ -266,11 +265,9 @@ CGFloat maxAccordionHeight = 0;
         
         //otherwise stringwithFormat writes (null) cause last elements has no rating title
         if(i != ratingDetails.count-1)
-            [header1 setTitle:[NSString stringWithFormat:@" %@",[ratingDetails[i] valueForKey:@"rating_title"]] forState:UIControlStateNormal];
+            [header1 setTitle:[NSString stringWithFormat:@" %@",[ratingDetails[i] valueForKey:@"app_rating_title"]] forState:UIControlStateNormal];
         
-//        header1.layer.borderColor = [UIColor colorWithRed:230/255.0f green:230/255.0f blue:230/255.0f alpha:1].CGColor;
-//        header1.layer.borderWidth = 0.9f;
-        
+        //border on top of the buttons
         UIView *border = [UIView new];
         border.backgroundColor = [UIColor colorWithRed:230/255.0f green:230/255.0f blue:230/255.0f alpha:1];
         [border setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin];
@@ -285,7 +282,7 @@ CGFloat maxAccordionHeight = 0;
         CGFloat buttonImgWidth = 20;
         
         //iphone 7 edge
-        if(screenWidth <= 375){
+        if(screenWidth < 375){
             buttonImgX = screenWidth - (buttonImgWidth + 4);
             ratingImageX = screenWidth - (ratingImageWidth + screenWidth - buttonImgX);
             //most iphones
@@ -305,7 +302,7 @@ CGFloat maxAccordionHeight = 0;
         
         ratingImgView = [[UIImageView alloc] initWithFrame:CGRectMake(ratingImageWidth, 5, ratingImageX, 20)];
         [header1 addSubview:ratingImgView];
-        [ratingImgView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"rating%@", [ratingDetails[i] valueForKey:@"rating"]]]];
+        [ratingImgView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"rating%@", [ratingDetails[i] valueForKey:@"app_rating"]]]];
         [ratingImgView setContentMode:UIViewContentModeScaleAspectFit];
         ratingImgView.image = [ratingImgView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [ratingImgView setTintColor:[UIColor colorWithRed:59/255.0 green:58/255.0 blue:71/255.0 alpha:1]];
@@ -344,7 +341,7 @@ CGFloat maxAccordionHeight = 0;
         header1.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 //        header1.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.000];
         [header1 setTitleColor:[UIColor colorWithRed:10/255.0 green:10/255.0 blue:10/255.0 alpha:1.000] forState:UIControlStateNormal];
-        UIView *view1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 100)];
+        UIView *view1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 150)];
         view1.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.000];
         
         [accordion addHeader:header1 withView:view1];
@@ -364,7 +361,7 @@ CGFloat maxAccordionHeight = 0;
             [wv setOpaque:NO];
 
             [view1 addSubview:wv];
-            [wv loadHTMLString:[ratingDetails[i] valueForKey:@"rating_description"] baseURL:nil];
+            [wv loadHTMLString:[ratingDetails[i] valueForKey:@"app_rating_description"] baseURL:nil];
             [accordionWVArray addObject:wv];
             
             //update total height for best scrolling
@@ -477,8 +474,29 @@ CGFloat maxAccordionHeight = 0;
 }
 
 -(void)initSecondTabWebView{
-    NSString *s = [self.pp brandReviewGetSecondTabWysiwyg];
-    [_secondTabWebView loadHTMLString:s baseURL:nil];
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    [_secondTabWebView setBackgroundColor:[UIColor clearColor]];
+    [_secondTabWebView setOpaque:NO];
+    
+    CGFloat width = screenRect.size.width;
+    NSString *fontSize = @"";
+    //    NSLog(@"screen size %f", width);
+    if(width <= 400){
+        fontSize = @"1em";
+    }else if(width <= 500){
+        fontSize = @"1.5em";
+    }else{
+        fontSize = @"2em";
+    }
+    
+    NSString *htmlString = [self.pp brandReviewGetSecondTabWysiwyg];
+    if(htmlString.length < 8){
+        [self setConstraintZeroToView:_secondTabWebView];
+    }else{
+        htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:dark-grey;font-size:%@\">%@</spann>",fontSize,htmlString];
+        [_secondTabWebView loadHTMLString:htmlString baseURL:nil];
+        _secondTabWebView.scrollView.scrollEnabled = NO;
+    }
 }
 
 //
@@ -493,34 +511,59 @@ CGFloat maxAccordionHeight = 0;
 //}
 
 
+//- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+//    
+//    //open page from wysiwyg
+//    NSString *urlString = [[request URL] absoluteString];
+//    NavigationManager *nav = [[NavigationManager alloc] init];
+//    NSLog(@"url : %@",urlString);
+//    NSMutableString *website = [NSMutableString stringWithString:globals.websiteURL];
+//    //remove the http if exists
+//    [website replaceOccurrencesOfString:@"http://" withString:@"" options:NSAnchoredSearch range:NSMakeRange(0, website.length)];
+//    [website replaceOccurrencesOfString:@"https://" withString:@"" options:NSAnchoredSearch range:NSMakeRange(0, website.length)];
+//    if([urlString containsString:website]){
+//#warning hmm need to pass tags2URLs??
+//        [nav navigateWithItemID:-42 WithURL:urlString WithURLsDict:_tags2URLs WithSourceVC:self];
+//        return NO;
+//    }
+//    
+//    
+//    //MappingFinderPart
+//    MappingFinder *st = [MappingFinder getMFObject];
+//    NSURL *url = [request URL];
+//    url= [st makeURL:url trigger:@"go"];
+//    
+//    if (([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
+//        [[UIApplication sharedApplication] openURL:url];
+//        return NO;
+//    }
+//    return YES;
+//}
+
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     
     //open page from wysiwyg
     NSString *urlString = [[request URL] absoluteString];
     NavigationManager *nav = [[NavigationManager alloc] init];
-    NSLog(@"url : %@",urlString);
-    NSMutableString *website = [NSMutableString stringWithString:globals.websiteURL];
-    //remove the http if exists
-    [website replaceOccurrencesOfString:@"http://" withString:@"" options:NSAnchoredSearch range:NSMakeRange(0, website.length)];
-    [website replaceOccurrencesOfString:@"https://" withString:@"" options:NSAnchoredSearch range:NSMakeRange(0, website.length)];
-    if([urlString containsString:website]){
-#warning hmm need to pass tags2URLs??
+    if([urlString containsString:[[GlobalVars sharedInstance] websiteURL]]){
         [nav navigateWithItemID:-42 WithURL:urlString WithURLsDict:_tags2URLs WithSourceVC:self];
         return NO;
     }
     
-    
-    //MappingFinderPart
-    MappingFinder *st = [MappingFinder getMFObject];
     NSURL *url = [request URL];
-    url= [st makeURL:url trigger:@"go"];
     
+#warning TODO - define mapping finder system - if url contains mappingfinder.com?
     if (([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
-        [[UIApplication sharedApplication] openURL:url];
+        
+        MappingFinder *st = [MappingFinder getMFObject];
+        url= [st makeURL:url trigger:@"go"];
+        
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
         return NO;
     }
     return YES;
 }
+
 
 - (IBAction)segmentValueChanged:(id)sender {
     
