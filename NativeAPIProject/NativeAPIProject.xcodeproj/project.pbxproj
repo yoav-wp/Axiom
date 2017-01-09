@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		066C1E5559895CDCC5BDCF5B /* libPods-NativeAPIProjectUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4170A1B5F4B09D684A67381A /* libPods-NativeAPIProjectUITests.a */; };
+		5416166D1E23C80900C5C658 /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5416166C1E23C80900C5C658 /* Montserrat-Regular.otf */; };
 		7773B1F0F1D1B74C28E4FF37 /* libPods-NativeAPIProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E253A927D2EB113502984E52 /* libPods-NativeAPIProject.a */; };
 		EB0F05221E09239800D11C3B /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0F05211E09239800D11C3B /* Tools.m */; };
 		EB12E1411DE33773009DB2FF /* GlobalVars.m in Sources */ = {isa = PBXBuildFile; fileRef = EB12E1401DE33773009DB2FF /* GlobalVars.m */; };
@@ -62,6 +63,7 @@
 		4537E456EE351ABB4A1E19D5 /* Pods-NativeAPIProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeAPIProjectTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NativeAPIProjectTests/Pods-NativeAPIProjectTests.release.xcconfig"; sourceTree = "<group>"; };
 		49455878607A39D3EE061712 /* Pods-NativeAPIProjectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeAPIProjectUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NativeAPIProjectUITests/Pods-NativeAPIProjectUITests.release.xcconfig"; sourceTree = "<group>"; };
 		4C92D3A1B9CA61923CB62F61 /* Pods-NativeAPIProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeAPIProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NativeAPIProject/Pods-NativeAPIProject.debug.xcconfig"; sourceTree = "<group>"; };
+		5416166C1E23C80900C5C658 /* Montserrat-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.otf"; sourceTree = "<group>"; };
 		598836C6CD440AD483913EF4 /* libPods-NativeAPIProjectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NativeAPIProjectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		932D3E00FFD455DAC8CC45C4 /* Pods-NativeAPIProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeAPIProjectTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NativeAPIProjectTests/Pods-NativeAPIProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B4D54F78130130F184A1D2CD /* Pods-NativeAPIProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeAPIProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-NativeAPIProject/Pods-NativeAPIProject.release.xcconfig"; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				EBAFFCB51D5C99BB0021732B /* Info.plist */,
+				5416166C1E23C80900C5C658 /* Montserrat-Regular.otf */,
 				EBAFFCA51D5C99BB0021732B /* main.m */,
 			);
 			name = "Supporting Files";
@@ -456,6 +459,7 @@
 				EB6199101D5C9E2600E54823 /* menu_icons.bundle in Resources */,
 				EBAFFCB11D5C99BB0021732B /* Assets.xcassets in Resources */,
 				EBAFFCAF1D5C99BB0021732B /* Main.storyboard in Resources */,
+				5416166D1E23C80900C5C658 /* Montserrat-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

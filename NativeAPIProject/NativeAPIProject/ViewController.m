@@ -249,22 +249,13 @@ static NSString * brandRevID = @"brandRevID";
     [_firstWYSIWYG setBackgroundColor:[UIColor clearColor]];
     [_firstWYSIWYG setOpaque:NO];
 
-    CGFloat width = screenRect.size.width;
-    NSString *fontSize = @"";
-//    NSLog(@"screen size %f", width);
-    if(width <= 400){
-        fontSize = @"1em";
-    }else if(width <= 500){
-        fontSize = @"1.5em";
-    }else{
-        fontSize = @"2em";
-    }
+    NSString *fontSize = @"3.9vw";
     
     NSString *htmlString = [self.pp homepageGetFirstWysiwyg];
     if(htmlString.length < 8){
         [self setConstraintZeroToView:_firstWYSIWYG];
     }else{
-        htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:grey;font-size:%@\">%@</spann>",fontSize,htmlString];
+        htmlString = [NSString stringWithFormat:@"<span style=\"font-family:Montserrat;color:#75768A;font-size:%@\">%@</spann>",fontSize,htmlString];
         [_firstWYSIWYG loadHTMLString:htmlString baseURL:nil];
         _firstWYSIWYG.scrollView.scrollEnabled = NO;
     }
@@ -295,24 +286,16 @@ static NSString * brandRevID = @"brandRevID";
 
 
 -(void)initSecondWysiwyg{
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    
-    CGFloat width = screenRect.size.width;
-    NSString *fontSize = @"";
-    if(width <= 400){
-        fontSize = @"1em";
-    }else if(width <= 500){
-        fontSize = @"1.5em";
-    }else{
-        fontSize = @"2em";
-    }
+    NSString *fontSize = @"3.9vw";
     
     //    NSLog(@"screen size %f, font size: %@", width, fontSize);
     NSString *htmlString = [self.pp homepageGetSecondWysiwyg];
     if(htmlString.length < 8){
         [self setConstraintZeroToView:_secondWYSIWYG];
     }else{
-        htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:grey;font-size:%@\">%@</spann>",fontSize,htmlString];
+        NSLog(@"wysiwyg : %@",htmlString);
+        NSString *style = [Tools getDefaultWysiwygCSSwithFontSize:fontSize];
+        htmlString = [NSString stringWithFormat:@"<span>%@<h1>test h1</h1>%@</span>", style,htmlString];
         [_secondWYSIWYG loadHTMLString:htmlString baseURL:nil];
         _secondWYSIWYG.scrollView.scrollEnabled = NO;
     }

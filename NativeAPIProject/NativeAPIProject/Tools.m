@@ -21,5 +21,10 @@ static int number = 1;
     return newImage;
 }
 
++(NSString *)getDefaultWysiwygCSSwithFontSize:(NSString *)fontSize{
+    NSString *style = [NSString stringWithFormat:@"<style>h1{color:red;}span{font-family:Montserrat;color:blue;font-size:%@;}</style>",fontSize];
+    return style;
+}
+
 
 @end

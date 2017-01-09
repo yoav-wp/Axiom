@@ -286,7 +286,7 @@ CGFloat maxAccordionHeight = 0;
             buttonImgX = screenWidth - (buttonImgWidth + 4);
             ratingImageX = screenWidth - (ratingImageWidth + screenWidth - buttonImgX);
             //most iphones
-        }else if(screenWidth <= 375){
+        }else if(screenWidth == 375){
             buttonImgX = screenWidth - (buttonImgWidth + 4);
             ratingImageX = screenWidth - (ratingImageWidth + screenWidth + 20 - buttonImgX);
             //Plus iphones

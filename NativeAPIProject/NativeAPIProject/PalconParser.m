@@ -31,7 +31,6 @@
     NSLog(@"pp - starting page download download");
     NSData *theJSONData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_urlWithQueryString] options:NSDataReadingUncached error:&downloadError];
     _pageDataDictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:theJSONData error:&theError];
-    NSLog(@"pp : init data dict url : %@, dict: %@, json data : %@, the error : %@ data error : %@",_urlWithQueryString ,_pageDataDictionary, theJSONData, downloadError, theError);
 }
 
 -(NSString *)getPageType{
