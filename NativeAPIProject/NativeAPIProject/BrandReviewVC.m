@@ -84,6 +84,8 @@ CGFloat maxAccordionHeight = 0;
     self.revealViewController.rightViewRevealOverdraw=4;
     [self.revealViewController panGestureRecognizer];
     [self.revealViewController tapGestureRecognizer];
+    
+    
     [self initSegmentViews];
     [self initAccordionView];
     [self initSecondTabWebView];
@@ -91,11 +93,12 @@ CGFloat maxAccordionHeight = 0;
     [self initFirstWysiwyg];
     [self initPaymentMethods];
     [self initSoftwareProviders];
-    [self initSegmentText];
+    //    [self initSegmentText];
     [self initScreenshots];
     [self initLabelsValues];
     [self initTOSWV];
     [self initTosBottomImages];
+    
 }
 
 
@@ -122,7 +125,8 @@ CGFloat maxAccordionHeight = 0;
 
 -(void)initFirstWysiwyg{
     NSString *urlString = [self.pp brandReviewGetWysiwyg];
-    [_firstWysiwyg loadHTMLString:urlString baseURL:nil];
+    NSString *style = [Tools getDefaultWysiwygCSSwithFontSize:@"3.8vw"];
+    [_firstWysiwyg loadHTMLString:[NSString stringWithFormat:@"%@<span>%@</span>",style,urlString] baseURL:nil];
 }
 
 -(void)initSegmentText{
@@ -185,6 +189,9 @@ CGFloat maxAccordionHeight = 0;
 -(void)initTOSWV{
     _tosWV.scrollView.scrollEnabled = NO;
     NSString *urlString = [self.pp brandReviewGetTOSWysiwyg];
+    NSString *textSize = @"3.8vw";
+    NSString *style = [Tools getDefaultWysiwygCSSwithFontSize:textSize];
+    urlString = [NSString stringWithFormat:@"%@<span>%@</span>", style,urlString];
     [_tosWV loadHTMLString:urlString baseURL:nil];
 }
 
@@ -276,9 +283,9 @@ CGFloat maxAccordionHeight = 0;
         
         UIImageView *ratingImgView;
         UIImageView *buttonImgView;
-        CGFloat ratingImageX = 200;
+        CGFloat ratingImageX;
         CGFloat ratingImageWidth = 80;
-        CGFloat buttonImgX = 300;
+        CGFloat buttonImgX;
         CGFloat buttonImgWidth = 20;
         
         //iphone 7 edge
@@ -287,8 +294,9 @@ CGFloat maxAccordionHeight = 0;
             ratingImageX = screenWidth - (ratingImageWidth + screenWidth - buttonImgX);
             //most iphones
         }else if(screenWidth == 375){
-            buttonImgX = screenWidth - (buttonImgWidth + 4);
-            ratingImageX = screenWidth - (ratingImageWidth + screenWidth + 20 - buttonImgX);
+            NSLog(@"we are are width = 375");
+            buttonImgX = 375 - (buttonImgWidth + 5); //5 is right margin
+            ratingImageX = buttonImgX;//5 is right margin
             //Plus iphones
         }else if(screenWidth <= 414){
             buttonImgX = screenWidth - (buttonImgWidth + 10);
@@ -300,7 +308,7 @@ CGFloat maxAccordionHeight = 0;
         }
         
         
-        ratingImgView = [[UIImageView alloc] initWithFrame:CGRectMake(ratingImageWidth, 5, ratingImageX, 20)];
+        ratingImgView = [[UIImageView alloc] initWithFrame:CGRectMake(ratingImageWidth, 4, ratingImageX, 20)];
         [header1 addSubview:ratingImgView];
         [ratingImgView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"rating%@", [ratingDetails[i] valueForKey:@"app_rating"]]]];
         [ratingImgView setContentMode:UIViewContentModeScaleAspectFit];
@@ -360,8 +368,9 @@ CGFloat maxAccordionHeight = 0;
             [wv setBackgroundColor:[UIColor clearColor]];
             [wv setOpaque:NO];
 
+            NSString *htmlString = [NSString stringWithFormat:@"%@<span>%@</span>",[Tools getDefaultWysiwygCSSwithFontSize:@"3.8vw"],[ratingDetails[i] valueForKey:@"app_rating_description"]];
             [view1 addSubview:wv];
-            [wv loadHTMLString:[ratingDetails[i] valueForKey:@"app_rating_description"] baseURL:nil];
+            [wv loadHTMLString:htmlString baseURL:nil];
             [accordionWVArray addObject:wv];
             
             //update total height for best scrolling
@@ -474,26 +483,15 @@ CGFloat maxAccordionHeight = 0;
 }
 
 -(void)initSecondTabWebView{
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
     [_secondTabWebView setBackgroundColor:[UIColor clearColor]];
     [_secondTabWebView setOpaque:NO];
-    
-    CGFloat width = screenRect.size.width;
-    NSString *fontSize = @"";
-    //    NSLog(@"screen size %f", width);
-    if(width <= 400){
-        fontSize = @"1em";
-    }else if(width <= 500){
-        fontSize = @"1.5em";
-    }else{
-        fontSize = @"2em";
-    }
+    [_secondTabWebView.scrollView setScrollEnabled:YES];
     
     NSString *htmlString = [self.pp brandReviewGetSecondTabWysiwyg];
     if(htmlString.length < 8){
         [self setConstraintZeroToView:_secondTabWebView];
     }else{
-        htmlString = [NSString stringWithFormat:@"<span style=\"font-family:arial;color:dark-grey;font-size:%@\">%@</spann>",fontSize,htmlString];
+        htmlString = [NSString stringWithFormat:@"%@<span>%@</spann>",[Tools getDefaultWysiwygCSSwithFontSize:@"3.8vw"],htmlString];
         [_secondTabWebView loadHTMLString:htmlString baseURL:nil];
         _secondTabWebView.scrollView.scrollEnabled = NO;
     }
@@ -555,10 +553,7 @@ CGFloat maxAccordionHeight = 0;
 #warning TODO - define mapping finder system - if url contains mappingfinder.com?
     if (([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
         
-        MappingFinder *st = [MappingFinder getMFObject];
-        url= [st makeURL:url trigger:@"go"];
-        
-        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+        [_nav navigateToAffLink:urlString];
         return NO;
     }
     return YES;

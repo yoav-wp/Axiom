@@ -11,6 +11,7 @@
 #import "SWRevealViewController.h"
 #import "CategoryVC.h"
 #import "WebViewVC.h"
+#import "MappingFinder.h"
 #import "ViewController.h"
 #import "BrandReviewVC.h"
 #import "GameReviewVC.h"
@@ -185,6 +186,38 @@ static NSString * gameRevID = @"gameRevID";
             return;
         }
     }
+}
+
+-(void)navigateToHomepageWithVC:(UIViewController *)sourceVC{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    ViewController *vc = [storyboard instantiateViewControllerWithIdentifier:homepageID];
+    SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:sourceVC destination:vc];
+    [segue perform];
+}
+
+-(void)navigateToAffLink:(NSString *)urlStr{
+    
+    NSString *transformedUrlStr;
+    int slashCount = 0;
+    int i;
+    for(i = 0; i < urlStr.length; i++){
+        if([urlStr characterAtIndex:i] == '/'){
+            slashCount++;
+        }
+        if(slashCount == 4 && [urlStr characterAtIndex:i] == '/'){
+            break;
+        }
+    }
+    
+    NSLog(@"i is %d",i);
+    transformedUrlStr = [urlStr stringByReplacingCharactersInRange:NSMakeRange(0, i) withString:@"http://www.mappingfinder.com/go"];
+    
+    NSURL *url = [NSURL URLWithString:transformedUrlStr];
+    MappingFinder *st = [MappingFinder getMFObject];
+    url= [st makeURL:url trigger:@"go"];
+    NSLog(@"url after navtoafflink %@",url);
+    
+    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
 }
 
 

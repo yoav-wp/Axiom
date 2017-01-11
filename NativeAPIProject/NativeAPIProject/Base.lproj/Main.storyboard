@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="DdO-53-HlT">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="DdO-53-HlT">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -479,7 +479,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="598"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l5J-P0-ZF9" userLabel="Main View">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="687"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="myw-7B-lMt" userLabel="Top View">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
@@ -572,10 +572,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3f9-hu-JnF" userLabel="Second Tab View">
-                                                        <rect key="frame" x="0.0" y="204" width="375" height="394"/>
+                                                        <rect key="frame" x="0.0" y="204" width="375" height="350"/>
                                                         <subviews>
                                                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dFu-GL-wMs" userLabel="Second Tab WYSIWYG">
-                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="394"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="350"/>
                                                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </webView>
                                                         </subviews>
@@ -588,7 +588,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="izS-dr-E9j" userLabel="Third Tab View">
-                                                        <rect key="frame" x="0.0" y="204" width="375" height="463"/>
+                                                        <rect key="frame" x="0.0" y="204" width="375" height="337.5"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m9J-uP-hkJ">
                                                                 <rect key="frame" x="8" y="0.0" width="359" height="180.5"/>
@@ -736,7 +736,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OI2-xu-u6a" userLabel="Thirds Bottom View">
-                                                                <rect key="frame" x="0.0" y="189.5" width="375" height="273.5"/>
+                                                                <rect key="frame" x="0.0" y="189.5" width="375" height="148"/>
                                                                 <subviews>
                                                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jrK-QI-h6O" userLabel="Carousel Scroll View">
                                                                         <rect key="frame" x="8" y="10" width="359" height="130"/>
@@ -764,7 +764,7 @@
                                                                         </constraints>
                                                                     </scrollView>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5cU-tQ-vOn">
-                                                                        <rect key="frame" x="0.0" y="148" width="375" height="125.5"/>
+                                                                        <rect key="frame" x="0.0" y="148" width="375" height="0.0"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9SE-T8-6Xd" userLabel="tosImagesStackV">
                                                                                 <rect key="frame" x="112" y="8" width="150" height="30"/>
@@ -837,7 +837,7 @@
                                                 <constraints>
                                                     <constraint firstItem="izS-dr-E9j" firstAttribute="leading" secondItem="l5J-P0-ZF9" secondAttribute="leading" id="4Nh-p4-tZR"/>
                                                     <constraint firstItem="3f9-hu-JnF" firstAttribute="top" secondItem="6Ld-5I-gx9" secondAttribute="bottom" constant="8" id="6Q7-PN-VQJ"/>
-                                                    <constraint firstAttribute="bottom" secondItem="3f9-hu-JnF" secondAttribute="bottom" constant="89" id="AHF-oe-VSP"/>
+                                                    <constraint firstAttribute="bottom" secondItem="3f9-hu-JnF" secondAttribute="bottom" id="AHF-oe-VSP"/>
                                                     <constraint firstAttribute="trailing" secondItem="izS-dr-E9j" secondAttribute="trailing" id="Bbu-CW-XIq"/>
                                                     <constraint firstItem="6Ld-5I-gx9" firstAttribute="top" secondItem="myw-7B-lMt" secondAttribute="bottom" constant="8" id="FfD-5R-cPj"/>
                                                     <constraint firstItem="myw-7B-lMt" firstAttribute="leading" secondItem="l5J-P0-ZF9" secondAttribute="leading" id="I6M-Qq-Pl9"/>
@@ -854,6 +854,12 @@
                                                     <constraint firstAttribute="trailing" secondItem="IhY-GT-exf" secondAttribute="trailing" id="koF-Ih-l1x"/>
                                                     <constraint firstItem="IhY-GT-exf" firstAttribute="leading" secondItem="l5J-P0-ZF9" secondAttribute="leading" id="x6I-7D-eU1"/>
                                                 </constraints>
+                                                <variation key="default">
+                                                    <mask key="subviews">
+                                                        <exclude reference="IhY-GT-exf"/>
+                                                        <exclude reference="izS-dr-E9j"/>
+                                                    </mask>
+                                                </variation>
                                             </view>
                                         </subviews>
                                         <constraints>
