@@ -479,7 +479,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="598"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l5J-P0-ZF9" userLabel="Main View">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="687"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="myw-7B-lMt" userLabel="Top View">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
@@ -572,10 +572,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3f9-hu-JnF" userLabel="Second Tab View">
-                                                        <rect key="frame" x="0.0" y="204" width="375" height="350"/>
+                                                        <rect key="frame" x="0.0" y="204" width="375" height="483"/>
                                                         <subviews>
-                                                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dFu-GL-wMs" userLabel="Second Tab WYSIWYG">
-                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="350"/>
+                                                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dFu-GL-wMs" userLabel="Second Tab WYSIWYG">
+                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="483"/>
                                                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </webView>
                                                         </subviews>
@@ -588,7 +588,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="izS-dr-E9j" userLabel="Third Tab View">
-                                                        <rect key="frame" x="0.0" y="204" width="375" height="337.5"/>
+                                                        <rect key="frame" x="0.0" y="204" width="375" height="463"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m9J-uP-hkJ">
                                                                 <rect key="frame" x="8" y="0.0" width="359" height="180.5"/>
@@ -736,7 +736,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OI2-xu-u6a" userLabel="Thirds Bottom View">
-                                                                <rect key="frame" x="0.0" y="189.5" width="375" height="148"/>
+                                                                <rect key="frame" x="0.0" y="189.5" width="375" height="273.5"/>
                                                                 <subviews>
                                                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jrK-QI-h6O" userLabel="Carousel Scroll View">
                                                                         <rect key="frame" x="8" y="10" width="359" height="130"/>
@@ -764,7 +764,7 @@
                                                                         </constraints>
                                                                     </scrollView>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5cU-tQ-vOn">
-                                                                        <rect key="frame" x="0.0" y="148" width="375" height="0.0"/>
+                                                                        <rect key="frame" x="0.0" y="148" width="375" height="125.5"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9SE-T8-6Xd" userLabel="tosImagesStackV">
                                                                                 <rect key="frame" x="112" y="8" width="150" height="30"/>
@@ -854,12 +854,6 @@
                                                     <constraint firstAttribute="trailing" secondItem="IhY-GT-exf" secondAttribute="trailing" id="koF-Ih-l1x"/>
                                                     <constraint firstItem="IhY-GT-exf" firstAttribute="leading" secondItem="l5J-P0-ZF9" secondAttribute="leading" id="x6I-7D-eU1"/>
                                                 </constraints>
-                                                <variation key="default">
-                                                    <mask key="subviews">
-                                                        <exclude reference="IhY-GT-exf"/>
-                                                        <exclude reference="izS-dr-E9j"/>
-                                                    </mask>
-                                                </variation>
                                             </view>
                                         </subviews>
                                         <constraints>

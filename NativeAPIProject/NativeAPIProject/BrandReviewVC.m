@@ -125,7 +125,7 @@ CGFloat maxAccordionHeight = 0;
 
 -(void)initFirstWysiwyg{
     NSString *urlString = [self.pp brandReviewGetWysiwyg];
-    NSString *style = [Tools getDefaultWysiwygCSSwithFontSize:@"3.8vw"];
+    NSString *style = [Tools getDefaultWysiwygCSSFontSizeBrEnabled:@"3.8vw"];
     [_firstWysiwyg loadHTMLString:[NSString stringWithFormat:@"%@<span>%@</span>",style,urlString] baseURL:nil];
 }
 
@@ -190,7 +190,7 @@ CGFloat maxAccordionHeight = 0;
     _tosWV.scrollView.scrollEnabled = NO;
     NSString *urlString = [self.pp brandReviewGetTOSWysiwyg];
     NSString *textSize = @"3.8vw";
-    NSString *style = [Tools getDefaultWysiwygCSSwithFontSize:textSize];
+    NSString *style = [Tools getDefaultWysiwygCSSFontSizeBrEnabled:textSize];
     urlString = [NSString stringWithFormat:@"%@<span>%@</span>", style,urlString];
     [_tosWV loadHTMLString:urlString baseURL:nil];
 }
@@ -368,7 +368,7 @@ CGFloat maxAccordionHeight = 0;
             [wv setBackgroundColor:[UIColor clearColor]];
             [wv setOpaque:NO];
 
-            NSString *htmlString = [NSString stringWithFormat:@"%@<span>%@</span>",[Tools getDefaultWysiwygCSSwithFontSize:@"3.8vw"],[ratingDetails[i] valueForKey:@"app_rating_description"]];
+            NSString *htmlString = [NSString stringWithFormat:@"%@<span>%@</span>",[Tools getDefaultWysiwygCSSFontSizeBrDisabled:@"3.8vw"],[ratingDetails[i] valueForKey:@"app_rating_description"]];
             [view1 addSubview:wv];
             [wv loadHTMLString:htmlString baseURL:nil];
             [accordionWVArray addObject:wv];
@@ -485,15 +485,13 @@ CGFloat maxAccordionHeight = 0;
 -(void)initSecondTabWebView{
     [_secondTabWebView setBackgroundColor:[UIColor clearColor]];
     [_secondTabWebView setOpaque:NO];
-    [_secondTabWebView.scrollView setScrollEnabled:YES];
-    
+    _secondTabWebView.scrollView.scrollEnabled = YES;
     NSString *htmlString = [self.pp brandReviewGetSecondTabWysiwyg];
     if(htmlString.length < 8){
         [self setConstraintZeroToView:_secondTabWebView];
     }else{
-        htmlString = [NSString stringWithFormat:@"%@<span>%@</spann>",[Tools getDefaultWysiwygCSSwithFontSize:@"3.8vw"],htmlString];
+        htmlString = [NSString stringWithFormat:@"%@<span>%@</spann>",[Tools getDefaultWysiwygCSSFontSizeBrDisabled:@"3.8vw"],htmlString];
         [_secondTabWebView loadHTMLString:htmlString baseURL:nil];
-        _secondTabWebView.scrollView.scrollEnabled = NO;
     }
 }
 
