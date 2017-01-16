@@ -10,6 +10,7 @@
 #import "SWRevealViewController.h"
 #import "ViewController.h"
 #import "NavigationManager.h"
+#import "Tools.h"
 #import "CategoryVC.h"
 
 @interface WebViewVC ()
@@ -32,13 +33,22 @@ static NSString * categoryID = @"categoryVC";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navigationRequestFromAppDel:) name:@"navigationRequestFromAppDel" object:Nil];
     _nav = [[NavigationManager alloc]init];
     self.revealViewController.rightViewRevealOverdraw=4;
     [self.revealViewController panGestureRecognizer];
     [self.revealViewController tapGestureRecognizer];
     
 }
+
+//Google app indexing
+-(void)navigationRequestFromAppDel:(NSNotification*)aNotif
+{
+    NSLog(@"vc got notif");
+    NSString *urlFromNotification=[[aNotif userInfo] objectForKey:@"urlToLoad"];
+    [_nav navigateWithItemID:-42 WithURL:urlFromNotification WithURLsDict:nil WithSourceVC:self];
+}
+
 
 //call all the widgets initializations
 //better view WILL appear, did appear for debug
@@ -91,7 +101,7 @@ static NSString * categoryID = @"categoryVC";
     [self.webView loadRequest:rq];
 }
 
-//menu tag: 42, homepage tag: 24
+
 -(void)initTabBar{
     _tags2URLs = [[NSMutableDictionary alloc] init];
     NSMutableArray *tabBarArray;
@@ -106,26 +116,33 @@ static NSString * categoryID = @"categoryVC";
     //Homepage and menu position in the json array doesnt matter, for the others it does.
     for(i = 0; i < self.tabbarElements.count; i++){
         NSDictionary *tabbarDict = self.tabbarElements[i];
+        UIImage * iconImage;
+        NSString *imageURL = [tabbarDict valueForKey:@"image_url"];
+        
+        if(imageURL && [imageURL containsString:@"http"]){
+            iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+            iconImage = [Tools imageWithImage:iconImage scaledToSize:CGSizeMake(30, 30)];
+        }else{
+            imageURL = nil;
+        }
+        
         UITabBarItem *item;
         if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"share_item"]){
-            UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+            iconImage = [UIImage imageNamed:@"share_30x30"];
             shareItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:84];
-            //            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:84]];
             continue;
         }
         if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"menu_item"]){
-            UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+            iconImage = [UIImage imageNamed:@"menu_30x30"];
             menuItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:42];
-            //            [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:42]];
             continue;
         }
         if([[tabbarDict valueForKey:@"id"] isKindOfClass:[NSString class]] && [[tabbarDict valueForKey:@"id"] isEqualToString:@"homepage_item"]){
-            UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
+            iconImage = [UIImage imageNamed:@"home_30x30"];
             homeItem = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:24];
             [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:24]];
             continue;
         }
-        UIImage * iconImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[tabbarDict valueForKey:@"image_url"]]]];
         item = [[UITabBarItem alloc] initWithTitle:[tabbarDict valueForKey:@"button_text"] image:iconImage tag:10+i];
         [_tags2URLs setObject:[tabbarDict valueForKey:@"link"] forKey:[NSNumber numberWithInteger:10+i]];
         [tabBarArray addObject:item];
@@ -136,6 +153,13 @@ static NSString * categoryID = @"categoryVC";
     [tabBarArray addObject:menuItem];
     
     [_tabBar setItems:[tabBarArray arrayByAddingObjectsFromArray:[_tabBar items]]];
+    
+    //some shadow UI
+    _tabBar.layer.shadowOffset = CGSizeMake(0, 0);
+    _tabBar.layer.shadowRadius = 8;
+    _tabBar.layer.shadowColor = [UIColor blackColor].CGColor;
+    _tabBar.layer.shadowOpacity = 0.2;
+    _tabBar.layer.backgroundColor = [UIColor whiteColor].CGColor;
 }
 
 

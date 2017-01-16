@@ -117,6 +117,7 @@
 		EBB3DCC21D61B67C003B93A0 /* JSONRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONRepresentation.h; sourceTree = "<group>"; };
 		EBB3DCC31D61B67C003B93A0 /* NSDictionary_JSONExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDictionary_JSONExtensions.h; sourceTree = "<group>"; };
 		EBB3DCC41D61B67C003B93A0 /* NSDictionary_JSONExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionary_JSONExtensions.m; sourceTree = "<group>"; };
+		EBB5C6291E27D2D900AF5863 /* NativeAPIProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NativeAPIProject.entitlements; sourceTree = "<group>"; };
 		EBBA49371DA4E93500904C90 /* NavigationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationManager.h; sourceTree = "<group>"; };
 		EBBA49381DA4E93500904C90 /* NavigationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationManager.m; sourceTree = "<group>"; };
 		EBE468721D76C8AA009A3CDA /* BrandReviewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandReviewVC.h; sourceTree = "<group>"; };
@@ -217,6 +218,7 @@
 		EBAFFCA31D5C99BB0021732B /* NativeAPIProject */ = {
 			isa = PBXGroup;
 			children = (
+				EBB5C6291E27D2D900AF5863 /* NativeAPIProject.entitlements */,
 				EB0F051F1E09237200D11C3B /* tools */,
 				EB12E13F1DE33773009DB2FF /* GlobalVars.h */,
 				EB12E1401DE33773009DB2FF /* GlobalVars.m */,
@@ -416,8 +418,13 @@
 				TargetAttributes = {
 					EBAFFCA01D5C99BB0021732B = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = A6GQHZ24WP;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = EVT9JW8JP3;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
+						};
 					};
 					EBAFFCB91D5C99BC0021732B = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -785,13 +792,16 @@
 			baseConfigurationReference = 4C92D3A1B9CA61923CB62F61 /* Pods-NativeAPIProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = NativeAPIProject/NativeAPIProject.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = A6GQHZ24WP;
+				DEVELOPMENT_TEAM = EVT9JW8JP3;
 				INFOPLIST_FILE = NativeAPIProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = expert.onlinecasinos.axiom;
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.online-casinos-canada.occ";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c2865535-cd5f-4122-9165-4859cf6f6ad2";
+				PROVISIONING_PROFILE_SPECIFIER = "OCC dev native";
 			};
 			name = Debug;
 		};
@@ -800,13 +810,16 @@
 			baseConfigurationReference = B4D54F78130130F184A1D2CD /* Pods-NativeAPIProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = NativeAPIProject/NativeAPIProject.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = A6GQHZ24WP;
+				DEVELOPMENT_TEAM = EVT9JW8JP3;
 				INFOPLIST_FILE = NativeAPIProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = expert.onlinecasinos.axiom;
+				PRODUCT_BUNDLE_IDENTIFIER = "ca.online-casinos-canada.occ";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c2865535-cd5f-4122-9165-4859cf6f6ad2";
+				PROVISIONING_PROFILE_SPECIFIER = "OCC dev native";
 			};
 			name = Release;
 		};

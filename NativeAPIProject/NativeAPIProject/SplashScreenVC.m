@@ -9,24 +9,27 @@
 #import "SplashScreenVC.h"
 #import "ViewController.h"
 #import "SWRevealViewController.h"
+#import "NavigationManager.h"
 
-@interface SplashScreenVC ()
+@interface SplashScreenVC (){
+    NSString *urlFromNotification;
+}
 @property (strong, nonatomic) IBOutlet UIImageView *imgView;
-
 @end
 
 @implementation SplashScreenVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self startAnimations];
 }
 
--(void)viewDidAppear:(BOOL)animated{
+
+-(void)startAnimations{
     NSLog(@"did appear");
     
-//    NSArray *imgArray = @[@"img1",@"img2",@"img3",@"img4",@"img5",@"img6",@"img7",@"img8"];
-    NSMutableArray *imgArray = [[NSMutableArray alloc]init];
+    //    NSArray *imgArray = @[@"img1",@"img2",@"img3",@"img4",@"img5",@"img6",@"img7",@"img8"];
+    NSMutableArray *imgArray = [[NSMutableArray alloc] init];
     
     for(int i = 1 ;i < 43; i++){
         [imgArray addObject:[NSString stringWithFormat:@"splash%i",i]];
@@ -47,8 +50,9 @@
                afterDelay:_imgView.animationDuration];
 }
 
+
+
 -(void)animationDidFinish{
-    NSLog(@"block released");
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     ViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"HomePageSB"];
     SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:self destination:vc];
@@ -61,14 +65,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -38,6 +38,7 @@ static NSString * gameRevID = @"gameRevID";
  @param sourceVC usually self
  */
 -(void) navigateWithItemID: (NSInteger) tag WithURL:(NSString *)destURL WithURLsDict: (NSMutableDictionary *)tags2URLs WithSourceVC:(UIViewController *)sourceVC{
+    
     //These are clicks from a wysiwyg or the main menu
     if(tag == -42 && destURL){
         NSLog(@"tag -42 %@",destURL);
@@ -66,6 +67,13 @@ static NSString * gameRevID = @"gameRevID";
             vc.pp = destPP;
             SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:sourceVC destination:vc];
             [segue perform];
+        }
+        else if([[destPP getPageType]isEqualToString:@"home-page"]){
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            ViewController *vc = [storyboard instantiateViewControllerWithIdentifier:homepageID];
+            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:sourceVC destination:vc];
+            [segue perform];
+            return;
         }
         else if([[destPP getPageType]isEqualToString:@"webview_page"]){
             WebViewVC *vc = [storyboard instantiateViewControllerWithIdentifier:webviewID];
@@ -163,6 +171,13 @@ static NSString * gameRevID = @"gameRevID";
             WebViewVC *vc = [storyboard instantiateViewControllerWithIdentifier:webviewID];
             vc.pp = destPP;
             vc.activeTab = tag;
+            SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:sourceVC destination:vc];
+            [segue perform];
+            return;
+        }
+        else if([[destPP getPageType]isEqualToString:@"home-page"]){
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            ViewController *vc = [storyboard instantiateViewControllerWithIdentifier:homepageID];
             SWRevealViewControllerSeguePushController *segue = [[SWRevealViewControllerSeguePushController alloc] initWithIdentifier:@"ANY_ID" source:sourceVC destination:vc];
             [segue perform];
             return;

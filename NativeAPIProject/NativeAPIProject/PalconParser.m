@@ -66,8 +66,15 @@
 -(NSArray *)brandReviewGetRatingDetails{
     NSMutableArray *ar = [_pageDataDictionary valueForKey:@"app_rating_details"];
     [ar removeObjectAtIndex:ar.count-1];
-    [ar addObject:[_pageDataDictionary valueForKey:@"avg_rating"]];
+    
+    NSString *lastAvgRating = [[_pageDataDictionary valueForKey:@"app_avg_rating"] valueForKey:@"app_rating"];
+    NSDictionary *lastObject = [[NSDictionary alloc] initWithObjectsAndKeys:[_pageDataDictionary valueForKey:@"translation10"],@"app_rating_title",lastAvgRating,@"app_rating", nil];
+    [ar addObject:lastObject];
     return ar;
+}
+
+-(NSString *)brandReviewGetAffiliateURL{
+    return [_pageDataDictionary valueForKey:@"affiliate_url"];
 }
 
 /**

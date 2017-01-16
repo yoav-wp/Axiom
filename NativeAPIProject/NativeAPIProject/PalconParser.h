@@ -24,6 +24,7 @@
 -(NSString *)brandReviewGetSecondTabWysiwyg;
 -(NSMutableArray *)getBrandReviewScreenshots;
 -(NSArray *)brandReviewGetPaymentMethods;
+-(NSString *)brandReviewGetAffiliateURL;
 -(NSArray *)brandReviewGetSoftwareProviders;
 -(NSString *)brandReviewGetTOSWysiwyg;
 -(NSString *)homePageGetTableTitle;

@@ -10,6 +10,7 @@
 #import <AppsFlyerTracker/AppsFlyerTracker.h>
 #import "GlobalVars.h"
 #import "MappingFinder.h"
+#import "NavigationManager.h"
 @import Firebase;
 
 @interface AppDelegate (){
@@ -55,6 +56,7 @@
 
 -(BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler{
     
+    NSLog(@"continueUserActivity: page: %@",userActivity.webpageURL);
     if([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]){
         NSURL *url = userActivity.webpageURL;
         NSDictionary *aDict=[NSDictionary dictionaryWithObject:url.absoluteString forKey:@"urlToLoad"];

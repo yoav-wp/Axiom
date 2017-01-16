@@ -40,12 +40,12 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *screenShotsCarousel;
 @property (weak, nonatomic) IBOutlet UIView *tosPartView;
 @property (weak, nonatomic) IBOutlet UILabel *websiteLabel;
-@property (weak, nonatomic) IBOutlet UITextView *websiteValue;
+@property (weak, nonatomic) IBOutlet UILabel *websiteValue;
 @property (weak, nonatomic) IBOutlet UILabel *softwareProvidersLabel;
 @property (weak, nonatomic) IBOutlet UILabel *activeSinceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *activeSinceValue;
 @property (weak, nonatomic) IBOutlet UILabel *supportLabel;
-@property (weak, nonatomic) IBOutlet UITextView *supportValue;
+@property (weak, nonatomic) IBOutlet UILabel *supportValue;
 @property (weak, nonatomic) IBOutlet UILabel *paymentMethodsLabel;
 
 //bottom view of the third tab's view
@@ -73,6 +73,7 @@ CGFloat maxAccordionHeight = 0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navigationRequestFromAppDel:) name:@"navigationRequestFromAppDel" object:Nil];
     globals = [GlobalVars sharedInstance];
     //Just add the imageviews to an array,to iterate later
     paymentMethodsImageViewsArray = [NSArray arrayWithObjects:_paymentMethodImgV1, _paymentMethodImgV2, _paymentMethodImgV3, _paymentMethodImgV4, _paymentMethodImgV5, _paymentMethodImgV6, _paymentMethodImgV7, _paymentMethodImgV8, _paymentMethodImgV9, nil];
@@ -91,8 +92,8 @@ CGFloat maxAccordionHeight = 0;
     [self initSecondTabWebView];
     [self initSomeUI];
     [self initFirstWysiwyg];
-    [self initPaymentMethods];
-    [self initSoftwareProviders];
+//    [self initPaymentMethods];
+//    [self initSoftwareProviders];
     //    [self initSegmentText];
     [self initScreenshots];
     [self initLabelsValues];
@@ -111,6 +112,13 @@ CGFloat maxAccordionHeight = 0;
     [self setActiveTabbarItem];
 }
 
+//Google app indexing
+-(void)navigationRequestFromAppDel:(NSNotification*)aNotif
+{
+    NSLog(@"BrandRev got notif");
+    NSString *urlFromNotification=[[aNotif userInfo] objectForKey:@"urlToLoad"];
+    [_nav navigateWithItemID:-42 WithURL:urlFromNotification WithURLsDict:nil WithSourceVC:self];
+}
 
 
 // Some general page UI
@@ -271,8 +279,8 @@ CGFloat maxAccordionHeight = 0;
         
         
         //otherwise stringwithFormat writes (null) cause last elements has no rating title
-        if(i != ratingDetails.count-1)
-            [header1 setTitle:[NSString stringWithFormat:@" %@",[ratingDetails[i] valueForKey:@"app_rating_title"]] forState:UIControlStateNormal];
+//        if(i != ratingDetails.count-1)
+        [header1 setTitle:[NSString stringWithFormat:@" %@",[ratingDetails[i] valueForKey:@"app_rating_title"]] forState:UIControlStateNormal];
         
         //border on top of the buttons
         UIView *border = [UIView new];
@@ -344,7 +352,6 @@ CGFloat maxAccordionHeight = 0;
             [ratingImgView setTintColor:[UIColor whiteColor]];
         }
         
-        [header1 addTarget:self action:@selector(changeAccordionArrowOrientation:) forControlEvents:UIControlEventTouchUpInside];
         header1.contentVerticalAlignment =  UIControlContentVerticalAlignmentCenter;
         header1.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 //        header1.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.000];
@@ -367,7 +374,7 @@ CGFloat maxAccordionHeight = 0;
             //disable background color in webview
             [wv setBackgroundColor:[UIColor clearColor]];
             [wv setOpaque:NO];
-
+            [header1 addTarget:self action:@selector(changeAccordionArrowOrientation:) forControlEvents:UIControlEventTouchUpInside];
             NSString *htmlString = [NSString stringWithFormat:@"%@<span>%@</span>",[Tools getDefaultWysiwygCSSFontSizeBrDisabled:@"3.8vw"],[ratingDetails[i] valueForKey:@"app_rating_description"]];
             [view1 addSubview:wv];
             [wv loadHTMLString:htmlString baseURL:nil];
@@ -379,6 +386,7 @@ CGFloat maxAccordionHeight = 0;
             //if last element
             header1.backgroundColor = [UIColor colorWithRed:76/255.0 green:75/255.0 blue:89/255.0 alpha:1];
             [header1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [header1 addTarget:self action:@selector(openBrandAffLink) forControlEvents:UIControlEventTouchUpInside];
         }
         
     }
@@ -481,6 +489,11 @@ CGFloat maxAccordionHeight = 0;
         }
     }
 }
+
+-(void)openBrandAffLink{
+    [_nav navigateToAffLink:[_pp brandReviewGetAffiliateURL]];
+}
+
 
 -(void)initSecondTabWebView{
     [_secondTabWebView setBackgroundColor:[UIColor clearColor]];

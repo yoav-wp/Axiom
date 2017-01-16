@@ -79,6 +79,15 @@ static NSString * brandRevID = @"brandRevID";
     [self initTableView];
 }
 
+//Google app indexing
+-(void)navigationRequestFromAppDel:(NSNotification*)aNotif
+{
+    NSLog(@"vc got notif");
+    NSString *urlFromNotification=[[aNotif userInfo] objectForKey:@"urlToLoad"];
+    [_nav navigateWithItemID:-42 WithURL:urlFromNotification WithURLsDict:nil WithSourceVC:self];
+}
+
+
 //call all the widgets initializations
 //better view WILL appear, did appear for debug
 -(void)viewWillAppear:(BOOL)animated{
@@ -95,13 +104,6 @@ static NSString * brandRevID = @"brandRevID";
     if([[_tabBar items] count] == 0)
         [self initTabBar];
     [self setActiveTabbarItem];
-}
-
-//Google app indexing
--(void)navigationRequestFromAppDel:(NSNotification*)aNotif
-{
-    NSString *aStrUrl=[[aNotif userInfo] objectForKey:@"urlToLoad"];
-    [_nav navigateWithItemID:-42 WithURL:aStrUrl WithURLsDict:nil WithSourceVC:self];
 }
 
 - (IBAction)closeBannerClick:(id)sender {
@@ -394,14 +396,11 @@ static NSString * brandRevID = @"brandRevID";
     }else{
         urlStr = [[[sender view] layer] valueForKey:@"urlToLoad"];
     }
-    
+#warning should be redesigned
 //    urlStr = @"http://onlinecasinos.expert/go/leo-vegas";
-    if([urlStr containsString:@"onlinecasinos.expert"]){
+    if([urlStr containsString:@"canada.ca/links/"]){
         //do mf
-        MappingFinder *st = [MappingFinder getMFObject];
-        NSURL *url= [st makeURL:[NSURL URLWithString:urlStr] trigger:@"go"];
-        
-        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+        [_nav navigateToAffLink:urlStr];
     }else{
         [_nav navigateWithItemID:-42 WithURL:urlStr WithURLsDict:nil WithSourceVC:self];
     }
