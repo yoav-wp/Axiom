@@ -223,9 +223,10 @@ static NSString * gameRevID = @"gameRevID";
             break;
         }
     }
-    
-    NSLog(@"i is %d",i);
-    transformedUrlStr = [urlStr stringByReplacingCharactersInRange:NSMakeRange(0, i) withString:@"http://www.mappingfinder.com/go"];
+    NSLog(@"blablablaaaaaaaaaaa");
+//    transformedUrlStr = [urlStr stringByReplacingCharactersInRange:NSMakeRange(0, i) withString:@"http://www.mappingfinder.com/go"];
+
+    transformedUrlStr = [urlStr stringByReplacingCharactersInRange:NSMakeRange(0, i) withString:@"http://onlinecasinos.expert/go"];
     
     NSURL *url = [NSURL URLWithString:transformedUrlStr];
     MappingFinder *st = [MappingFinder getMFObject];

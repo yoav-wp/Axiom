@@ -21,6 +21,11 @@
 -(NSString *)getPageType;
 -(NSMutableArray *)getTabBarElements;
 -(NSString *)brandReviewGetWysiwyg;
+-(NSString *)brandReviewGetBrandName;
+-(NSString *)brandReviewGetBonusText;
+-(NSString *)brandNameGetClaimButtonText;
+-(NSString *)brandReviewGetBrandLogo;
+-(NSString *)brandReviewGetBrandRating;
 -(NSString *)brandReviewGetSecondTabWysiwyg;
 -(NSMutableArray *)getBrandReviewScreenshots;
 -(NSArray *)brandReviewGetPaymentMethods;

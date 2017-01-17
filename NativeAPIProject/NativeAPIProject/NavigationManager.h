@@ -14,7 +14,11 @@
 
 
 -(void) navigateWithItemID: (NSInteger) tag WithURL:(NSString *)destURL WithURLsDict: (NSMutableDictionary *)tags2URLs WithSourceVC:(UIViewController*)sourceVC;
+
+
 -(void)navigateToHomepageWithVC:(UIViewController *)sourceVC;
+
+
 -(void)navigateToAffLink:(NSString *)urlStr;
 
 @end

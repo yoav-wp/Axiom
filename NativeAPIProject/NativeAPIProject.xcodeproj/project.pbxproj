@@ -12,6 +12,7 @@
 		7773B1F0F1D1B74C28E4FF37 /* libPods-NativeAPIProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E253A927D2EB113502984E52 /* libPods-NativeAPIProject.a */; };
 		EB0F05221E09239800D11C3B /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0F05211E09239800D11C3B /* Tools.m */; };
 		EB12E1411DE33773009DB2FF /* GlobalVars.m in Sources */ = {isa = PBXBuildFile; fileRef = EB12E1401DE33773009DB2FF /* GlobalVars.m */; };
+		EB356D921E2E07E700CE43C1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB356D911E2E07E700CE43C1 /* GoogleService-Info.plist */; };
 		EB5752191D609DB300CF9565 /* CategoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5752181D609DB300CF9565 /* CategoryVC.m */; };
 		EB6199101D5C9E2600E54823 /* menu_icons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EB61990F1D5C9E2600E54823 /* menu_icons.bundle */; };
 		EB72EE9C1DE70DE3004335DB /* MappingFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = EB72EE9B1DE70DE3004335DB /* MappingFinder.m */; };
@@ -72,6 +73,7 @@
 		EB0F05211E09239800D11C3B /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
 		EB12E13F1DE33773009DB2FF /* GlobalVars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalVars.h; sourceTree = "<group>"; };
 		EB12E1401DE33773009DB2FF /* GlobalVars.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalVars.m; sourceTree = "<group>"; };
+		EB356D911E2E07E700CE43C1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EB5752171D609DB300CF9565 /* CategoryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryVC.h; sourceTree = "<group>"; };
 		EB5752181D609DB300CF9565 /* CategoryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryVC.m; sourceTree = "<group>"; };
 		EB61990F1D5C9E2600E54823 /* menu_icons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = menu_icons.bundle; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 		EBAFFC981D5C99BB0021732B = {
 			isa = PBXGroup;
 			children = (
+				EB356D911E2E07E700CE43C1 /* GoogleService-Info.plist */,
 				EBAFFCA31D5C99BB0021732B /* NativeAPIProject */,
 				EBAFFCBD1D5C99BC0021732B /* NativeAPIProjectTests */,
 				EBAFFCC81D5C99BC0021732B /* NativeAPIProjectUITests */,
@@ -467,6 +470,7 @@
 				EBAFFCB11D5C99BB0021732B /* Assets.xcassets in Resources */,
 				EBAFFCAF1D5C99BB0021732B /* Main.storyboard in Resources */,
 				5416166D1E23C80900C5C658 /* Montserrat-Regular.otf in Resources */,
+				EB356D921E2E07E700CE43C1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -812,14 +816,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NativeAPIProject/NativeAPIProject.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = EVT9JW8JP3;
 				INFOPLIST_FILE = NativeAPIProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.online-casinos-canada.occ";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c2865535-cd5f-4122-9165-4859cf6f6ad2";
-				PROVISIONING_PROFILE_SPECIFIER = "OCC dev native";
+				PROVISIONING_PROFILE = "683db390-96d4-462a-ae5b-97aae5ccdd78";
+				PROVISIONING_PROFILE_SPECIFIER = "OCC Production native";
 			};
 			name = Release;
 		};

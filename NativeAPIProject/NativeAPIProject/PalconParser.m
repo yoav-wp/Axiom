@@ -58,6 +58,7 @@
     return baseString;
 }
 
+
 -(NSString *)brandReviewGetWysiwyg{
     NSString *s = [_pageDataDictionary valueForKey:@"app_intro"];
     return s;
@@ -73,8 +74,27 @@
     return ar;
 }
 
+-(NSString *)brandReviewGetBrandLogo{
+    return [_pageDataDictionary valueForKey:@"main_brand_logo_src"];
+}
+-(NSString *)brandReviewGetBrandName{
+    return [_pageDataDictionary valueForKey:@"brand_name"];
+}
+
+-(NSString *)brandReviewGetBonusText{
+    return [_pageDataDictionary valueForKey:@"bonus_text"];
+}
+
+-(NSString *)brandReviewGetBrandRating{
+    return [_pageDataDictionary valueForKey:@"rating_s"];
+}
+
 -(NSString *)brandReviewGetAffiliateURL{
     return [_pageDataDictionary valueForKey:@"affiliate_url"];
+}
+
+-(NSString *)brandNameGetClaimButtonText{
+    return [_pageDataDictionary valueForKey:@"trans_playnow"];
 }
 
 /**
@@ -135,7 +155,7 @@
 }
 
 -(NSString *)brandReviewGetTOSWysiwyg{
-    return [_pageDataDictionary valueForKey:@"content_1"];
+    return [_pageDataDictionary valueForKey:@"app_info"];
 }
 
 -(NSString *)getIsPageNative{
@@ -148,7 +168,12 @@
 
 -(NSArray *)brandReviewGetSegmentText{
     NSArray *ar = [NSArray arrayWithObjects:[_pageDataDictionary valueForKey:@"trans_review_summary"],[_pageDataDictionary valueForKey:@"trans_review_full"],[_pageDataDictionary valueForKey:@"trans_review_info"],nil];
-    return ar;
+    if(ar.count == 3){
+        return ar;
+    }else{
+        return @[@"Summary",@"Full Review",@"Brand Info"];
+    }
+    
 }
 
 -(NSMutableArray *)getTabBarElements{

@@ -29,7 +29,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self initGlobalVars];
-    //[FIRApp configure];
+    [FIRApp configure];
     [self removeAndDownloadMenu];
     return YES;
 }
@@ -42,7 +42,7 @@
 //    globals.websiteURL = @"http://onlinecasinos.expert/homepage.js";
 //    globals.websiteURL = @"http://review.des/camilla/";
     [AppsFlyerTracker sharedTracker].appsFlyerDevKey = @"p83XLj9oS5NU6xzdjYGJyF";
-    [AppsFlyerTracker sharedTracker].appleAppID = @"12345678";
+    [AppsFlyerTracker sharedTracker].appleAppID = @"1173806600";
     
    
     

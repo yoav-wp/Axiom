@@ -12,6 +12,5 @@
 @interface Tools : NSObject
 
 +(UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
-+(NSString *)getDefaultWysiwygCSSFontSizeBrDisabled:(NSString *)fontSize;
-+(NSString *)getDefaultWysiwygCSSFontSizeBrEnabled:(NSString *)fontSize;
++(NSString *)getDefaultWysiwygCSSFontSize:(NSString *)fontSize;
 @end

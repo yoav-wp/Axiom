@@ -44,9 +44,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *softwareProvidersLabel;
 @property (weak, nonatomic) IBOutlet UILabel *activeSinceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *activeSinceValue;
+@property (weak, nonatomic) IBOutlet UIImageView *bannerLogo;
 @property (weak, nonatomic) IBOutlet UILabel *supportLabel;
 @property (weak, nonatomic) IBOutlet UILabel *supportValue;
 @property (weak, nonatomic) IBOutlet UILabel *paymentMethodsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *brandNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *bonusLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *ratingImage;
+@property (weak, nonatomic) IBOutlet UIButton *claimButton;
 
 //bottom view of the third tab's view
 @property (weak, nonatomic) IBOutlet UIView *thirdsBottomView;
@@ -87,14 +92,19 @@ CGFloat maxAccordionHeight = 0;
     [self.revealViewController tapGestureRecognizer];
     
     
+    [self initBrandName];
+    [self initBonus];
     [self initSegmentViews];
     [self initAccordionView];
+    [self initClaimButton];
+    [self initBannerLogo];
+    [self initGeneralRating];
     [self initSecondTabWebView];
     [self initSomeUI];
     [self initFirstWysiwyg];
-//    [self initPaymentMethods];
-//    [self initSoftwareProviders];
-    //    [self initSegmentText];
+    [self initPaymentMethods];
+    [self initSoftwareProviders];
+    [self initSegmentText];
     [self initScreenshots];
     [self initLabelsValues];
     [self initTOSWV];
@@ -131,9 +141,22 @@ CGFloat maxAccordionHeight = 0;
     
 }
 
+
+- (IBAction)claimButtonAction:(id)sender {
+    NSString *claimUrl = [_pp brandReviewGetAffiliateURL];
+    [_nav navigateToAffLink:claimUrl];
+}
+
+
 -(void)initFirstWysiwyg{
+    NSString *fontSize = @"3.8vw";
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    if(screenWidth > 444){
+        fontSize = @"2.5vw";
+    }
     NSString *urlString = [self.pp brandReviewGetWysiwyg];
-    NSString *style = [Tools getDefaultWysiwygCSSFontSizeBrEnabled:@"3.8vw"];
+    NSString *style = [Tools getDefaultWysiwygCSSFontSize:fontSize];
     [_firstWysiwyg loadHTMLString:[NSString stringWithFormat:@"%@<span>%@</span>",style,urlString] baseURL:nil];
 }
 
@@ -145,15 +168,51 @@ CGFloat maxAccordionHeight = 0;
 }
 
 
+-(void)initBrandName{
+    _brandNameLabel.text = [_pp brandReviewGetBrandName];
+}
+
+-(void)initBonus{
+    _bonusLabel.text = [_pp brandReviewGetBonusText];
+}
+
+-(void)initClaimButton{
+    [_claimButton setTitle:[_pp brandNameGetClaimButtonText] forState:UIControlStateNormal];
+}
+
+-(void)initBannerLogo{
+    NSURL *imgURL = [NSURL URLWithString:[_pp brandReviewGetBrandLogo]];
+    [_bannerLogo sd_setImageWithURL:imgURL];
+}
+
+-(void)initGeneralRating{
+    [_ratingImage setImage:[UIImage imageNamed:[[NSString stringWithFormat:@"rating%@",[_pp brandReviewGetBrandRating]] stringByReplacingOccurrencesOfString:@"." withString:@"-"]]];
+    
+    _ratingImage.image = [_ratingImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [_ratingImage setTintColor:[UIColor colorWithRed:245/255.0 green:242/255.0 blue:249/255.0 alpha:1]];
+}
+
 -(void)initLabelsValues{
     NSDictionary *dict = [_pp brandReviewGetBasicBrandInfoDict];
     _websiteLabel.text = [NSString stringWithFormat:@"%@: ",[dict valueForKey:@"website_key"]];
-    _websiteValue.text = [dict valueForKey:@"website_value"];
+    
+    NSMutableAttributedString *webValueAttributeString = [[NSMutableAttributedString alloc] initWithString:[dict valueForKey:@"website_value"]];
+    
+    [webValueAttributeString addAttribute:NSUnderlineStyleAttributeName
+                            value:[NSNumber numberWithInt:1]
+                            range:(NSRange){0,[webValueAttributeString length]}];
+    
+    _websiteValue.attributedText = webValueAttributeString;
     _softwareProvidersLabel.text = [NSString stringWithFormat:@"%@: ",[dict valueForKey:@"software_key"]];
     _activeSinceLabel.text = [NSString stringWithFormat:@"%@: ",[dict valueForKey:@"active_since_key"]];
     _activeSinceValue.text = [dict valueForKey:@"active_since_value"];
     _supportLabel.text = [NSString stringWithFormat:@"%@: ",[dict valueForKey:@"support_key"]];
-    _supportValue.text = [dict valueForKey:@"support_value"];
+    
+    NSMutableAttributedString *supValueAttributeString = [[NSMutableAttributedString alloc] initWithString:[dict valueForKey:@"support_value"]];
+    [supValueAttributeString addAttribute:NSUnderlineStyleAttributeName
+                                    value:[NSNumber numberWithInt:1]
+                                    range:(NSRange){0,[supValueAttributeString length]}];
+    _supportValue.attributedText = supValueAttributeString;
     _paymentMethodsLabel.text = [NSString stringWithFormat:@"%@: ",[dict valueForKey:@"payment_key"]];
 }
 
@@ -197,8 +256,15 @@ CGFloat maxAccordionHeight = 0;
 -(void)initTOSWV{
     _tosWV.scrollView.scrollEnabled = NO;
     NSString *urlString = [self.pp brandReviewGetTOSWysiwyg];
-    NSString *textSize = @"3.8vw";
-    NSString *style = [Tools getDefaultWysiwygCSSFontSizeBrEnabled:textSize];
+    NSString *fontSize = @"3.8vw";
+    
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    if(screenWidth > 444){
+        fontSize = @"2.5vw";
+    }
+    
+    NSString *style = [Tools getDefaultWysiwygCSSFontSize:fontSize];
     urlString = [NSString stringWithFormat:@"%@<span>%@</span>", style,urlString];
     [_tosWV loadHTMLString:urlString baseURL:nil];
 }
@@ -256,8 +322,14 @@ CGFloat maxAccordionHeight = 0;
     
     NSArray *ratingDetails = [_pp brandReviewGetRatingDetails];
     //widths : 6sPlus - 414, 6s - 375, ipad air and air 2, retina - 768,ipad pro 12.9inch - 1024, 5s and 7 SE - 320
+    
+    NSString *fontSize = @"3.8vw";
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
+    
+    if(screenWidth > 444){
+        fontSize = @"2.5vw";
+    }
     
 
     accordionWVArray = [NSMutableArray array];
@@ -302,7 +374,6 @@ CGFloat maxAccordionHeight = 0;
             ratingImageX = screenWidth - (ratingImageWidth + screenWidth - buttonImgX);
             //most iphones
         }else if(screenWidth == 375){
-            NSLog(@"we are are width = 375");
             buttonImgX = 375 - (buttonImgWidth + 5); //5 is right margin
             ratingImageX = buttonImgX;//5 is right margin
             //Plus iphones
@@ -375,7 +446,7 @@ CGFloat maxAccordionHeight = 0;
             [wv setBackgroundColor:[UIColor clearColor]];
             [wv setOpaque:NO];
             [header1 addTarget:self action:@selector(changeAccordionArrowOrientation:) forControlEvents:UIControlEventTouchUpInside];
-            NSString *htmlString = [NSString stringWithFormat:@"%@<span>%@</span>",[Tools getDefaultWysiwygCSSFontSizeBrDisabled:@"3.8vw"],[ratingDetails[i] valueForKey:@"app_rating_description"]];
+            NSString *htmlString = [NSString stringWithFormat:@"%@<span>%@</span>",[Tools getDefaultWysiwygCSSFontSize:fontSize],[ratingDetails[i] valueForKey:@"app_rating_description"]];
             [view1 addSubview:wv];
             [wv loadHTMLString:htmlString baseURL:nil];
             [accordionWVArray addObject:wv];
@@ -499,11 +570,20 @@ CGFloat maxAccordionHeight = 0;
     [_secondTabWebView setBackgroundColor:[UIColor clearColor]];
     [_secondTabWebView setOpaque:NO];
     _secondTabWebView.scrollView.scrollEnabled = YES;
+    _secondTabWebView.scrollView.pagingEnabled = NO;
+    
+    NSString *fontSize = @"3.8vw";
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    if(screenWidth > 444){
+        fontSize = @"2.5vw";
+    }
+    
     NSString *htmlString = [self.pp brandReviewGetSecondTabWysiwyg];
     if(htmlString.length < 8){
         [self setConstraintZeroToView:_secondTabWebView];
     }else{
-        htmlString = [NSString stringWithFormat:@"%@<span>%@</spann>",[Tools getDefaultWysiwygCSSFontSizeBrDisabled:@"3.8vw"],htmlString];
+        htmlString = [NSString stringWithFormat:@"%@<span>%@</spann>",[Tools getDefaultWysiwygCSSFontSize:fontSize],htmlString];
         [_secondTabWebView loadHTMLString:htmlString baseURL:nil];
     }
 }
@@ -576,7 +656,6 @@ CGFloat maxAccordionHeight = 0;
     CGRect frame = _thirdTabView.frame;
     CGSize fittingSize = [_thirdTabView sizeThatFits:_thirdTabView.frame.size];
     frame.size = fittingSize;
-    NSLog(@"changed %ld, size : %f",(long)_segment.selectedSegmentIndex, frame.size.height);
     switch (_segment.selectedSegmentIndex) {
         case 0:
             _secondTabView.hidden=YES;
