@@ -347,7 +347,11 @@ CGFloat maxAccordionHeight = 0;
 //        NSString *filename= [NSString stringWithFormat:@"rating%.0fup",rating];
 //        NSLog(@" filename %@",filename);
         // Only height is taken into account, so other parameters are just dummy
-        UIButton *header1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 30)];
+        CGFloat accordionHeadersHeight = 30;
+        if(screenWidth > 444){
+            accordionHeadersHeight = 50;
+        }
+        UIButton *header1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, accordionHeadersHeight)];
         
         
         //otherwise stringwithFormat writes (null) cause last elements has no rating title
@@ -368,39 +372,37 @@ CGFloat maxAccordionHeight = 0;
         CGFloat buttonImgX;
         CGFloat buttonImgWidth = 20;
         
-        //iphone 7 edge
-        if(screenWidth < 375){
-            buttonImgX = screenWidth - (buttonImgWidth + 4);
-            ratingImageX = screenWidth - (ratingImageWidth + screenWidth - buttonImgX);
-            //most iphones
-        }else if(screenWidth == 375){
-            buttonImgX = 375 - (buttonImgWidth + 5); //5 is right margin
-            ratingImageX = buttonImgX;//5 is right margin
-            //Plus iphones
-        }else if(screenWidth <= 414){
-            buttonImgX = screenWidth - (buttonImgWidth + 10);
-            ratingImageX = screenWidth - (ratingImageWidth + screenWidth - buttonImgX);
-            //ipads
-        }else{
-            buttonImgX = screenWidth - (buttonImgWidth + 10);
-            ratingImageX = screenWidth - (ratingImageWidth + screenWidth + 200 - (buttonImgX));
+        buttonImgX = screenWidth - (buttonImgWidth + 5);
+        ratingImageX = buttonImgX - (ratingImageWidth +10);
+        
+        [header1.titleLabel setFont:[UIFont fontWithName:@"Montserrat" size:17.0]];
+        if(screenWidth > 444){
+            [header1.titleLabel setFont:[UIFont fontWithName:@"Montserrat" size:22.0]];
+            
+            buttonImgX = screenWidth - (buttonImgWidth + 42);
+            ratingImageX = buttonImgX - (ratingImageWidth + 42);
         }
         
-        
-        ratingImgView = [[UIImageView alloc] initWithFrame:CGRectMake(ratingImageWidth, 4, ratingImageX, 20)];
+        if(screenWidth > 444){
+            ratingImgView = [[UIImageView alloc] initWithFrame:CGRectMake(ratingImageX, 4, ratingImageWidth * 1.3, accordionHeadersHeight - 4)];
+        }else{
+            ratingImgView = [[UIImageView alloc] initWithFrame:CGRectMake(ratingImageX, 4, ratingImageWidth, 20)];
+        }
         [header1 addSubview:ratingImgView];
         [ratingImgView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"rating%@", [ratingDetails[i] valueForKey:@"app_rating"]]]];
         [ratingImgView setContentMode:UIViewContentModeScaleAspectFit];
         ratingImgView.image = [ratingImgView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [ratingImgView setTintColor:[UIColor colorWithRed:59/255.0 green:58/255.0 blue:71/255.0 alpha:1]];
         
-        buttonImgView = [[UIImageView alloc] initWithFrame:CGRectMake(buttonImgX, 5, buttonImgWidth, 20)];
+        if(screenWidth > 444){
+            buttonImgView = [[UIImageView alloc] initWithFrame:CGRectMake(buttonImgX, 8, buttonImgWidth * 1.7, accordionHeadersHeight - 16)];
+        }else{
+            buttonImgView = [[UIImageView alloc] initWithFrame:CGRectMake(buttonImgX, 5, buttonImgWidth, 20)];
+        }
         [header1 addSubview:buttonImgView];
         [buttonImgView setImage:[UIImage imageNamed:@"arrow_down"]];
-        [buttonImgView setBackgroundColor:[UIColor whiteColor]];
         buttonImgView.image = [buttonImgView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [buttonImgView setTintColor:[UIColor colorWithRed:146/255.0 green:142/255.0 blue:169/255.0 alpha:1]];
-        buttonImgView.backgroundColor = [UIColor whiteColor];
         
         
         [buttonImgView setContentMode:UIViewContentModeScaleAspectFit];
@@ -421,6 +423,7 @@ CGFloat maxAccordionHeight = 0;
             [buttonImgView setTintColor:[UIColor redColor]];
             [buttonImgView setTintColor:[UIColor colorWithRed:205/255.0 green:0/255.0 blue:0/255.0 alpha:1]];
             [ratingImgView setTintColor:[UIColor whiteColor]];
+            [buttonImgView setBackgroundColor:[UIColor whiteColor]];
         }
         
         header1.contentVerticalAlignment =  UIControlContentVerticalAlignmentCenter;
