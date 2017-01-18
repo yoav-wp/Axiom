@@ -14,6 +14,7 @@
 #import "BrandReviewVC.h"
 #import "HomePageTableViewCell.h"
 #import "GlobalVars.h"
+#import "HomePageIpadTableViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "Tools.h"
 #import "MappingFinder.h"
@@ -321,38 +322,49 @@ static NSString * brandRevID = @"brandRevID";
     
     //open page from wysiwyg
     NSString *urlString = [[request URL] absoluteString];
-    NavigationManager *nav = [[NavigationManager alloc] init];
-    if([urlString containsString:[[GlobalVars sharedInstance] websiteURL]]){
-        [nav navigateWithItemID:-42 WithURL:urlString WithURLsDict:_tags2URLs WithSourceVC:self];
+    
+    //if url contains "online-casinoes-canada.ca" && url NOT contains "links", then it's app page.
+    if([urlString containsString:[[GlobalVars sharedInstance] websiteURL]] &&  ! [urlString containsString:globals.redirectionTrigger]){
+        [_nav navigateWithItemID:-42 WithURL:urlString WithURLsDict:nil WithSourceVC:self];
         return NO;
     }
     
-     NSURL *url = [request URL];
-    
-#warning TODO - define mapping finder system - if url contains mappingfinder.com?
-     if (([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
-         
-         MappingFinder *st = [MappingFinder getMFObject];
-         url= [st makeURL:url trigger:@"go"];
-         
-         [[UIApplication sharedApplication] openURL:url];
+    //if url contains "online-casinoes-canada.ca" && url contains "links", then it's an aff link.
+     if (([urlString containsString:[[GlobalVars sharedInstance] websiteURL]] && [urlString containsString:globals.redirectionTrigger])) {
+         [_nav navigateToAffLink:urlString];
          return NO;
      }
     return YES;
 }
 
+
+
 -(void) initTableView{
-    
-    [_tableTitleLabel setText:[brandsTable valueForKey:@"widget_header"]];
-    NSArray *ar = [brandsTable valueForKey:@"widgets_arr"];
-    NSUInteger nbRows = ar.count;
-    
-    if (nbRows < 1){
-        [self setConstraintZeroToView:_midView];
+    if([self isDeviceIPad]){
+        [_tableTitleLabel setText:[brandsTable valueForKey:@"widget_header"]];
+        NSArray *ar = [brandsTable valueForKey:@"widgets_arr"];
+        NSUInteger nbRows = ar.count;
+        
+        if (nbRows < 1){
+            [self setConstraintZeroToView:_midView];
+        }
+        _brandsTableViewHeightConst.constant = 120.0f * nbRows;
+        [_brandsTableView registerNib:[UINib nibWithNibName:NSStringFromClass([HomePageIpadTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([HomePageIpadTableViewCell class])];
+        [_brandsTableView setScrollEnabled:NO];
+
+    }else{
+        [_tableTitleLabel setText:[brandsTable valueForKey:@"widget_header"]];
+        NSArray *ar = [brandsTable valueForKey:@"widgets_arr"];
+        NSUInteger nbRows = ar.count;
+        
+        if (nbRows < 1){
+            [self setConstraintZeroToView:_midView];
+        }
+        _brandsTableViewHeightConst.constant = 90.0f * nbRows;
+        [_brandsTableView registerNib:[UINib nibWithNibName:NSStringFromClass([HomePageTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([HomePageTableViewCell class])];
+        [_brandsTableView setScrollEnabled:NO];
+
     }
-    _brandsTableViewHeightConst.constant = 90.0f * nbRows;
-    [_brandsTableView registerNib:[UINib nibWithNibName:NSStringFromClass([HomePageTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([HomePageTableViewCell class])];
-    [_brandsTableView setScrollEnabled:NO];
 }
 
 //handle tableView
@@ -365,37 +377,72 @@ static NSString * brandRevID = @"brandRevID";
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 90.0f;
+    if([self isDeviceIPad]){
+        return 120.0f;
+    }else{
+        return 90.0f;
+    }
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    HomePageTableViewCell *appCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HomePageTableViewCell class]) forIndexPath:indexPath];
-    
-    NSArray *ar = [brandsTable valueForKey:@"widgets_arr"];
-    //2 buttons
-    [appCell.leftButtonLabel setTitle:[ar[indexPath.row] valueForKey:@"review_link"] forState:UIControlStateNormal];
-    [appCell.rightButtonLabel setTitle:[ar[indexPath.row] valueForKey:@"button_text"] forState:UIControlStateNormal];
-    [[appCell.leftButtonLabel layer] setValue:[ar[indexPath.row] valueForKey:@"review_url"] forKey:@"urlToLoad"];
-    [[appCell.rightButtonLabel layer] setValue:[ar[indexPath.row] valueForKey:@"aff_url"] forKey:@"urlToLoad"];
-    [appCell.leftButtonLabel addTarget:self action:@selector(openPageOrSafariWithURL:) forControlEvents:UIControlEventTouchUpInside];
-    [appCell.rightButtonLabel addTarget:self action:@selector(openPageOrSafariWithURL:) forControlEvents:UIControlEventTouchUpInside];
-    
-    //brand logo
-    [appCell.brandImageView sd_setImageWithURL:[ar[indexPath.row] valueForKey:@"brand_logo"]];
-    
-    //add border
-    appCell.brandImageView.layer.borderColor = [UIColor colorWithRed:230/255.0f green:230/255.0f blue:230/255.0f alpha:1].CGColor;
-    appCell.brandImageView.layer.borderWidth = 0.9f;
-    
-    //bonus text
-    [appCell.bonusLabel setText:[NSString stringWithFormat:@"%@ %@",[ar[indexPath.row] valueForKey:@"trans_get"],[ar[indexPath.row] valueForKey:@"bonus_text"]]];
-    
-    //rating
-    [appCell.ratingImageView setImage:[UIImage imageNamed:[[NSString stringWithFormat:@"rating%@",[ar[indexPath.row] valueForKey:@"star_rating"]] stringByReplacingOccurrencesOfString:@"." withString:@"-"]]];
-    
-    appCell.ratingImageView.image = [appCell.ratingImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    [appCell.ratingImageView setTintColor:[UIColor colorWithRed:146/255.0 green:142/255.0 blue:169/255.0 alpha:1]];
-    
-    return appCell;
+    if([self isDeviceIPad]){
+        HomePageIpadTableViewCell *appCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HomePageIpadTableViewCell class]) forIndexPath:indexPath];
+        
+        NSArray *ar = [brandsTable valueForKey:@"widgets_arr"];
+        //2 buttons
+        [appCell.leftButtonLabel setTitle:[ar[indexPath.row] valueForKey:@"review_link"] forState:UIControlStateNormal];
+        [appCell.rightButtonLabel setTitle:[ar[indexPath.row] valueForKey:@"button_text"] forState:UIControlStateNormal];
+        [[appCell.leftButtonLabel layer] setValue:[ar[indexPath.row] valueForKey:@"review_url"] forKey:@"urlToLoad"];
+        [[appCell.rightButtonLabel layer] setValue:[ar[indexPath.row] valueForKey:@"aff_url"] forKey:@"urlToLoad"];
+        [appCell.leftButtonLabel addTarget:self action:@selector(openPageOrSafariWithURL:) forControlEvents:UIControlEventTouchUpInside];
+        [appCell.rightButtonLabel addTarget:self action:@selector(openPageOrSafariWithURL:) forControlEvents:UIControlEventTouchUpInside];
+        
+        //brand logo
+        [appCell.brandImageView sd_setImageWithURL:[ar[indexPath.row] valueForKey:@"brand_logo"]];
+        
+        //add border
+        appCell.brandImageView.layer.borderColor = [UIColor colorWithRed:230/255.0f green:230/255.0f blue:230/255.0f alpha:1].CGColor;
+        appCell.brandImageView.layer.borderWidth = 0.9f;
+        
+        //bonus text
+        [appCell.bonusLabel setText:[NSString stringWithFormat:@"%@ %@",[ar[indexPath.row] valueForKey:@"trans_get"],[ar[indexPath.row] valueForKey:@"bonus_text"]]];
+        
+        //rating
+        [appCell.ratingImageView setImage:[UIImage imageNamed:[[NSString stringWithFormat:@"rating%@",[ar[indexPath.row] valueForKey:@"star_rating"]] stringByReplacingOccurrencesOfString:@"." withString:@"-"]]];
+        
+        appCell.ratingImageView.image = [appCell.ratingImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [appCell.ratingImageView setTintColor:[UIColor colorWithRed:146/255.0 green:142/255.0 blue:169/255.0 alpha:1]];
+        
+        return appCell;
+    }else{
+        HomePageTableViewCell *appCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HomePageTableViewCell class]) forIndexPath:indexPath];
+        
+        NSArray *ar = [brandsTable valueForKey:@"widgets_arr"];
+        //2 buttons
+        [appCell.leftButtonLabel setTitle:[ar[indexPath.row] valueForKey:@"review_link"] forState:UIControlStateNormal];
+        [appCell.rightButtonLabel setTitle:[ar[indexPath.row] valueForKey:@"button_text"] forState:UIControlStateNormal];
+        [[appCell.leftButtonLabel layer] setValue:[ar[indexPath.row] valueForKey:@"review_url"] forKey:@"urlToLoad"];
+        [[appCell.rightButtonLabel layer] setValue:[ar[indexPath.row] valueForKey:@"aff_url"] forKey:@"urlToLoad"];
+        [appCell.leftButtonLabel addTarget:self action:@selector(openPageOrSafariWithURL:) forControlEvents:UIControlEventTouchUpInside];
+        [appCell.rightButtonLabel addTarget:self action:@selector(openPageOrSafariWithURL:) forControlEvents:UIControlEventTouchUpInside];
+        
+        //brand logo
+        [appCell.brandImageView sd_setImageWithURL:[ar[indexPath.row] valueForKey:@"brand_logo"]];
+        
+        //add border
+        appCell.brandImageView.layer.borderColor = [UIColor colorWithRed:230/255.0f green:230/255.0f blue:230/255.0f alpha:1].CGColor;
+        appCell.brandImageView.layer.borderWidth = 0.9f;
+        
+        //bonus text
+        [appCell.bonusLabel setText:[NSString stringWithFormat:@"%@ %@",[ar[indexPath.row] valueForKey:@"trans_get"],[ar[indexPath.row] valueForKey:@"bonus_text"]]];
+        
+        //rating
+        [appCell.ratingImageView setImage:[UIImage imageNamed:[[NSString stringWithFormat:@"rating%@",[ar[indexPath.row] valueForKey:@"star_rating"]] stringByReplacingOccurrencesOfString:@"." withString:@"-"]]];
+        
+        appCell.ratingImageView.image = [appCell.ratingImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [appCell.ratingImageView setTintColor:[UIColor colorWithRed:146/255.0 green:142/255.0 blue:169/255.0 alpha:1]];
+        
+        return appCell;
+    }
 }
 -(void)openPageOrSafariWithURL:(id) sender{
     
@@ -508,6 +555,13 @@ static NSString * brandRevID = @"brandRevID";
     NSInteger page = scrollView.contentOffset.x / 375;
     _pageControl.currentPage = page;
     
+}
+
+
+-(BOOL)isDeviceIPad{
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    return (screenWidth > 444);
 }
 
 

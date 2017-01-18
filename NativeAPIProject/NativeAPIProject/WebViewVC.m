@@ -10,10 +10,13 @@
 #import "SWRevealViewController.h"
 #import "ViewController.h"
 #import "NavigationManager.h"
+#import "GlobalVars.h"
 #import "Tools.h"
 #import "CategoryVC.h"
 
-@interface WebViewVC ()
+@interface WebViewVC (){
+    GlobalVars *globals;
+}
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
 
@@ -35,6 +38,7 @@ static NSString * categoryID = @"categoryVC";
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navigationRequestFromAppDel:) name:@"navigationRequestFromAppDel" object:Nil];
     _nav = [[NavigationManager alloc]init];
+    globals = [GlobalVars sharedInstance];
     self.revealViewController.rightViewRevealOverdraw=4;
     [self.revealViewController panGestureRecognizer];
     [self.revealViewController tapGestureRecognizer];
@@ -61,19 +65,29 @@ static NSString * categoryID = @"categoryVC";
 
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    NSString *url = [[request URL] absoluteString];
-    NavigationManager *nav = [[NavigationManager alloc] init];
     
-    if(webView.tag == 1){
-        return YES;
+    //open page from wysiwyg
+    NSString *urlString = [[request URL] absoluteString];
+    
+#warning need to check if next page is not a webview
+//    destPP
+//    if(destpp getpagetype is not homepage nor brand review){
+//        return YES;
+//    }
+    
+    //if url contains "online-casinoes-canada.ca" && url NOT contains "links", then it's app page.
+    if([urlString containsString:[[GlobalVars sharedInstance] websiteURL]] &&  ! [urlString containsString:globals.redirectionTrigger]){
+        [_nav navigateWithItemID:-42 WithURL:urlString WithURLsDict:nil WithSourceVC:self];
+        return NO;
     }
-    if([url containsString:@"onlinecasinos.expert"]){
-        [nav navigateWithItemID:-42 WithURL:url WithURLsDict:_tags2URLs WithSourceVC:self];
+    
+    //if url contains "online-casinoes-canada.ca" && url contains "links", then it's an aff link.
+    if (([urlString containsString:[[GlobalVars sharedInstance] websiteURL]] && [urlString containsString:globals.redirectionTrigger])) {
+        [_nav navigateToAffLink:urlString];
         return NO;
     }
     return YES;
 }
-
 
 
 -(void)setSelectedTabbarItem{

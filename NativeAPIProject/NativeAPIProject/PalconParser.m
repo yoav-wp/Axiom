@@ -176,6 +176,7 @@
     
 }
 
+
 -(NSMutableArray *)getTabBarElements{
     GlobalVars *globals = [GlobalVars sharedInstance];
     

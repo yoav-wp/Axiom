@@ -15,6 +15,8 @@
 		EB356D921E2E07E700CE43C1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB356D911E2E07E700CE43C1 /* GoogleService-Info.plist */; };
 		EB5752191D609DB300CF9565 /* CategoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5752181D609DB300CF9565 /* CategoryVC.m */; };
 		EB6199101D5C9E2600E54823 /* menu_icons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EB61990F1D5C9E2600E54823 /* menu_icons.bundle */; };
+		EB6CDD231E2F524900BFE52C /* HomePageIpadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6CDD211E2F524900BFE52C /* HomePageIpadTableViewCell.m */; };
+		EB6CDD241E2F524900BFE52C /* HomePageIpadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB6CDD221E2F524900BFE52C /* HomePageIpadTableViewCell.xib */; };
 		EB72EE9C1DE70DE3004335DB /* MappingFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = EB72EE9B1DE70DE3004335DB /* MappingFinder.m */; };
 		EB7F73CA1DAF92050069A9E2 /* GameReviewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7F73C91DAF92050069A9E2 /* GameReviewVC.m */; };
 		EB8C6F8E1DDDA4EE00B441BE /* HomePageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C6F8C1DDDA4EE00B441BE /* HomePageTableViewCell.m */; };
@@ -77,6 +79,9 @@
 		EB5752171D609DB300CF9565 /* CategoryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryVC.h; sourceTree = "<group>"; };
 		EB5752181D609DB300CF9565 /* CategoryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryVC.m; sourceTree = "<group>"; };
 		EB61990F1D5C9E2600E54823 /* menu_icons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = menu_icons.bundle; sourceTree = "<group>"; };
+		EB6CDD201E2F524900BFE52C /* HomePageIpadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageIpadTableViewCell.h; sourceTree = "<group>"; };
+		EB6CDD211E2F524900BFE52C /* HomePageIpadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageIpadTableViewCell.m; sourceTree = "<group>"; };
+		EB6CDD221E2F524900BFE52C /* HomePageIpadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomePageIpadTableViewCell.xib; sourceTree = "<group>"; };
 		EB72EE9A1DE70DE3004335DB /* MappingFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MappingFinder.h; sourceTree = "<group>"; };
 		EB72EE9B1DE70DE3004335DB /* MappingFinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MappingFinder.m; sourceTree = "<group>"; };
 		EB7F73C81DAF92050069A9E2 /* GameReviewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameReviewVC.h; sourceTree = "<group>"; };
@@ -316,6 +321,9 @@
 				EB8C6F8D1DDDA4EE00B441BE /* HomePageTableViewCell.xib */,
 				EBAE71881E1115F700AABC50 /* SplashScreenVC.h */,
 				EBAE71891E1115F700AABC50 /* SplashScreenVC.m */,
+				EB6CDD201E2F524900BFE52C /* HomePageIpadTableViewCell.h */,
+				EB6CDD211E2F524900BFE52C /* HomePageIpadTableViewCell.m */,
+				EB6CDD221E2F524900BFE52C /* HomePageIpadTableViewCell.xib */,
 			);
 			name = viewControllers;
 			sourceTree = "<group>";
@@ -469,6 +477,7 @@
 				EB6199101D5C9E2600E54823 /* menu_icons.bundle in Resources */,
 				EBAFFCB11D5C99BB0021732B /* Assets.xcassets in Resources */,
 				EBAFFCAF1D5C99BB0021732B /* Main.storyboard in Resources */,
+				EB6CDD241E2F524900BFE52C /* HomePageIpadTableViewCell.xib in Resources */,
 				5416166D1E23C80900C5C658 /* Montserrat-Regular.otf in Resources */,
 				EB356D921E2E07E700CE43C1 /* GoogleService-Info.plist in Resources */,
 			);
@@ -651,6 +660,7 @@
 				EBE468741D76C8AA009A3CDA /* BrandReviewVC.m in Sources */,
 				EBB3DCC61D61B67C003B93A0 /* CJSONSerializer.m in Sources */,
 				EBAFFCD91D5C99E60021732B /* MenuViewController.m in Sources */,
+				EB6CDD231E2F524900BFE52C /* HomePageIpadTableViewCell.m in Sources */,
 				EBAFFCDF1D5C9A190021732B /* SWRevealViewController.m in Sources */,
 				EB12E1411DE33773009DB2FF /* GlobalVars.m in Sources */,
 			);

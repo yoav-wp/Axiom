@@ -15,6 +15,7 @@
     NSString *_homepageID; 
     NSString *_webviewID;
     NSString *_categoryID;
+    NSString *_redirectionTrigger;
     NSString *_brandRevID;
 }
 
@@ -27,6 +28,7 @@
 @property(strong, nonatomic, readwrite) NSString *webviewID;
 @property(strong, nonatomic, readwrite) NSString *categoryID;
 @property(strong, nonatomic, readwrite) NSString *brandRevID;
+@property(strong, nonatomic, readwrite) NSString *redirectionTrigger;
 
 
 @end

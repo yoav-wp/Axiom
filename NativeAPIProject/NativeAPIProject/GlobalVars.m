@@ -15,6 +15,7 @@
 @synthesize homepageID = _homepageID;
 @synthesize webviewID = _webviewID;
 @synthesize categoryID = _categoryID;
+@synthesize redirectionTrigger = _redirectionTrigger;
 @synthesize brandRevID = _brandRevID;
 
 
@@ -32,7 +33,7 @@
     if(self){
         _websiteURL = nil;
         _tagWysiwyg = 0;
-        
+        _redirectionTrigger = nil;
         _homepageID = nil;
         _webviewID = nil;
         _categoryID = nil;

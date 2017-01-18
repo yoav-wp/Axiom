@@ -327,7 +327,7 @@ CGFloat maxAccordionHeight = 0;
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
     
-    if(screenWidth > 444){
+    if([self isDeviceIPad]){
         fontSize = @"2.5vw";
     }
     
@@ -591,67 +591,26 @@ CGFloat maxAccordionHeight = 0;
     }
 }
 
-//
-//-(void)webViewDidFinishLoad:(UIWebView *)webView{
-//    CGRect frame = _webview.frame;
-//    frame.size.height = 1;
-//    _webview.frame = frame;
-//    CGSize fittingSize = [_webview sizeThatFits:CGSizeZero];
-//    frame.size = fittingSize;
-//    _webview.frame = frame;
-//    _webviewHeight.constant = frame.size.height;
-//}
-
-
-//- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-//    
-//    //open page from wysiwyg
-//    NSString *urlString = [[request URL] absoluteString];
-//    NavigationManager *nav = [[NavigationManager alloc] init];
-//    NSLog(@"url : %@",urlString);
-//    NSMutableString *website = [NSMutableString stringWithString:globals.websiteURL];
-//    //remove the http if exists
-//    [website replaceOccurrencesOfString:@"http://" withString:@"" options:NSAnchoredSearch range:NSMakeRange(0, website.length)];
-//    [website replaceOccurrencesOfString:@"https://" withString:@"" options:NSAnchoredSearch range:NSMakeRange(0, website.length)];
-//    if([urlString containsString:website]){
-//#warning hmm need to pass tags2URLs??
-//        [nav navigateWithItemID:-42 WithURL:urlString WithURLsDict:_tags2URLs WithSourceVC:self];
-//        return NO;
-//    }
-//    
-//    
-//    //MappingFinderPart
-//    MappingFinder *st = [MappingFinder getMFObject];
-//    NSURL *url = [request URL];
-//    url= [st makeURL:url trigger:@"go"];
-//    
-//    if (([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
-//        [[UIApplication sharedApplication] openURL:url];
-//        return NO;
-//    }
-//    return YES;
-//}
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     
     //open page from wysiwyg
     NSString *urlString = [[request URL] absoluteString];
-    NavigationManager *nav = [[NavigationManager alloc] init];
-    if([urlString containsString:[[GlobalVars sharedInstance] websiteURL]]){
-        [nav navigateWithItemID:-42 WithURL:urlString WithURLsDict:_tags2URLs WithSourceVC:self];
+    
+    //if url contains "online-casinoes-canada.ca" && url NOT contains "links", then it's app page.
+    if([urlString containsString:[[GlobalVars sharedInstance] websiteURL]] &&  ! [urlString containsString:globals.redirectionTrigger]){
+        [_nav navigateWithItemID:-42 WithURL:urlString WithURLsDict:nil WithSourceVC:self];
         return NO;
     }
     
-    NSURL *url = [request URL];
-    
-#warning TODO - define mapping finder system - if url contains mappingfinder.com?
-    if (([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
-        
+    //if url contains "online-casinoes-canada.ca" && url contains "links", then it's an aff link.
+    if (([urlString containsString:[[GlobalVars sharedInstance] websiteURL]] && [urlString containsString:globals.redirectionTrigger])) {
         [_nav navigateToAffLink:urlString];
         return NO;
     }
     return YES;
 }
+
 
 
 - (IBAction)segmentValueChanged:(id)sender {
@@ -820,6 +779,12 @@ CGFloat maxAccordionHeight = 0;
     }
 }
 
+
+-(BOOL)isDeviceIPad{
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    return (screenWidth > 444);
+}
 
 -(void)setConstraintZeroToView:(UIView *)viewToUpdate{
     [viewToUpdate addConstraint:[NSLayoutConstraint constraintWithItem:viewToUpdate attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:0.]];

@@ -203,6 +203,7 @@ static NSString * gameRevID = @"gameRevID";
     }
 }
 
+
 -(void)navigateToHomepageWithVC:(UIViewController *)sourceVC{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     ViewController *vc = [storyboard instantiateViewControllerWithIdentifier:homepageID];
@@ -223,7 +224,6 @@ static NSString * gameRevID = @"gameRevID";
             break;
         }
     }
-    NSLog(@"blablablaaaaaaaaaaa");
 //    transformedUrlStr = [urlStr stringByReplacingCharactersInRange:NSMakeRange(0, i) withString:@"http://www.mappingfinder.com/go"];
 
     transformedUrlStr = [urlStr stringByReplacingCharactersInRange:NSMakeRange(0, i) withString:@"http://onlinecasinos.expert/go"];
