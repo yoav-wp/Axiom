@@ -120,6 +120,7 @@ CGFloat maxAccordionHeight = 0;
     if([[_tabbar items] count] == 0)
         [self initTabBar];
     [self setActiveTabbarItem];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"enableMenuUserInteraction" object:Nil userInfo:nil];
 }
 
 //Google app indexing
@@ -127,7 +128,7 @@ CGFloat maxAccordionHeight = 0;
 {
     NSLog(@"BrandRev got notif");
     NSString *urlFromNotification=[[aNotif userInfo] objectForKey:@"urlToLoad"];
-    [_nav navigateWithItemID:-42 WithURL:urlFromNotification WithURLsDict:nil WithSourceVC:self];
+    [_nav navigateWithItemID:-42 WithURL:urlFromNotification WithURLsDict:nil WithSourceVC:self WithInitializedDestPP:nil];
 }
 
 
@@ -161,6 +162,17 @@ CGFloat maxAccordionHeight = 0;
 }
 
 -(void)initSegmentText{
+    
+    CGFloat fontSize = 12.0f;
+    if([self isDeviceIPad])
+        fontSize = 23.0f;
+        
+    UIFont *font = [UIFont fontWithName:@"Montserrat" size:fontSize];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
+                                                           forKey:NSFontAttributeName];
+    [_segment setTitleTextAttributes:attributes
+                                    forState:UIControlStateNormal];
+    
     NSArray *ar = [_pp brandReviewGetSegmentText];
     [_segment setTitle:ar[0] forSegmentAtIndex:0];
     [_segment setTitle:ar[1] forSegmentAtIndex:1];
@@ -170,14 +182,24 @@ CGFloat maxAccordionHeight = 0;
 
 -(void)initBrandName{
     _brandNameLabel.text = [_pp brandReviewGetBrandName];
+    _brandNameLabel.numberOfLines = 1;
+    _brandNameLabel.minimumScaleFactor = 0.5;
+    _brandNameLabel.adjustsFontSizeToFitWidth = YES;
 }
 
 -(void)initBonus{
     _bonusLabel.text = [_pp brandReviewGetBonusText];
+    _bonusLabel.numberOfLines = 1;
+    _bonusLabel.minimumScaleFactor = 0.5;
+    _bonusLabel.adjustsFontSizeToFitWidth = YES;
 }
 
 -(void)initClaimButton{
     [_claimButton setTitle:[_pp brandNameGetClaimButtonText] forState:UIControlStateNormal];
+    _claimButton.titleLabel.numberOfLines = 1;
+    _claimButton.titleLabel.minimumScaleFactor = 0.5;
+    _claimButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+   _claimButton.titleLabel.lineBreakMode = NSLineBreakByClipping;
 }
 
 -(void)initBannerLogo{
@@ -599,7 +621,7 @@ CGFloat maxAccordionHeight = 0;
     
     //if url contains "online-casinoes-canada.ca" && url NOT contains "links", then it's app page.
     if([urlString containsString:[[GlobalVars sharedInstance] websiteURL]] &&  ! [urlString containsString:globals.redirectionTrigger]){
-        [_nav navigateWithItemID:-42 WithURL:urlString WithURLsDict:nil WithSourceVC:self];
+        [_nav navigateWithItemID:-42 WithURL:urlString WithURLsDict:nil WithSourceVC:self WithInitializedDestPP:nil];
         return NO;
     }
     
@@ -653,7 +675,7 @@ CGFloat maxAccordionHeight = 0;
     else if(item.tag == _activeTab){
         return;
     }else{
-        [_nav navigateWithItemID:item.tag WithURL:nil WithURLsDict:_tags2URLs WithSourceVC:self];
+        [_nav navigateWithItemID:item.tag WithURL:nil WithURLsDict:_tags2URLs WithSourceVC:self WithInitializedDestPP:nil];
     }
 }
 

@@ -20,6 +20,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enableMenuUserInteraction) name:@"enableMenuUserInteraction" object:Nil];
     _nav = [[NavigationManager alloc]  init];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -38,6 +39,14 @@
 //    self.secondForTable=[[NSMutableArray alloc] init] ;
 //    [self.secondForTable addObjectsFromArray:self.secondArray];
     
+}
+
+-(void)enableMenuUserInteraction{
+    self.view.userInteractionEnabled = YES;
+}
+
+-(void)disableMenuUserInteraction{
+    self.view.userInteractionEnabled = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -194,7 +203,8 @@
         }else
         {
             NSString *destLink = [d valueForKey:@"page_link2"];
-            [_nav navigateWithItemID:-42 WithURL:destLink WithURLsDict:nil WithSourceVC:self];
+            [self disableMenuUserInteraction];
+            [_nav navigateWithItemID:-42 WithURL:destLink WithURLsDict:nil WithSourceVC:self WithInitializedDestPP:nil];
         }
     }
     

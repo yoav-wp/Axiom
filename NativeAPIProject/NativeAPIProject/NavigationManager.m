@@ -7,7 +7,6 @@
 //
 
 #import "NavigationManager.h"
-#import "PalconParser.h"
 #import "SWRevealViewController.h"
 #import "CategoryVC.h"
 #import "WebViewVC.h"
@@ -37,12 +36,18 @@ static NSString * gameRevID = @"gameRevID";
  @param tags2URLs needed only when (10 < tag < 20)
  @param sourceVC usually self
  */
--(void) navigateWithItemID: (NSInteger) tag WithURL:(NSString *)destURL WithURLsDict: (NSMutableDictionary *)tags2URLs WithSourceVC:(UIViewController *)sourceVC{
+-(void) navigateWithItemID: (NSInteger) tag WithURL:(NSString *)destURL WithURLsDict: (NSMutableDictionary *)tags2URLs WithSourceVC:(UIViewController *)sourceVC WithInitializedDestPP:(PalconParser *)initializedDestPP{
     
     //These are clicks from a wysiwyg or the main menu
     if(tag == -42 && destURL){
         NSLog(@"tag -42 %@",destURL);
-        PalconParser *destPP = [[PalconParser alloc] init];
+        PalconParser *destPP;
+        if(initializedDestPP != nil){
+            destPP = initializedDestPP;
+        }
+        else{
+            destPP = [[PalconParser alloc] init];
+        }
         [destPP initWithFullURL:destURL];
         NSLog(@"nav manager : this is pp dict :%@",destPP.pageDataDictionary);
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
@@ -119,8 +124,13 @@ static NSString * gameRevID = @"gameRevID";
     //These are clicks from the tabbar (tags 11-20)
     else{
         NSString *targetURL = [tags2URLs objectForKey:[NSNumber numberWithInteger:tag]];
-        PalconParser *destPP = [[PalconParser alloc] init];
-        [destPP initWithFullURL:targetURL];
+        PalconParser *destPP;
+        if(initializedDestPP != nil){
+            destPP = initializedDestPP;
+        }
+        else{
+            destPP = [[PalconParser alloc] init];
+        }
         
         
         //if page type is nil

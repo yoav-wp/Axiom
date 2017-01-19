@@ -50,7 +50,7 @@ static NSString * categoryID = @"categoryVC";
 {
     NSLog(@"vc got notif");
     NSString *urlFromNotification=[[aNotif userInfo] objectForKey:@"urlToLoad"];
-    [_nav navigateWithItemID:-42 WithURL:urlFromNotification WithURLsDict:nil WithSourceVC:self];
+    [_nav navigateWithItemID:-42 WithURL:urlFromNotification WithURLsDict:nil WithSourceVC:self WithInitializedDestPP:nil];
 }
 
 
@@ -63,28 +63,38 @@ static NSString * categoryID = @"categoryVC";
     [self setSelectedTabbarItem];
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"enableMenuUserInteraction" object:Nil userInfo:nil];
+}
+
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     
     //open page from wysiwyg
     NSString *urlString = [[request URL] absoluteString];
     
-#warning need to check if next page is not a webview
-//    destPP
-//    if(destpp getpagetype is not homepage nor brand review){
-//        return YES;
-//    }
-    
-    //if url contains "online-casinoes-canada.ca" && url NOT contains "links", then it's app page.
-    if([urlString containsString:[[GlobalVars sharedInstance] websiteURL]] &&  ! [urlString containsString:globals.redirectionTrigger]){
-        [_nav navigateWithItemID:-42 WithURL:urlString WithURLsDict:nil WithSourceVC:self];
-        return NO;
+    if(![urlString containsString:globals.websiteURL]){
+        return YES;
     }
     
     //if url contains "online-casinoes-canada.ca" && url contains "links", then it's an aff link.
     if (([urlString containsString:[[GlobalVars sharedInstance] websiteURL]] && [urlString containsString:globals.redirectionTrigger])) {
         [_nav navigateToAffLink:urlString];
         return NO;
+    }
+    
+    // if next page webview, load it here, otherwise open next page with already initialized destPP
+    PalconParser *destPP = [[PalconParser alloc] init];
+    [destPP initWithFullURL:urlString];
+    if( ! ([[destPP getPageType] isEqualToString:@"home-page"] || [[destPP getPageType] isEqualToString:@"brand-review"])){
+        return YES;
+    }
+    else{
+        //if url contains "online-casinoes-canada.ca" && url NOT contains "links", then it's app page.
+        if([urlString containsString:[[GlobalVars sharedInstance] websiteURL]] &&  ! [urlString containsString:globals.redirectionTrigger]){
+            [_nav navigateWithItemID:-42 WithURL:urlString WithURLsDict:nil WithSourceVC:self WithInitializedDestPP:nil];
+            return NO;
+        }
     }
     return YES;
 }
@@ -108,9 +118,8 @@ static NSString * categoryID = @"categoryVC";
 }
 
 -(void) initWebView{
-//    NSURL *url = [NSURL URLWithString:[self.pp getBaseURL]];
     NSURL *url = [NSURL URLWithString:_pp.pageURL];
-    NSLog(@"Gonna load %@", _pp.pageDataDictionary);
+    NSLog(@"Gonna load %@", _pp.pageURL);
     NSURLRequest *rq =[NSURLRequest requestWithURL:url];
     [self.webView loadRequest:rq];
 }
@@ -179,7 +188,6 @@ static NSString * categoryID = @"categoryVC";
 
 //Handle tabBar clicks
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
-    NSLog(@"tag : %ld",_activeTab);
     //On homepage, homepage click does nothing
     if (item.tag == 42){
         [self.revealViewController rightRevealToggle:self];
@@ -189,7 +197,7 @@ static NSString * categoryID = @"categoryVC";
     else if(item.tag == _activeTab){
         return;
     }else{
-        [_nav navigateWithItemID:item.tag WithURL:nil WithURLsDict:_tags2URLs WithSourceVC:self];
+        [_nav navigateWithItemID:item.tag WithURL:nil WithURLsDict:_tags2URLs WithSourceVC:self WithInitializedDestPP:nil];
     }
 }
 
@@ -197,7 +205,7 @@ static NSString * categoryID = @"categoryVC";
 -(void)handleSharingEvent{
     // create a message
     NSString *theMessage = _pp.pageURL;
-    NSArray *items = @[@"hello", [UIImage imageNamed:@"betwaylogo"]];
+    NSArray *items = @[theMessage];
     
     // build an activity view controller
     UIActivityViewController *controller = [[UIActivityViewController alloc]initWithActivityItems:items applicationActivities:nil];

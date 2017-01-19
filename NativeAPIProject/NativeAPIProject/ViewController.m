@@ -85,9 +85,8 @@ static NSString * brandRevID = @"brandRevID";
 {
     NSLog(@"vc got notif");
     NSString *urlFromNotification=[[aNotif userInfo] objectForKey:@"urlToLoad"];
-    [_nav navigateWithItemID:-42 WithURL:urlFromNotification WithURLsDict:nil WithSourceVC:self];
+    [_nav navigateWithItemID:-42 WithURL:urlFromNotification WithURLsDict:nil WithSourceVC:self WithInitializedDestPP:nil];
 }
-
 
 //call all the widgets initializations
 //better view WILL appear, did appear for debug
@@ -105,6 +104,7 @@ static NSString * brandRevID = @"brandRevID";
     if([[_tabBar items] count] == 0)
         [self initTabBar];
     [self setActiveTabbarItem];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"enableMenuUserInteraction" object:Nil userInfo:nil];
 }
 
 - (IBAction)closeBannerClick:(id)sender {
@@ -325,7 +325,7 @@ static NSString * brandRevID = @"brandRevID";
     
     //if url contains "online-casinoes-canada.ca" && url NOT contains "links", then it's app page.
     if([urlString containsString:[[GlobalVars sharedInstance] websiteURL]] &&  ! [urlString containsString:globals.redirectionTrigger]){
-        [_nav navigateWithItemID:-42 WithURL:urlString WithURLsDict:nil WithSourceVC:self];
+        [_nav navigateWithItemID:-42 WithURL:urlString WithURLsDict:nil WithSourceVC:self WithInitializedDestPP:nil];
         return NO;
     }
     
@@ -459,7 +459,7 @@ static NSString * brandRevID = @"brandRevID";
         //do mf
         [_nav navigateToAffLink:urlStr];
     }else{
-        [_nav navigateWithItemID:-42 WithURL:urlStr WithURLsDict:nil WithSourceVC:self];
+        [_nav navigateWithItemID:-42 WithURL:urlStr WithURLsDict:nil WithSourceVC:self WithInitializedDestPP:nil];
     }
 }
 
@@ -479,7 +479,7 @@ static NSString * brandRevID = @"brandRevID";
     else if(item.tag == _activeTab){
         return;
     }else{
-        [_nav navigateWithItemID:item.tag WithURL:nil WithURLsDict:_tags2URLs WithSourceVC:self];
+        [_nav navigateWithItemID:item.tag WithURL:nil WithURLsDict:_tags2URLs WithSourceVC:self WithInitializedDestPP:nil];
     }
 }
 
