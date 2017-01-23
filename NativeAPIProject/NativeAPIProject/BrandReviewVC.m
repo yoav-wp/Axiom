@@ -153,7 +153,7 @@ CGFloat maxAccordionHeight = 0;
     NSString *fontSize = @"3.8vw";
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
-    if(screenWidth > 444){
+    if([self isDeviceIPad]){
         fontSize = @"2.5vw";
     }
     NSString *urlString = [self.pp brandReviewGetWysiwyg];
@@ -204,6 +204,7 @@ CGFloat maxAccordionHeight = 0;
 -(void)initBannerLogo{
     NSURL *imgURL = [NSURL URLWithString:[_pp brandReviewGetBrandLogo]];
     [_bannerLogo sd_setImageWithURL:imgURL];
+    _bannerLogo.bounds = CGRectInset(_bannerLogo.frame, 10.0f, 10.0f);
 }
 
 -(void)initGeneralRating{
@@ -281,7 +282,7 @@ CGFloat maxAccordionHeight = 0;
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
-    if(screenWidth > 444){
+    if([self isDeviceIPad]){
         fontSize = @"2.5vw";
     }
     
@@ -599,7 +600,7 @@ CGFloat maxAccordionHeight = 0;
     NSString *fontSize = @"3.8vw";
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
-    if(screenWidth > 444){
+    if([self isDeviceIPad]){
         fontSize = @"2.5vw";
     }
     
@@ -782,9 +783,13 @@ CGFloat maxAccordionHeight = 0;
     //some shadow UI
     _tabbar.layer.shadowOffset = CGSizeMake(0, 0);
     _tabbar.layer.shadowRadius = 8;
-    _tabbar.layer.shadowColor = [UIColor blackColor].CGColor;
+    _tabbar.layer.shadowColor = [UIColor grayColor].CGColor;
     _tabbar.layer.shadowOpacity = 0.2;
     _tabbar.layer.backgroundColor = [UIColor whiteColor].CGColor;
+    
+    _tabbar.layer.borderWidth = 0;
+    _tabbar.layer.borderColor = [[UIColor clearColor] CGColor];
+    [[UITabBar appearance] setShadowImage:nil];
 }
 
 

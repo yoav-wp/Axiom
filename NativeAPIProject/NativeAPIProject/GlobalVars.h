@@ -17,6 +17,7 @@
     NSString *_categoryID;
     NSString *_redirectionTrigger;
     NSString *_brandRevID;
+    NSString *_fontSize;
 }
 
 +(GlobalVars *)sharedInstance;
@@ -29,6 +30,7 @@
 @property(strong, nonatomic, readwrite) NSString *categoryID;
 @property(strong, nonatomic, readwrite) NSString *brandRevID;
 @property(strong, nonatomic, readwrite) NSString *redirectionTrigger;
+@property(strong, nonatomic, readwrite) NSString *fontSize;
 
 
 @end

@@ -183,6 +183,7 @@ static NSString * categoryID = @"categoryVC";
     _tabBar.layer.shadowColor = [UIColor blackColor].CGColor;
     _tabBar.layer.shadowOpacity = 0.2;
     _tabBar.layer.backgroundColor = [UIColor whiteColor].CGColor;
+    _tabBar.layer.borderWidth = 0;
 }
 
 

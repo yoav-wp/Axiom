@@ -17,6 +17,7 @@
 @synthesize categoryID = _categoryID;
 @synthesize redirectionTrigger = _redirectionTrigger;
 @synthesize brandRevID = _brandRevID;
+@synthesize fontSize = _fontSize;
 
 
 +(GlobalVars *)sharedInstance{
@@ -37,6 +38,7 @@
         _homepageID = nil;
         _webviewID = nil;
         _categoryID = nil;
+        _fontSize = nil;
         _brandRevID = nil;
     }
     return self;

@@ -71,6 +71,11 @@ static NSString * brandRevID = @"brandRevID";
     self.activeTab = 24;
     [self.pp initWithFullURL:globals.websiteURL];
     
+    globals.fontSize = @"16px";
+    if([self isDeviceIPad]){
+        globals.fontSize =@"19px";
+    }
+    
     //for the menu
     self.revealViewController.rightViewRevealOverdraw=4;
     [self.revealViewController panGestureRecognizer];
@@ -242,9 +247,10 @@ static NSString * brandRevID = @"brandRevID";
     //some shadow UI
     _tabBar.layer.shadowOffset = CGSizeMake(0, 0);
     _tabBar.layer.shadowRadius = 8;
-    _tabBar.layer.shadowColor = [UIColor blackColor].CGColor;
+    _tabBar.layer.shadowColor = [UIColor grayColor].CGColor;
     _tabBar.layer.shadowOpacity = 0.2;
     _tabBar.layer.backgroundColor = [UIColor whiteColor].CGColor;
+
 }
 
 
@@ -252,21 +258,14 @@ static NSString * brandRevID = @"brandRevID";
     [_firstWYSIWYG setBackgroundColor:[UIColor clearColor]];
     [_firstWYSIWYG setOpaque:NO];
     
-    
-    NSString *fontSize = @"3.9vw";
-    
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
-    if(screenWidth > 444){
-        fontSize = @"2.5vw";
-    }
-    
     
     NSString *htmlString = [self.pp homepageGetFirstWysiwyg];
     if(htmlString.length < 8){
         [self setConstraintZeroToView:_firstWYSIWYG];
     }else{
-        NSString *style = [Tools getDefaultWysiwygCSSFontSize:fontSize];
+        NSString *style = [Tools getDefaultWysiwygCSSFontSize:globals.fontSize];
         htmlString = [NSString stringWithFormat:@"%@<span>%@</span>",style,htmlString];
         [_firstWYSIWYG loadHTMLString:htmlString baseURL:nil];
         _firstWYSIWYG.scrollView.scrollEnabled = NO;
@@ -298,7 +297,7 @@ static NSString * brandRevID = @"brandRevID";
 
 
 -(void)initSecondWysiwyg{
-    NSString *fontSize = @"3.9vw";
+    NSString *fontSize = @"3.8vw";
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
     if(screenWidth > 444){
