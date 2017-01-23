@@ -396,6 +396,7 @@ static NSString * brandRevID = @"brandRevID";
         [appCell.leftButtonLabel addTarget:self action:@selector(openPageOrSafariWithURL:) forControlEvents:UIControlEventTouchUpInside];
         [appCell.rightButtonLabel addTarget:self action:@selector(openPageOrSafariWithURL:) forControlEvents:UIControlEventTouchUpInside];
         
+        
         //brand logo
         [appCell.brandImageView sd_setImageWithURL:[ar[indexPath.row] valueForKey:@"brand_logo"]];
         
@@ -419,11 +420,22 @@ static NSString * brandRevID = @"brandRevID";
         NSArray *ar = [brandsTable valueForKey:@"widgets_arr"];
         //2 buttons
         [appCell.leftButtonLabel setTitle:[ar[indexPath.row] valueForKey:@"review_link"] forState:UIControlStateNormal];
+        
+        
+        
         [appCell.rightButtonLabel setTitle:[ar[indexPath.row] valueForKey:@"button_text"] forState:UIControlStateNormal];
         [[appCell.leftButtonLabel layer] setValue:[ar[indexPath.row] valueForKey:@"review_url"] forKey:@"urlToLoad"];
         [[appCell.rightButtonLabel layer] setValue:[ar[indexPath.row] valueForKey:@"aff_url"] forKey:@"urlToLoad"];
         [appCell.leftButtonLabel addTarget:self action:@selector(openPageOrSafariWithURL:) forControlEvents:UIControlEventTouchUpInside];
         [appCell.rightButtonLabel addTarget:self action:@selector(openPageOrSafariWithURL:) forControlEvents:UIControlEventTouchUpInside];
+        
+        appCell.leftButtonLabel.titleLabel.numberOfLines = 1;
+        appCell.leftButtonLabel.titleLabel.adjustsFontSizeToFitWidth = YES;
+        appCell.leftButtonLabel.titleLabel.lineBreakMode = NSLineBreakByClipping;
+        
+        appCell.rightButtonLabel.titleLabel.numberOfLines = 1;
+        appCell.rightButtonLabel.titleLabel.adjustsFontSizeToFitWidth = YES;
+        appCell.rightButtonLabel.titleLabel.lineBreakMode = NSLineBreakByClipping;
         
         //brand logo
         [appCell.brandImageView sd_setImageWithURL:[ar[indexPath.row] valueForKey:@"brand_logo"]];

@@ -163,7 +163,7 @@ CGFloat maxAccordionHeight = 0;
 
 -(void)initSegmentText{
     
-    CGFloat fontSize = 12.0f;
+    CGFloat fontSize = 14.0f;
     if([self isDeviceIPad])
         fontSize = 23.0f;
         
@@ -197,9 +197,8 @@ CGFloat maxAccordionHeight = 0;
 -(void)initClaimButton{
     [_claimButton setTitle:[_pp brandNameGetClaimButtonText] forState:UIControlStateNormal];
     _claimButton.titleLabel.numberOfLines = 1;
-    _claimButton.titleLabel.minimumScaleFactor = 0.5;
     _claimButton.titleLabel.adjustsFontSizeToFitWidth = YES;
-   _claimButton.titleLabel.lineBreakMode = NSLineBreakByClipping;
+    _claimButton.titleLabel.lineBreakMode = NSLineBreakByClipping;
 }
 
 -(void)initBannerLogo{
@@ -369,8 +368,8 @@ CGFloat maxAccordionHeight = 0;
 //        NSString *filename= [NSString stringWithFormat:@"rating%.0fup",rating];
 //        NSLog(@" filename %@",filename);
         // Only height is taken into account, so other parameters are just dummy
-        CGFloat accordionHeadersHeight = 30;
-        if(screenWidth > 444){
+        CGFloat accordionHeadersHeight = 40;
+        if([self isDeviceIPad]){
             accordionHeadersHeight = 50;
         }
         UIButton *header1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, accordionHeadersHeight)];
@@ -405,10 +404,10 @@ CGFloat maxAccordionHeight = 0;
             ratingImageX = buttonImgX - (ratingImageWidth + 42);
         }
         
-        if(screenWidth > 444){
+        if([self isDeviceIPad]){
             ratingImgView = [[UIImageView alloc] initWithFrame:CGRectMake(ratingImageX, 4, ratingImageWidth * 1.3, accordionHeadersHeight - 4)];
         }else{
-            ratingImgView = [[UIImageView alloc] initWithFrame:CGRectMake(ratingImageX, 4, ratingImageWidth, 20)];
+            ratingImgView = [[UIImageView alloc] initWithFrame:CGRectMake(ratingImageX, 10, ratingImageWidth, 20)];
         }
         [header1 addSubview:ratingImgView];
         [ratingImgView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"rating%@", [ratingDetails[i] valueForKey:@"app_rating"]]]];
@@ -416,10 +415,10 @@ CGFloat maxAccordionHeight = 0;
         ratingImgView.image = [ratingImgView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [ratingImgView setTintColor:[UIColor colorWithRed:59/255.0 green:58/255.0 blue:71/255.0 alpha:1]];
         
-        if(screenWidth > 444){
+        if([self isDeviceIPad]){
             buttonImgView = [[UIImageView alloc] initWithFrame:CGRectMake(buttonImgX, 8, buttonImgWidth * 1.7, accordionHeadersHeight - 16)];
         }else{
-            buttonImgView = [[UIImageView alloc] initWithFrame:CGRectMake(buttonImgX, 5, buttonImgWidth, 20)];
+            buttonImgView = [[UIImageView alloc] initWithFrame:CGRectMake(buttonImgX, 10, buttonImgWidth, 20)];
         }
         [header1 addSubview:buttonImgView];
         [buttonImgView setImage:[UIImage imageNamed:@"arrow_down"]];

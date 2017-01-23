@@ -14,9 +14,9 @@
     [super awakeFromNib];
     // Initialization code
     
-    _leftButtonLabel.layer.cornerRadius = 4;
+    _leftButtonLabel.layer.cornerRadius = 3;
     _leftButtonLabel.clipsToBounds = YES;
-    _rightButtonLabel.layer.cornerRadius = 4;
+    _rightButtonLabel.layer.cornerRadius = 3;
     _rightButtonLabel.clipsToBounds = YES;
     
 }
