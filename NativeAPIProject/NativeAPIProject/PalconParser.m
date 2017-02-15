@@ -28,9 +28,10 @@
 -(void)initDataDictionary{
     NSError *theError = nil;
     NSError *downloadError = nil;
-    NSLog(@"pp - starting page download download");
+    NSLog(@"pp - starting page download");
     NSData *theJSONData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_urlWithQueryString] options:NSDataReadingUncached error:&downloadError];
     _pageDataDictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:theJSONData error:&theError];
+    NSLog(@"pp - finished page download");
 }
 
 -(NSString *)getPageType{

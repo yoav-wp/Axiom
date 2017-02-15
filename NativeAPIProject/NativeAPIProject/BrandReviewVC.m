@@ -20,6 +20,10 @@
 
 @interface BrandReviewVC(){
     GlobalVars *globals;
+    float firstTabHeight;
+    float secondTabHeight;
+    float thirdTabHeight;
+    float accordionHeight;
 }
 
 
@@ -29,6 +33,7 @@
 @property (weak, nonatomic) IBOutlet UIView *secondTabView;
 @property (weak, nonatomic) IBOutlet UIView *thirdTabView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segment;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *seconTabWebViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tosImagesStackViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *accordionHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tosWysiwygHeightConstraint;
@@ -52,15 +57,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *bonusLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *ratingImage;
 @property (weak, nonatomic) IBOutlet UIButton *claimButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *firstTabHeightConst;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *secondTabHeightConst;
 
 //bottom view of the third tab's view
 @property (weak, nonatomic) IBOutlet UIView *thirdsBottomView;
 @property (weak, nonatomic) IBOutlet UIWebView *tosWV;
 
 @end
-
-
-CGFloat maxAccordionHeight = 0;
 
 @implementation BrandReviewVC{
 
@@ -80,6 +84,7 @@ CGFloat maxAccordionHeight = 0;
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navigationRequestFromAppDel:) name:@"navigationRequestFromAppDel" object:Nil];
     globals = [GlobalVars sharedInstance];
+    accordionHeight = 900;
     //Just add the imageviews to an array,to iterate later
     paymentMethodsImageViewsArray = [NSArray arrayWithObjects:_paymentMethodImgV1, _paymentMethodImgV2, _paymentMethodImgV3, _paymentMethodImgV4, _paymentMethodImgV5, _paymentMethodImgV6, _paymentMethodImgV7, _paymentMethodImgV8, _paymentMethodImgV9, nil];
     softwareProvidersImageViewsArray = [NSArray arrayWithObjects:_swProviderImgV1, _swProviderImgV2, _swProviderImgV3, _swProviderImgV4, nil];
@@ -276,6 +281,7 @@ CGFloat maxAccordionHeight = 0;
 }
 
 -(void)initTOSWV{
+    /*
     _tosWV.scrollView.scrollEnabled = NO;
     NSString *urlString = [self.pp brandReviewGetTOSWysiwyg];
     NSString *fontSize = @"3.8vw";
@@ -289,6 +295,8 @@ CGFloat maxAccordionHeight = 0;
     NSString *style = [Tools getDefaultWysiwygCSSFontSize:fontSize];
     urlString = [NSString stringWithFormat:@"%@<span>%@</span>", style,urlString];
     [_tosWV loadHTMLString:urlString baseURL:nil];
+     */
+    thirdTabHeight = 500;
 }
 
 
@@ -301,6 +309,9 @@ CGFloat maxAccordionHeight = 0;
         frame.size = fittingSize;
         _firstWysiwyg.frame = frame;
         _firstWysiwygHeightConst.constant = frame.size.height;
+        _firstTabHeightConst.constant = _firstWysiwygHeightConst.constant + accordionHeight;
+        
+        firstTabHeight = _firstTabHeightConst.constant;
     }else if (webView.tag == 15){
         CGRect frame = _tosWV.frame;
         frame.size.height = 1;
@@ -309,7 +320,8 @@ CGFloat maxAccordionHeight = 0;
         frame.size = fittingSize;
         _tosWV.frame = frame;
         _tosWysiwygHeightConstraint.constant = frame.size.height;
-    }
+    }else{
+        //for the accordion
         NSLog(@"enter finishload for  : %ld", (long)webView.tag);
         //get best fitting size
         CGSize fittingSize = [webView sizeThatFits:CGSizeMake(webView.superview.frame.size.width, 1)];
@@ -320,6 +332,16 @@ CGFloat maxAccordionHeight = 0;
         newFrame.size = fittingSize;
         //set newFrame for the wv
         webView.frame = newFrame;
+        
+        //for seconTabWebView
+        if(webView.tag == 20){
+            NSLog(@"frame height %f",webView.frame.size.height);
+            _seconTabWebViewHeightConstraint.constant = webView.frame.size.height + 20;
+            _secondTabHeightConst.constant = _seconTabWebViewHeightConstraint.constant + 10;
+            secondTabHeight = _seconTabWebViewHeightConstraint.constant;
+            
+        }
+    }
 }
 
 -(void)initScreenshots{
@@ -353,12 +375,11 @@ CGFloat maxAccordionHeight = 0;
         fontSize = @"2.5vw";
     }
     
-
+    
     accordionWVArray = [NSMutableArray array];
-    _accordionHeightConstraint.constant = 600;
     
     CGFloat accordionWidth = self.view.frame.size.width;
-    accordion = [[AccordionView alloc] initWithFrame:CGRectMake(0, 0, accordionWidth, [[UIScreen mainScreen] bounds].size.height)];
+    accordion = [[AccordionView alloc] initWithFrame:CGRectMake(0, 0, accordionWidth, accordionHeight)];
     [self.accordionView addSubview:accordion];
     self.accordionView.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.000];
     
@@ -476,8 +497,6 @@ CGFloat maxAccordionHeight = 0;
             [wv loadHTMLString:htmlString baseURL:nil];
             [accordionWVArray addObject:wv];
             
-            //update total height for best scrolling
-            maxAccordionHeight += 140;
         }else{
             //if last element
             header1.backgroundColor = [UIColor colorWithRed:76/255.0 green:75/255.0 blue:89/255.0 alpha:1];
@@ -594,12 +613,11 @@ CGFloat maxAccordionHeight = 0;
 -(void)initSecondTabWebView{
     [_secondTabWebView setBackgroundColor:[UIColor clearColor]];
     [_secondTabWebView setOpaque:NO];
-    _secondTabWebView.scrollView.scrollEnabled = YES;
-    _secondTabWebView.scrollView.pagingEnabled = NO;
+    _secondTabWebView.scrollView.scrollEnabled = NO;
     
+    _secondTabWebView.tag = 20;
     NSString *fontSize = @"3.8vw";
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenWidth = screenRect.size.width;
+    
     if([self isDeviceIPad]){
         fontSize = @"2.5vw";
     }
@@ -645,17 +663,20 @@ CGFloat maxAccordionHeight = 0;
             _secondTabView.hidden=YES;
             _thirdTabView.hidden=YES;
             _firstTabView.hidden=NO;
+            _firstTabHeightConst.constant = firstTabHeight;
             break;
         case 1:
             _firstTabView.hidden=YES;
             _thirdTabView.hidden=YES;
             _secondTabView.hidden=NO;
+            _firstTabHeightConst.constant = secondTabHeight;
             break;
             
         case 2:
             _firstTabView.hidden=YES;
             _secondTabView.hidden=YES;
             _thirdTabView.hidden=NO;
+            _firstTabHeightConst.constant = thirdTabHeight;
             break;
             
         default:

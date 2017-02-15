@@ -309,7 +309,6 @@ static NSString * brandRevID = @"brandRevID";
     if(htmlString.length < 8){
         [self setConstraintZeroToView:_secondWYSIWYG];
     }else{
-        NSLog(@"wysiwyg : %@",htmlString);
         NSString *style = [Tools getDefaultWysiwygCSSFontSize:fontSize];
         htmlString = [NSString stringWithFormat:@"%@<span>%@</span>", style,htmlString];
         [_secondWYSIWYG loadHTMLString:htmlString baseURL:nil];

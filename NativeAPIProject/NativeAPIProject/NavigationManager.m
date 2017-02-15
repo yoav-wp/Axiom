@@ -49,7 +49,6 @@ static NSString * gameRevID = @"gameRevID";
             destPP = [[PalconParser alloc] init];
         }
         [destPP initWithFullURL:destURL];
-        NSLog(@"nav manager : this is pp dict :%@",destPP.pageDataDictionary);
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
         
         if([[destPP getIsPageNative] isEqualToString:@"wrapped"]){

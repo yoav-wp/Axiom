@@ -38,6 +38,7 @@
     
     self.userInteractionEnabled = YES;
     scrollView.userInteractionEnabled = YES;
+    [scrollView setScrollEnabled:NO];
     
     animationDuration = 0.3;
     animationCurve = UIViewAnimationCurveEaseIn;
