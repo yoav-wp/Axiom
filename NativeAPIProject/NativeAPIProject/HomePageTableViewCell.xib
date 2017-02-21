@@ -46,7 +46,7 @@
                         <state key="normal" title="Claim"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UFH-tN-ZVH">
-                        <rect key="frame" x="268" y="22" width="80" height="26"/>
+                        <rect key="frame" x="257" y="22" width="80" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.5725490196078431" green="0.55686274509803924" blue="0.66274509803921566" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="11"/>

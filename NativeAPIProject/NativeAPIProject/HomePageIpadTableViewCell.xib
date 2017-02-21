@@ -21,7 +21,7 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="betway_logo" translatesAutoresizingMaskIntoConstraints="NO" id="8Nz-0f-eNc">
                         <rect key="frame" x="8" y="15" width="120" height="90"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="120" id="R9N-fC-Gua"/>
                             <constraint firstAttribute="height" constant="90" id="Sey-3t-zm0"/>

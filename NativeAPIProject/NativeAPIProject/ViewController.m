@@ -123,20 +123,21 @@ static NSString * brandRevID = @"brandRevID";
 -(void)initBanner{
     _GetBannerButton.layer.cornerRadius = 14;
     _GetBannerButton.layer.zPosition = 1;
-    [NSTimer scheduledTimerWithTimeInterval:16 target:self selector:@selector(removeBanner) userInfo:nil repeats:NO];
+//    [NSTimer scheduledTimerWithTimeInterval:16 target:self selector:@selector(removeBanner) userInfo:nil repeats:NO];
 }
 
 -(void)removeBanner{
     [_bannerView removeFromSuperview];
 }
 - (IBAction)bannerButtonClick:(id)sender {
-    CABasicAnimation* rotationAnimation;
-    rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI];
-    rotationAnimation.duration = 3.;
-    rotationAnimation.cumulative = NO;
+//    CABasicAnimation* rotationAnimation;
+//    rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+//    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI];
+//    rotationAnimation.duration = 3.;
+//    rotationAnimation.cumulative = NO;
+//    
+//    [_GetBannerButton.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
     
-    [_GetBannerButton.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
 }
 
 //Handle widgets initializations
