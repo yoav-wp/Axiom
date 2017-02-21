@@ -70,11 +70,14 @@
 
     //will be passed to navigation manager with a tag, so we heve the tag-url relation
     NSMutableDictionary *_tags2URLs;
-    NSMutableArray * accordionWVArray;
+    NSMutableArray *accordionWVArray;
+    //contains all the "header1" buttons of accordion
+    NSMutableArray *accordionButtonImageViewArray;
     AccordionView *accordion;
     NavigationManager *_nav;
     NSArray *paymentMethodsImageViewsArray;
     NSArray *softwareProvidersImageViewsArray;
+    long lastRotatedImg;
     
 }
 
@@ -84,7 +87,9 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navigationRequestFromAppDel:) name:@"navigationRequestFromAppDel" object:Nil];
     globals = [GlobalVars sharedInstance];
-    accordionHeight = 900;
+    accordionHeight = 1100;
+    lastRotatedImg = 0;
+    accordionButtonImageViewArray = [[NSMutableArray alloc] init];
     //Just add the imageviews to an array,to iterate later
     paymentMethodsImageViewsArray = [NSArray arrayWithObjects:_paymentMethodImgV1, _paymentMethodImgV2, _paymentMethodImgV3, _paymentMethodImgV4, _paymentMethodImgV5, _paymentMethodImgV6, _paymentMethodImgV7, _paymentMethodImgV8, _paymentMethodImgV9, nil];
     softwareProvidersImageViewsArray = [NSArray arrayWithObjects:_swProviderImgV1, _swProviderImgV2, _swProviderImgV3, _swProviderImgV4, nil];
@@ -367,13 +372,8 @@
     NSArray *ratingDetails = [_pp brandReviewGetRatingDetails];
     //widths : 6sPlus - 414, 6s - 375, ipad air and air 2, retina - 768,ipad pro 12.9inch - 1024, 5s and 7 SE - 320
     
-    NSString *fontSize = @"3.8vw";
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
-    
-    if([self isDeviceIPad]){
-        fontSize = @"2.5vw";
-    }
     
     
     accordionWVArray = [NSMutableArray array];
@@ -399,7 +399,7 @@
         
         //otherwise stringwithFormat writes (null) cause last elements has no rating title
 //        if(i != ratingDetails.count-1)
-        [header1 setTitle:[NSString stringWithFormat:@" %@",[ratingDetails[i] valueForKey:@"app_rating_title"]] forState:UIControlStateNormal];
+        [header1 setTitle:[NSString stringWithFormat:@"   %@",[ratingDetails[i] valueForKey:@"app_rating_title"]] forState:UIControlStateNormal];
         
         //border on top of the buttons
         UIView *border = [UIView new];
@@ -415,7 +415,7 @@
         CGFloat buttonImgX;
         CGFloat buttonImgWidth = 20;
         
-        buttonImgX = screenWidth - (buttonImgWidth + 5);
+        buttonImgX = screenWidth - (buttonImgWidth + 12);
         ratingImageX = buttonImgX - (ratingImageWidth +10);
         
         [header1.titleLabel setFont:[UIFont fontWithName:@"Montserrat" size:17.0]];
@@ -449,7 +449,8 @@
         
         
         [buttonImgView setContentMode:UIViewContentModeScaleAspectFit];
-        buttonImgView.tag = 10;
+        buttonImgView.tag = 10+i;
+        
         
         //if first element, we rotate the image, as tab is open.
         if(i == 0){
@@ -457,12 +458,12 @@
             buttonImgView.image = rotated;
         }
         
-        //if last element, we rotate it 90
+        //if last element, we rotate it by 90 and avoid next rotating with tag 9 (instead of 10+i)
         if(i == ratingDetails.count-1){
             UIImage *rotated = [self upsideDownBunny:-M_PI/2 withImage:buttonImgView.image];
             buttonImgView.image = rotated;
             //avoid rotating on click
-            buttonImgView.tag = 11;
+            buttonImgView.tag = 9;
             [buttonImgView setTintColor:[UIColor redColor]];
             [buttonImgView setTintColor:[UIColor colorWithRed:205/255.0 green:0/255.0 blue:0/255.0 alpha:1]];
             [ratingImgView setTintColor:[UIColor whiteColor]];
@@ -473,7 +474,9 @@
         header1.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 //        header1.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.000];
         [header1 setTitleColor:[UIColor colorWithRed:10/255.0 green:10/255.0 blue:10/255.0 alpha:1.000] forState:UIControlStateNormal];
-        UIView *view1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 150)];
+        //View Size
+        UIView *view1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 200)];
+        
         view1.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.000];
         
         [accordion addHeader:header1 withView:view1];
@@ -483,7 +486,7 @@
         //if not last element
         if(i != ratingDetails.count-1){
             
-            UIWebView *wv = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, accordionWidth, 1)];
+            UIWebView *wv = [[UIWebView alloc] initWithFrame:CGRectMake(8, 0, accordionWidth - 8, 1)];
             wv.delegate = self;
             wv.tag = i;
             //disable scrolling in webview
@@ -492,7 +495,9 @@
             [wv setBackgroundColor:[UIColor clearColor]];
             [wv setOpaque:NO];
             [header1 addTarget:self action:@selector(changeAccordionArrowOrientation:) forControlEvents:UIControlEventTouchUpInside];
-            NSString *htmlString = [NSString stringWithFormat:@"%@<span>%@</span>",[Tools getDefaultWysiwygCSSFontSize:fontSize],[ratingDetails[i] valueForKey:@"app_rating_description"]];
+            //add to the array, so we can rotate
+            [accordionButtonImageViewArray addObject:header1];
+            NSString *htmlString = [NSString stringWithFormat:@"%@<span>%@</span>",[Tools getDefaultWysiwygCSSFontSize:globals.fontSize],[ratingDetails[i] valueForKey:@"app_rating_description"]];
             [view1 addSubview:wv];
             [wv loadHTMLString:htmlString baseURL:nil];
             [accordionWVArray addObject:wv];
@@ -509,10 +514,13 @@
     [accordion setNeedsLayout];
     
     // Set this if you want to allow multiple selection
-    [accordion setAllowsMultipleSelection:YES];
+    [accordion setAllowsMultipleSelection:NO];
+    //if not allows multiple, then set size smaller
+    accordionHeight = 500;
+    _firstTabHeightConst.constant = 600;
     
     // Set this to NO if you want to have at least one open section at all times
-    [accordion setAllowsEmptySelection:YES];
+    [accordion setAllowsEmptySelection:NO];
 }
 
 //downloaded code for changing image orientation
@@ -592,17 +600,32 @@
 
 // will rotate by 180
 -(void)changeAccordionArrowOrientation:(id) sender{
+    long tempTag = -1;
     UIButton *button = (UIButton *) sender;
     for (UIView *i in button.subviews){
         if([i isKindOfClass:[UIImageView class]]){
             UIImageView *imgV = (UIImageView *)i;
-            if(imgV.tag == 10){
+            if(imgV.tag >= 10){
+                UIImage *rotated = [self upsideDownBunny:M_PI withImage:imgV.image];
+                [rotated imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+                imgV.image = rotated;
+                tempTag = imgV.tag - 10;
+            }
+        }
+    }
+    //rotate back the last rotated button
+    UIButton *button2 = (UIButton *) accordionButtonImageViewArray[lastRotatedImg];
+    for (UIView *i in button2.subviews){
+        if([i isKindOfClass:[UIImageView class]]){
+            UIImageView *imgV = (UIImageView *)i;
+            if(imgV.tag >= 10){
                 UIImage *rotated = [self upsideDownBunny:M_PI withImage:imgV.image];
                 [rotated imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
                 imgV.image = rotated;
             }
         }
     }
+    lastRotatedImg = tempTag;
 }
 
 -(void)openBrandAffLink{

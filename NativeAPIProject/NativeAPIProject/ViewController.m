@@ -123,7 +123,7 @@ static NSString * brandRevID = @"brandRevID";
 -(void)initBanner{
     _GetBannerButton.layer.cornerRadius = 14;
     _GetBannerButton.layer.zPosition = 1;
-    [NSTimer scheduledTimerWithTimeInterval:8 target:self selector:@selector(removeBanner) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:16 target:self selector:@selector(removeBanner) userInfo:nil repeats:NO];
 }
 
 -(void)removeBanner{
@@ -258,9 +258,6 @@ static NSString * brandRevID = @"brandRevID";
     [_firstWYSIWYG setBackgroundColor:[UIColor clearColor]];
     [_firstWYSIWYG setOpaque:NO];
     
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenWidth = screenRect.size.width;
-    
     NSString *htmlString = [self.pp homepageGetFirstWysiwyg];
     if(htmlString.length < 8){
         [self setConstraintZeroToView:_firstWYSIWYG];
@@ -297,19 +294,12 @@ static NSString * brandRevID = @"brandRevID";
 
 
 -(void)initSecondWysiwyg{
-    NSString *fontSize = @"3.8vw";
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenWidth = screenRect.size.width;
-    if(screenWidth > 444){
-        fontSize = @"2.5vw";
-    }
-    
     //    NSLog(@"screen size %f, font size: %@", width, fontSize);
     NSString *htmlString = [self.pp homepageGetSecondWysiwyg];
     if(htmlString.length < 8){
         [self setConstraintZeroToView:_secondWYSIWYG];
     }else{
-        NSString *style = [Tools getDefaultWysiwygCSSFontSize:fontSize];
+        NSString *style = [Tools getDefaultWysiwygCSSFontSize:globals.fontSize];
         htmlString = [NSString stringWithFormat:@"%@<span>%@</span>", style,htmlString];
         [_secondWYSIWYG loadHTMLString:htmlString baseURL:nil];
         _secondWYSIWYG.scrollView.scrollEnabled = NO;
