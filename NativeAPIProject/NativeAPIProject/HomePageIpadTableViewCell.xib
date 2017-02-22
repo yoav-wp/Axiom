@@ -28,19 +28,19 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLt-jA-BNB">
-                        <rect key="frame" x="167" y="83" width="563" height="16"/>
+                        <rect key="frame" x="167" y="78" width="563" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="23"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4qN-gI-YPT">
-                        <rect key="frame" x="553" y="32" width="156" height="34"/>
+                        <rect key="frame" x="591" y="32" width="156" height="34"/>
                         <color key="backgroundColor" red="0.80392156859999997" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <state key="normal" title="Button"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lJL-OM-2Av">
-                        <rect key="frame" x="389" y="32" width="150" height="34"/>
+                        <rect key="frame" x="427" y="32" width="150" height="34"/>
                         <color key="backgroundColor" red="0.57254901960000004" green="0.5568627451" blue="0.66274509800000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="0Ow-lU-eLZ"/>
@@ -50,10 +50,10 @@
                         <state key="normal" title="Button"/>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rating2-5" translatesAutoresizingMaskIntoConstraints="NO" id="aZF-zC-3pj">
-                        <rect key="frame" x="167" y="25" width="151" height="30"/>
+                        <rect key="frame" x="167" y="32" width="130" height="26"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="2YQ-ME-Kmz"/>
-                            <constraint firstAttribute="width" constant="151" id="Vie-ZF-8Fe"/>
+                            <constraint firstAttribute="height" constant="26" id="2YQ-ME-Kmz"/>
+                            <constraint firstAttribute="width" constant="130" id="Vie-ZF-8Fe"/>
                         </constraints>
                     </imageView>
                 </subviews>
@@ -64,15 +64,15 @@
                     <constraint firstItem="4qN-gI-YPT" firstAttribute="leading" secondItem="lJL-OM-2Av" secondAttribute="trailing" constant="14" id="Drt-h1-m7t"/>
                     <constraint firstItem="aZF-zC-3pj" firstAttribute="leading" secondItem="8Nz-0f-eNc" secondAttribute="trailing" constant="39" id="F1f-me-Dt2"/>
                     <constraint firstItem="YLt-jA-BNB" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="OH5-98-jwq"/>
-                    <constraint firstItem="aZF-zC-3pj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="17" id="PvX-CQ-Rfd"/>
+                    <constraint firstItem="aZF-zC-3pj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="24" id="PvX-CQ-Rfd"/>
                     <constraint firstItem="YLt-jA-BNB" firstAttribute="leading" secondItem="8Nz-0f-eNc" secondAttribute="trailing" constant="39" id="RjA-0s-dsV"/>
-                    <constraint firstItem="YLt-jA-BNB" firstAttribute="top" secondItem="aZF-zC-3pj" secondAttribute="bottom" constant="28" id="WXw-kZ-yRC"/>
+                    <constraint firstItem="YLt-jA-BNB" firstAttribute="top" secondItem="aZF-zC-3pj" secondAttribute="bottom" constant="20" id="WXw-kZ-yRC"/>
                     <constraint firstItem="lJL-OM-2Av" firstAttribute="width" secondItem="4qN-gI-YPT" secondAttribute="width" constant="-6" id="deg-j5-gwj"/>
                     <constraint firstItem="8Nz-0f-eNc" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="fKG-gr-LOb"/>
                     <constraint firstItem="lJL-OM-2Av" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="24" id="keU-y1-I3y"/>
                     <constraint firstItem="8Nz-0f-eNc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="nqE-dY-Z9L"/>
                     <constraint firstItem="lJL-OM-2Av" firstAttribute="height" secondItem="4qN-gI-YPT" secondAttribute="height" id="t4P-i7-Psv"/>
-                    <constraint firstItem="lJL-OM-2Av" firstAttribute="leading" secondItem="aZF-zC-3pj" secondAttribute="trailing" constant="71" id="xfx-Hb-xTU"/>
+                    <constraint firstItem="lJL-OM-2Av" firstAttribute="leading" secondItem="aZF-zC-3pj" secondAttribute="trailing" constant="130" id="xfx-Hb-xTU"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

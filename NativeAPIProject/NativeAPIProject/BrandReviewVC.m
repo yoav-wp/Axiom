@@ -160,14 +160,8 @@
 
 
 -(void)initFirstWysiwyg{
-    NSString *fontSize = @"3.8vw";
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenWidth = screenRect.size.width;
-    if([self isDeviceIPad]){
-        fontSize = @"2.5vw";
-    }
     NSString *urlString = [self.pp brandReviewGetWysiwyg];
-    NSString *style = [Tools getDefaultWysiwygCSSFontSize:fontSize];
+    NSString *style = [Tools getDefaultWysiwygCSSFontSize:globals.fontSize];
     [_firstWysiwyg loadHTMLString:[NSString stringWithFormat:@"%@<span>%@</span>",style,urlString] baseURL:nil];
 }
 
@@ -175,7 +169,7 @@
     
     CGFloat fontSize = 14.0f;
     if([self isDeviceIPad])
-        fontSize = 23.0f;
+        fontSize = 16.0f;
         
     UIFont *font = [UIFont fontWithName:@"Montserrat" size:fontSize];
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
@@ -327,7 +321,6 @@
         _tosWysiwygHeightConstraint.constant = frame.size.height;
     }else{
         //for the accordion
-        NSLog(@"enter finishload for  : %ld", (long)webView.tag);
         //get best fitting size
         CGSize fittingSize = [webView sizeThatFits:CGSizeMake(webView.superview.frame.size.width, 1)];
         [webView.scrollView setScrollEnabled:NO];
@@ -340,7 +333,6 @@
         
         //for seconTabWebView
         if(webView.tag == 20){
-            NSLog(@"frame height %f",webView.frame.size.height);
             _seconTabWebViewHeightConstraint.constant = webView.frame.size.height + 20;
             _secondTabHeightConst.constant = _seconTabWebViewHeightConstraint.constant + 10;
             secondTabHeight = _seconTabWebViewHeightConstraint.constant;
@@ -390,7 +382,7 @@
 //        NSString *filename= [NSString stringWithFormat:@"rating%.0fup",rating];
 //        NSLog(@" filename %@",filename);
         // Only height is taken into account, so other parameters are just dummy
-        CGFloat accordionHeadersHeight = 40;
+        CGFloat accordionHeadersHeight = 48;
         if([self isDeviceIPad]){
             accordionHeadersHeight = 50;
         }
@@ -429,7 +421,7 @@
         if([self isDeviceIPad]){
             ratingImgView = [[UIImageView alloc] initWithFrame:CGRectMake(ratingImageX, 4, ratingImageWidth * 1.3, accordionHeadersHeight - 4)];
         }else{
-            ratingImgView = [[UIImageView alloc] initWithFrame:CGRectMake(ratingImageX, 10, ratingImageWidth, 20)];
+            ratingImgView = [[UIImageView alloc] initWithFrame:CGRectMake(ratingImageX, 16, ratingImageWidth, 20)];
         }
         [header1 addSubview:ratingImgView];
         [ratingImgView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"rating%@", [ratingDetails[i] valueForKey:@"app_rating"]]]];
@@ -440,7 +432,7 @@
         if([self isDeviceIPad]){
             buttonImgView = [[UIImageView alloc] initWithFrame:CGRectMake(buttonImgX, 8, buttonImgWidth * 1.7, accordionHeadersHeight - 16)];
         }else{
-            buttonImgView = [[UIImageView alloc] initWithFrame:CGRectMake(buttonImgX, 10, buttonImgWidth, 20)];
+            buttonImgView = [[UIImageView alloc] initWithFrame:CGRectMake(buttonImgX, 14, buttonImgWidth + 3, 23)];
         }
         [header1 addSubview:buttonImgView];
         [buttonImgView setImage:[UIImage imageNamed:@"arrow_down"]];
@@ -636,20 +628,14 @@
 -(void)initSecondTabWebView{
     [_secondTabWebView setBackgroundColor:[UIColor clearColor]];
     [_secondTabWebView setOpaque:NO];
-    _secondTabWebView.scrollView.scrollEnabled = NO;
-    
+    _secondTabWebView.scrollView.scrollEnabled = NO;    
     _secondTabWebView.tag = 20;
-    NSString *fontSize = @"3.8vw";
-    
-    if([self isDeviceIPad]){
-        fontSize = @"2.5vw";
-    }
     
     NSString *htmlString = [self.pp brandReviewGetSecondTabWysiwyg];
     if(htmlString.length < 8){
         [self setConstraintZeroToView:_secondTabWebView];
     }else{
-        htmlString = [NSString stringWithFormat:@"%@<span>%@</spann>",[Tools getDefaultWysiwygCSSFontSize:fontSize],htmlString];
+        htmlString = [NSString stringWithFormat:@"%@<span>%@</span>",[Tools getDefaultWysiwygCSSFontSize:globals.fontSize],htmlString];
         [_secondTabWebView loadHTMLString:htmlString baseURL:nil];
     }
 }

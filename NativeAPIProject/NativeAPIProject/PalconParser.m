@@ -11,7 +11,9 @@
 #import "GlobalVars.h"
 #import <UIKit/UIKit.h>
 
-@implementation PalconParser
+@implementation PalconParser{
+    GlobalVars *globals;
+}
 
 -(void) initWithFullURL:(NSString *)fullURL{
     NSString *arrangedURL;
@@ -19,6 +21,7 @@
     url = [NSURL URLWithString:@"?context_to_json=1" relativeToURL:url];
     arrangedURL = url.absoluteString;
     
+    globals = [GlobalVars sharedInstance];
     NSLog(@"arranged url : %@",arrangedURL);
     _urlWithQueryString = arrangedURL;
     _pageURL = fullURL;
@@ -92,7 +95,7 @@
 
 -(NSString *)brandReviewGetAffiliateURL{
     NSString *appLink = [_pageDataDictionary valueForKey:@"brand_app_link"];
-    if([[_pageDataDictionary valueForKey:@"override_brand_link"] containsString:@"check"] && appLink.length > 6){
+    if([[_pageDataDictionary valueForKey:@"override_brand_link"] containsString:@"1"] && appLink.length > 6){
         return appLink;
     }
     return [_pageDataDictionary valueForKey:@"affiliate_url"];
@@ -182,8 +185,19 @@
 }
 
 
+-(NSDictionary *)homepageGetBannerDataDict{
+    NSURL *url = [[NSURL URLWithString:globals.websiteURL] URLByAppendingPathComponent:@"/wp-content/plugins/wcms_frontend/wcms_ajax_handler.php"];
+    url = [NSURL URLWithString:@"?action=get_native_app_general_settings" relativeToURL:url];
+    NSError *theError = nil;
+    NSLog(@"starting tabbar download");
+    NSData *theJSONData = [NSData dataWithContentsOfURL:url];
+    NSLog(@"finished tabbar download");
+    NSDictionary *tabbarDict = [[CJSONDeserializer deserializer] deserializeAsDictionary:theJSONData error:&theError];
+    return tabbarDict;
+}
+
+
 -(NSMutableArray *)getTabBarElements{
-    GlobalVars *globals = [GlobalVars sharedInstance];
     
     NSURL *url = [[NSURL URLWithString:globals.websiteURL] URLByAppendingPathComponent:@"/wp-content/plugins/wcms_frontend/wcms_ajax_handler.php"];
     url = [NSURL URLWithString:@"?action=get_native_app_tab_bar" relativeToURL:url];

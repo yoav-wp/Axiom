@@ -25,6 +25,8 @@
     
     GlobalVars *globals;
     NSDictionary *brandsTable;
+    
+    NSString *bannerAffLink;
 }
 
 
@@ -99,9 +101,7 @@ static NSString * brandRevID = @"brandRevID";
     // Do any additional setup after loading the view, typically from a nib.
     [self initFirstWysiwyg];
     [self initSecondWysiwyg];
-    [self initCarousel];
     [self initAppTitle];
-    [self initBanner];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -109,6 +109,8 @@ static NSString * brandRevID = @"brandRevID";
     if([[_tabBar items] count] == 0)
         [self initTabBar];
     [self setActiveTabbarItem];
+    [self initCarousel];
+    [self initBanner];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"enableMenuUserInteraction" object:Nil userInfo:nil];
 }
 
@@ -119,11 +121,31 @@ static NSString * brandRevID = @"brandRevID";
     _appTitleLabel.text = [_pp homepageGetAppTitle];
 }
 
-//init banner, show and remove it after 5 sec
+//init banner
 -(void)initBanner{
     _GetBannerButton.layer.cornerRadius = 14;
     _GetBannerButton.layer.zPosition = 1;
-//    [NSTimer scheduledTimerWithTimeInterval:16 target:self selector:@selector(removeBanner) userInfo:nil repeats:NO];
+    //new thread for banner
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [NSThread sleepForTimeInterval:1.0f];
+        NSDictionary *bannerDict = [_pp homepageGetBannerDataDict];
+        NSString *rightPart;
+        NSString *leftPart;
+        if([[bannerDict valueForKey:@"display_native_app_banner"] containsString:@"1"]){
+            leftPart = [bannerDict valueForKey:@"brand_name"];
+            rightPart = [bannerDict valueForKey:@"bonus_offer_sentence"];
+            bannerAffLink = [bannerDict valueForKey:@"affiliate_link"];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _bannerBonus.text = rightPart;
+            _bannerBrand.text = leftPart;
+            _bannerView.hidden = NO;
+        });
+    });
+}
+- (IBAction)bannerClicked:(id)sender {
+    [_nav navigateToAffLink:bannerAffLink];
 }
 
 -(void)removeBanner{
@@ -245,12 +267,20 @@ static NSString * brandRevID = @"brandRevID";
     
     [_tabBar setItems:[tabBarArray arrayByAddingObjectsFromArray:[_tabBar items]]];
     
+    
+    _tabBar.layer.borderWidth = 0;
+    _tabBar.layer.borderColor = [UIColor clearColor].CGColor;
+//    _tabBar.clipsToBounds = YES;
+    
     //some shadow UI
     _tabBar.layer.shadowOffset = CGSizeMake(0, 0);
     _tabBar.layer.shadowRadius = 8;
     _tabBar.layer.shadowColor = [UIColor grayColor].CGColor;
-    _tabBar.layer.shadowOpacity = 0.2;
+    _tabBar.layer.shadowOpacity = 0.6;
     _tabBar.layer.backgroundColor = [UIColor whiteColor].CGColor;
+    
+    _tabBar.layer.borderWidth = 1.0;
+    _tabBar.layer.borderColor = [UIColor colorWithRed:247/255.0f green:247/255.0f blue:247/255.0f alpha:1].CGColor;
 
 }
 
@@ -393,6 +423,7 @@ static NSString * brandRevID = @"brandRevID";
         appCell.brandImageView.layer.borderColor = [UIColor colorWithRed:230/255.0f green:230/255.0f blue:230/255.0f alpha:1].CGColor;
         appCell.brandImageView.layer.borderWidth = 0.9f;
         
+        
         //bonus text
         [appCell.bonusLabel setText:[NSString stringWithFormat:@"%@ %@",[ar[indexPath.row] valueForKey:@"trans_get"],[ar[indexPath.row] valueForKey:@"bonus_text"]]];
         
@@ -434,7 +465,14 @@ static NSString * brandRevID = @"brandRevID";
         appCell.brandImageView.layer.borderWidth = 0.9f;
         
         //bonus text
-        [appCell.bonusLabel setText:[NSString stringWithFormat:@"%@ %@",[ar[indexPath.row] valueForKey:@"trans_get"],[ar[indexPath.row] valueForKey:@"bonus_text"]]];
+        appCell.bonusLabel.titleLabel.numberOfLines = 2;
+//        [appCell.bonusLabel.titleLabel setText:[NSString stringWithFormat:@"%@ %@",[ar[indexPath.row] valueForKey:@"trans_get"],[ar[indexPath.row] valueForKey:@"bonus_text"]]];
+        [appCell.bonusLabel setTitle:[NSString stringWithFormat:@"%@ %@",[ar[indexPath.row] valueForKey:@"trans_get"],[ar[indexPath.row] valueForKey:@"bonus_text"]] forState:UIControlStateNormal];
+        
+//        CGSize size = [appCell.bonusLabel sizeThatFits:CGSizeMake(appCell.bonusLabel.frame.size.width, CGFLOAT_MAX)];
+//        int nbLines = MAX((int)(size.height / appCell.bonusLabel.font.lineHeight), 0);
+        
+        
         
         //rating
         [appCell.ratingImageView setImage:[UIImage imageNamed:[[NSString stringWithFormat:@"rating%@",[ar[indexPath.row] valueForKey:@"star_rating"]] stringByReplacingOccurrencesOfString:@"." withString:@"-"]]];

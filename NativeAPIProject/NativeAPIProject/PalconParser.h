@@ -17,6 +17,7 @@
 -(NSString *)homepageGetFirstWysiwyg;
 -(NSString *)homepageGetSecondWysiwyg;
 -(NSArray *)categoryGetCarousel;
+-(NSDictionary *)homepageGetBannerDataDict;
 -(NSString *)homepageGetAppTitle;
 -(NSString *)getPageType;
 -(NSMutableArray *)getTabBarElements;
