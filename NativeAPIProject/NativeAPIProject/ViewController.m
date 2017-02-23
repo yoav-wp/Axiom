@@ -18,6 +18,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "Tools.h"
 #import "MappingFinder.h"
+#import "UIImageViewBorder.h"
 
 #define MAX_CAROUSEL_SIZE 10
 
@@ -416,8 +417,11 @@ static NSString * brandRevID = @"brandRevID";
         [appCell.rightButtonLabel addTarget:self action:@selector(openPageOrSafariWithURL:) forControlEvents:UIControlEventTouchUpInside];
         
         
-        //brand logo
-        [appCell.brandImageView sd_setImageWithURL:[ar[indexPath.row] valueForKey:@"brand_logo"]];
+        
+        //add border
+        [appCell.brandImageView sd_setImageWithURL:[ar[indexPath.row] valueForKey:@"brand_logo"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
+            [appCell.brandImageView setImage:appCell.brandImageView.image withBorderWidth:4];
+        }];
         
         //add border
         appCell.brandImageView.layer.borderColor = [UIColor colorWithRed:230/255.0f green:230/255.0f blue:230/255.0f alpha:1].CGColor;
@@ -458,11 +462,14 @@ static NSString * brandRevID = @"brandRevID";
         appCell.rightButtonLabel.titleLabel.lineBreakMode = NSLineBreakByClipping;
         
         //brand logo
-        [appCell.brandImageView sd_setImageWithURL:[ar[indexPath.row] valueForKey:@"brand_logo"]];
+        [appCell.brandImageView sd_setImageWithURL:[ar[indexPath.row] valueForKey:@"brand_logo"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
+            [appCell.brandImageView setImage:appCell.brandImageView.image withBorderWidth:4];
+        }];
         
         //add border
         appCell.brandImageView.layer.borderColor = [UIColor colorWithRed:230/255.0f green:230/255.0f blue:230/255.0f alpha:1].CGColor;
         appCell.brandImageView.layer.borderWidth = 0.9f;
+        
         
         //bonus text
         appCell.bonusLabel.titleLabel.numberOfLines = 2;

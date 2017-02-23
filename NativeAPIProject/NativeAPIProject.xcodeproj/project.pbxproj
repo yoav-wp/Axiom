@@ -13,6 +13,7 @@
 		EB0F05221E09239800D11C3B /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0F05211E09239800D11C3B /* Tools.m */; };
 		EB12E1411DE33773009DB2FF /* GlobalVars.m in Sources */ = {isa = PBXBuildFile; fileRef = EB12E1401DE33773009DB2FF /* GlobalVars.m */; };
 		EB356D921E2E07E700CE43C1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB356D911E2E07E700CE43C1 /* GoogleService-Info.plist */; };
+		EB3ED7CE1E5ED693008765A4 /* UIImageViewBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = EB3ED7CD1E5ED693008765A4 /* UIImageViewBorder.m */; };
 		EB5752191D609DB300CF9565 /* CategoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5752181D609DB300CF9565 /* CategoryVC.m */; };
 		EB6199101D5C9E2600E54823 /* menu_icons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EB61990F1D5C9E2600E54823 /* menu_icons.bundle */; };
 		EB6CDD231E2F524900BFE52C /* HomePageIpadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6CDD211E2F524900BFE52C /* HomePageIpadTableViewCell.m */; };
@@ -76,6 +77,8 @@
 		EB12E13F1DE33773009DB2FF /* GlobalVars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalVars.h; sourceTree = "<group>"; };
 		EB12E1401DE33773009DB2FF /* GlobalVars.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalVars.m; sourceTree = "<group>"; };
 		EB356D911E2E07E700CE43C1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EB3ED7CC1E5ED693008765A4 /* UIImageViewBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageViewBorder.h; sourceTree = "<group>"; };
+		EB3ED7CD1E5ED693008765A4 /* UIImageViewBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageViewBorder.m; sourceTree = "<group>"; };
 		EB5752171D609DB300CF9565 /* CategoryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryVC.h; sourceTree = "<group>"; };
 		EB5752181D609DB300CF9565 /* CategoryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryVC.m; sourceTree = "<group>"; };
 		EB61990F1D5C9E2600E54823 /* menu_icons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = menu_icons.bundle; sourceTree = "<group>"; };
@@ -324,6 +327,8 @@
 				EB6CDD201E2F524900BFE52C /* HomePageIpadTableViewCell.h */,
 				EB6CDD211E2F524900BFE52C /* HomePageIpadTableViewCell.m */,
 				EB6CDD221E2F524900BFE52C /* HomePageIpadTableViewCell.xib */,
+				EB3ED7CC1E5ED693008765A4 /* UIImageViewBorder.h */,
+				EB3ED7CD1E5ED693008765A4 /* UIImageViewBorder.m */,
 			);
 			name = viewControllers;
 			sourceTree = "<group>";
@@ -657,6 +662,7 @@
 				EBAFFCDC1D5C9A070021732B /* WebViewVC.m in Sources */,
 				EBAFFCAC1D5C99BB0021732B /* ViewController.m in Sources */,
 				EBAE718A1E1115F700AABC50 /* SplashScreenVC.m in Sources */,
+				EB3ED7CE1E5ED693008765A4 /* UIImageViewBorder.m in Sources */,
 				EBA9DD921D85578E005C5255 /* AccordionView.m in Sources */,
 				EBAFFCA91D5C99BB0021732B /* AppDelegate.m in Sources */,
 				EBBA49391DA4E93500904C90 /* NavigationManager.m in Sources */,
