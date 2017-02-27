@@ -10,7 +10,6 @@
 
 @implementation Tools
 
-static int number = 1;
 
 +(UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize{
     

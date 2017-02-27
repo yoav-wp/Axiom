@@ -490,18 +490,21 @@ static NSString * brandRevID = @"brandRevID";
         return appCell;
     }
 }
+
+/**
+ Checks if sender's link contains a page or affiliate links, and opens it
+
+ @param sender Sender's object - imageView or Button
+ */
 -(void)openPageOrSafariWithURL:(id) sender{
-    
     NSString *urlStr;
-#warning could be dangerous - watch it
+    //could be button or image
     if([sender isKindOfClass:[UIButton class]]){
         urlStr = [[sender layer] valueForKey:@"urlToLoad"];
     }else{
         urlStr = [[[sender view] layer] valueForKey:@"urlToLoad"];
     }
-#warning should be redesigned
-//    urlStr = @"http://onlinecasinos.expert/go/leo-vegas";
-    if([urlStr containsString:@"canada.ca/links/"]){
+    if([urlStr containsString:[NSString stringWithFormat:@"%@links",globals.websiteURL]] || [urlStr containsString:[NSString stringWithFormat:@"%@links/",globals.websiteURL]]){
         //do mf
         [_nav navigateToAffLink:urlStr];
     }else{

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "PalconParser.h"
+#import <MessageUI/MessageUI.h>
 
-@interface BrandReviewVC : UIViewController <UIWebViewDelegate>
+@interface BrandReviewVC : UIViewController <UIWebViewDelegate, MFMailComposeViewControllerDelegate>
 
 @property (strong, nonatomic) PalconParser *pp;
 @property (nonatomic, strong) NSMutableArray *tabbarElements;

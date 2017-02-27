@@ -240,7 +240,73 @@
                                     range:(NSRange){0,[supValueAttributeString length]}];
     _supportValue.attributedText = supValueAttributeString;
     _paymentMethodsLabel.text = [NSString stringWithFormat:@"%@: ",[dict valueForKey:@"payment_key"]];
+    
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openBrandAffLink)];
+    [_websiteValue addGestureRecognizer:tap];
+    
+    UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sendMail)];
+    [_supportValue addGestureRecognizer:tap2];
 }
+
+
+-(void)sendMail{
+    NSLog(@"hahaha");
+    NSString *toRecipient = _supportValue.text;
+    if ([MFMailComposeViewController canSendMail])
+    {
+        MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
+        mail.mailComposeDelegate = self;
+        [mail setToRecipients:@[toRecipient]];
+        [self presentViewController:mail animated:YES completion:NULL];
+    }
+    else
+    {
+        UIPasteboard *pboard = [UIPasteboard generalPasteboard];
+        pboard.string = toRecipient;
+        UIAlertController * alert=   [UIAlertController
+                                      alertControllerWithTitle:@"Mail has been copied to pasteboard"
+                                      message:nil
+                                      preferredStyle:UIAlertControllerStyleAlert];
+        
+        
+        [self presentViewController:alert animated:YES completion:nil];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [alert dismissViewControllerAnimated:YES completion:^{
+                // do something ?
+            }];
+            
+        });
+        
+        NSLog(@"This device cannot send email");
+    }
+}
+     
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result) {
+        case MFMailComposeResultSent:
+            NSLog(@"You sent the email.");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"You saved a draft of this email");
+            break;
+        case MFMailComposeResultCancelled:
+            NSLog(@"You cancelled sending this email.");
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail failed:  An error occurred when trying to compose this email");
+            break;
+        default:
+            NSLog(@"An error occurred when trying to compose this email");
+            break;
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
 
 -(void)initPaymentMethods {
     NSArray *methodsArr = [self.pp brandReviewGetPaymentMethods];
