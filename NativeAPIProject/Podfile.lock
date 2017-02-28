@@ -1,5 +1,6 @@
 PODS:
   - AppsFlyerFramework (4.5.9)
+  - DGActivityIndicatorView (2.1.1)
   - Firebase (3.11.0):
     - Firebase/Core (= 3.11.0)
   - Firebase/Core (3.11.0):
@@ -39,6 +40,7 @@ PODS:
 
 DEPENDENCIES:
   - AppsFlyerFramework
+  - DGActivityIndicatorView
   - Firebase
   - Firebase/Core
   - Firebase/Messaging
@@ -47,6 +49,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AppsFlyerFramework: 93c3eda4d73b8477641fabe6952260ee70ee1077
+  DGActivityIndicatorView: ff2c76073d79692f724863c8dd38685866a03cb6
   Firebase: b8134e285eb33201115bc688bc5d7f112923bc1f
   FirebaseAnalytics: 9c67af0ebeb8d2146c9b4ea2616439affa947b58
   FirebaseCore: 03da1cb32615569bbc2830a22f9ad753d9a02ef5
@@ -58,6 +61,6 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
 
-PODFILE CHECKSUM: 099f60a2e2315baa03b2a235d13687aee0886b99
+PODFILE CHECKSUM: 43a770f5102709ee703e51df1a8625eb3b1b934d
 
 COCOAPODS: 1.1.1

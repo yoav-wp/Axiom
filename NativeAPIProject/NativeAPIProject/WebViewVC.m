@@ -37,6 +37,9 @@ static NSString * categoryID = @"categoryVC";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navigationRequestFromAppDel:) name:@"navigationRequestFromAppDel" object:Nil];
+    
+    // Allow interaction after file download
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     _nav = [[NavigationManager alloc]init];
     globals = [GlobalVars sharedInstance];
     self.revealViewController.rightViewRevealOverdraw=4;

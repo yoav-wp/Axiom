@@ -65,6 +65,9 @@ static NSString * brandRevID = @"brandRevID";
 	[super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navigationRequestFromAppDel:) name:@"navigationRequestFromAppDel" object:Nil];
     
+    // Allow interaction after file download
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    
     globals = [GlobalVars sharedInstance];
     
     self.pp = [[PalconParser alloc] init];

@@ -54,7 +54,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *supportValue;
 @property (weak, nonatomic) IBOutlet UILabel *paymentMethodsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *brandNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *bonusLabel;
+@property (weak, nonatomic) IBOutlet UIButton *bonusLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *ratingImage;
 @property (weak, nonatomic) IBOutlet UIButton *claimButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *firstTabHeightConst;
@@ -86,6 +86,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navigationRequestFromAppDel:) name:@"navigationRequestFromAppDel" object:Nil];
+    // Allow interaction after file download
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    
     globals = [GlobalVars sharedInstance];
     accordionHeight = 1100;
     lastRotatedImg = 0;
@@ -110,7 +113,6 @@
     [self initBannerLogo];
     [self initGeneralRating];
     [self initSecondTabWebView];
-    [self initSomeUI];
     [self initFirstWysiwyg];
     [self initPaymentMethods];
     [self initSoftwareProviders];
@@ -139,17 +141,6 @@
     NSLog(@"BrandRev got notif");
     NSString *urlFromNotification=[[aNotif userInfo] objectForKey:@"urlToLoad"];
     [_nav navigateWithItemID:-42 WithURL:urlFromNotification WithURLsDict:nil WithSourceVC:self WithInitializedDestPP:nil];
-}
-
-
-// Some general page UI
--(void)initSomeUI{
-    //borders
-    _thirdsBottomView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    _thirdsBottomView.layer.borderWidth = 0.5f;
-    _tosPartView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    _tosPartView.layer.borderWidth = 0.5f;
-    
 }
 
 
@@ -192,10 +183,10 @@
 }
 
 -(void)initBonus{
-    _bonusLabel.text = [_pp brandReviewGetBonusText];
-    _bonusLabel.numberOfLines = 1;
-    _bonusLabel.minimumScaleFactor = 0.5;
-    _bonusLabel.adjustsFontSizeToFitWidth = YES;
+    [_bonusLabel setTitle:[_pp brandReviewGetBonusText] forState:UIControlStateNormal];
+    _bonusLabel.titleLabel.numberOfLines = 1;
+    _bonusLabel.titleLabel.minimumScaleFactor = 0.5;
+    _bonusLabel.titleLabel.adjustsFontSizeToFitWidth = YES;
 }
 
 -(void)initClaimButton{
@@ -213,7 +204,7 @@
 
 -(void)initGeneralRating{
     [_ratingImage setImage:[UIImage imageNamed:[[NSString stringWithFormat:@"rating%@",[_pp brandReviewGetBrandRating]] stringByReplacingOccurrencesOfString:@"." withString:@"-"]]];
-    
+
     _ratingImage.image = [_ratingImage.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [_ratingImage setTintColor:[UIColor colorWithRed:245/255.0 green:242/255.0 blue:249/255.0 alpha:1]];
 }
@@ -361,7 +352,7 @@
     urlString = [NSString stringWithFormat:@"%@<span>%@</span>", style,urlString];
     [_tosWV loadHTMLString:urlString baseURL:nil];
      */
-    thirdTabHeight = 500;
+    thirdTabHeight = 320;
 }
 
 
@@ -574,8 +565,8 @@
     // Set this if you want to allow multiple selection
     [accordion setAllowsMultipleSelection:NO];
     //if not allows multiple, then set size smaller
-    accordionHeight = 500;
-    _firstTabHeightConst.constant = 600;
+    accordionHeight = 460;
+    _firstTabHeightConst.constant = 460;
     
     // Set this to NO if you want to have at least one open section at all times
     [accordion setAllowsEmptySelection:NO];
