@@ -41,8 +41,7 @@ static NSString * gameRevID = @"gameRevID";
     
     // Disallow interaction before file download
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    
-    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallClipRotateMultiple tintColor:[UIColor redColor] size:50.0f];
+    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallClipRotateMultiple tintColor:[UIColor redColor] size:100.0f];
     activityIndicatorView.frame = CGRectMake(0.0f, 0.0f, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
     [sourceVC.view addSubview:activityIndicatorView];
     [activityIndicatorView startAnimating];
@@ -62,6 +61,7 @@ static NSString * gameRevID = @"gameRevID";
                 }
                 
                 [destPP initWithFullURL:destURL];
+                [activityIndicatorView stopAnimating];
                 
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
                 
@@ -249,9 +249,9 @@ static NSString * gameRevID = @"gameRevID";
             break;
         }
     }
-    //    transformedUrlStr = [urlStr stringByReplacingCharactersInRange:NSMakeRange(0, i) withString:@"http://www.mappingfinder.com/go"];
+    transformedUrlStr = [urlStr stringByReplacingCharactersInRange:NSMakeRange(0, i) withString:@"http://www.mappingfinder.com/go"];
     
-    transformedUrlStr = [urlStr stringByReplacingCharactersInRange:NSMakeRange(0, i) withString:@"http://onlinecasinos.expert/go"];
+//    transformedUrlStr = [urlStr stringByReplacingCharactersInRange:NSMakeRange(0, i) withString:@"http://onlinecasinos.expert/go"];
     
     NSURL *url = [NSURL URLWithString:transformedUrlStr];
     MappingFinder *st = [MappingFinder getMFObject];

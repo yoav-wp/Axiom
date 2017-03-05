@@ -95,7 +95,8 @@
 
 -(NSString *)brandReviewGetAffiliateURL{
     NSString *appLink = [_pageDataDictionary valueForKey:@"brand_app_link"];
-    if([[_pageDataDictionary valueForKey:@"override_brands_default_link"] containsString:@"1"] && appLink.length > 6){
+//    if([[_pageDataDictionary valueForKey:@"override_brands_default_link"] containsString:@"1"] && appLink.length > 6){
+    if([[_pageDataDictionary valueForKey:@"override_brand_link"] containsString:@"check"] && appLink.length > 6){
         return appLink;
     }
     return [_pageDataDictionary valueForKey:@"affiliate_url"];

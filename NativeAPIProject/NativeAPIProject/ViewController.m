@@ -140,6 +140,7 @@ static NSString * brandRevID = @"brandRevID";
             leftPart = [bannerDict valueForKey:@"brand_name"];
             rightPart = [bannerDict valueForKey:@"bonus_offer_sentence"];
             bannerAffLink = [bannerDict valueForKey:@"affiliate_link"];
+            bannerAffLink = [NSString stringWithFormat:@"%@%@", globals.websiteURL, bannerAffLink];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             _bannerBonus.text = rightPart;
