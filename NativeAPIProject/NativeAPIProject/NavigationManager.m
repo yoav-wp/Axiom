@@ -251,12 +251,21 @@ static NSString * gameRevID = @"gameRevID";
     }
     transformedUrlStr = [urlStr stringByReplacingCharactersInRange:NSMakeRange(0, i) withString:@"http://www.mappingfinder.com/go"];
     
-//    transformedUrlStr = [urlStr stringByReplacingCharactersInRange:NSMakeRange(0, i) withString:@"http://onlinecasinos.expert/go"];
+    // Adding the "-app" to the aff link, so we can navigate from web view, and make MappingFinder work from WebView pages
+    if(![transformedUrlStr containsString:@"-app"]){
+        if([transformedUrlStr characterAtIndex:transformedUrlStr.length-1] == '/'){
+            transformedUrlStr = [NSString stringWithFormat:@"%@-app/",transformedUrlStr];
+        }else{
+            transformedUrlStr = [transformedUrlStr stringByReplacingCharactersInRange:NSMakeRange(transformedUrlStr.length, 0) withString:@"-app/"];
+        }
+    }
+    
+    NSLog(@"transformed : %@",transformedUrlStr);
     
     NSURL *url = [NSURL URLWithString:transformedUrlStr];
     MappingFinder *st = [MappingFinder getMFObject];
     url= [st makeURL:url trigger:@"go"];
-    NSLog(@"url after navtoafflink %@",url);
+    NSLog(@"url after nav to aff link %@",url);
     
     [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
 }

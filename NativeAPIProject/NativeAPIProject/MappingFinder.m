@@ -45,6 +45,7 @@ static BOOL initialized = NO;
 
 -(NSURL *)makeURL:(NSURL *)url_ trigger:(NSString *)trigger {
 	NSURL *tempUrl = url_;
+    
 	NSLog(@"entered makeURL, status: %@",status);
 	
     //case it's a webapp
