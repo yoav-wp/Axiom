@@ -121,7 +121,6 @@
     [self initLabelsValues];
     [self initTOSWV];
     [self initTosBottomImages];
-    
 }
 
 
@@ -200,6 +199,13 @@
     NSURL *imgURL = [NSURL URLWithString:[_pp brandReviewGetBrandLogo]];
     [_bannerLogo sd_setImageWithURL:imgURL];
     _bannerLogo.bounds = CGRectInset(_bannerLogo.frame, 10.0f, 10.0f);
+    UITapGestureRecognizer *singleTap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navigateToBrandAffLink)];
+    [_bannerLogo addGestureRecognizer:singleTap2];
+    [_bannerLogo setUserInteractionEnabled:YES];
+}
+
+-(void)navigateToBrandAffLink{
+    [_nav navigateToAffLink:[_pp brandReviewGetAffiliateURL]];
 }
 
 -(void)initGeneralRating{
@@ -255,6 +261,9 @@
     {
         UIPasteboard *pboard = [UIPasteboard generalPasteboard];
         pboard.string = toRecipient;
+        if(![toRecipient containsString:@"@"]){
+            return;
+        }
         UIAlertController * alert=   [UIAlertController
                                       alertControllerWithTitle:@"Mail has been copied to pasteboard"
                                       message:nil

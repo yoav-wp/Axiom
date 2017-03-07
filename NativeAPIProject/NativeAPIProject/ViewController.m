@@ -131,6 +131,14 @@ static NSString * brandRevID = @"brandRevID";
     _GetBannerButton.layer.zPosition = 1;
     //new thread for banner
     
+    // Set Banner Labels clickable
+    UITapGestureRecognizer *singleTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bannerClicked:)];
+    UITapGestureRecognizer *singleTap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bannerClicked:)];
+    [_bannerBrand addGestureRecognizer:singleTap1];
+    [_bannerBrand setUserInteractionEnabled:YES];
+    [_bannerBonus addGestureRecognizer:singleTap2];
+    [_bannerBonus setUserInteractionEnabled:YES];
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [NSThread sleepForTimeInterval:1.0f];
         NSDictionary *bannerDict = [_pp homepageGetBannerDataDict];
@@ -150,22 +158,20 @@ static NSString * brandRevID = @"brandRevID";
     });
 }
 - (IBAction)bannerClicked:(id)sender {
+    //    CABasicAnimation* rotationAnimation;
+    //    rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    //    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI];
+    //    rotationAnimation.duration = 3.;
+    //    rotationAnimation.cumulative = NO;
+    //
+    //    [_GetBannerButton.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
     [_nav navigateToAffLink:bannerAffLink];
 }
 
 -(void)removeBanner{
     [_bannerView removeFromSuperview];
 }
-- (IBAction)bannerButtonClick:(id)sender {
-//    CABasicAnimation* rotationAnimation;
-//    rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-//    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI];
-//    rotationAnimation.duration = 3.;
-//    rotationAnimation.cumulative = NO;
-//    
-//    [_GetBannerButton.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
-    
-}
+
 
 //Handle widgets initializations
 -(void)initCarousel{
@@ -407,6 +413,13 @@ static NSString * brandRevID = @"brandRevID";
         return 90.0f;
     }
 }
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSArray *ar = [brandsTable valueForKey:@"widgets_arr"];
+    NSLog(@"blaaaa %@",[ar[indexPath.row] valueForKey:@"aff_url"]);
+    [_nav navigateToAffLink:[ar[indexPath.row] valueForKey:@"aff_url"]];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if([self isDeviceIPad]){
         HomePageIpadTableViewCell *appCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HomePageIpadTableViewCell class]) forIndexPath:indexPath];
@@ -421,8 +434,7 @@ static NSString * brandRevID = @"brandRevID";
         [appCell.rightButtonLabel addTarget:self action:@selector(openPageOrSafariWithURL:) forControlEvents:UIControlEventTouchUpInside];
         
         
-        
-        //add border
+        //Set the image
         [appCell.brandImageView sd_setImageWithURL:[ar[indexPath.row] valueForKey:@"brand_logo"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
             [appCell.brandImageView setImage:appCell.brandImageView.image withBorderWidth:4];
         }];
