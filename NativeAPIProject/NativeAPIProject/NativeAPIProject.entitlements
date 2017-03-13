@@ -5,7 +5,12 @@
 	<key>aps-environment</key>
 	<string>development</string>
 	<key>com.apple.developer.associated-domains</key>
-	<array/>
+	<array>
+		<string>applinks:www.online-casinos-canada.ca/</string>
+		<string>applinks:online-casinos-canada.ca/</string>
+		<string>activitycontinuation:www.online-casinos-canada.ca/</string>
+		<string>activitycontinuation:online-casinos-canada.ca/</string>
+	</array>
 	<key>keychain-access-groups</key>
 	<array>
 		<string>$(AppIdentifierPrefix)ca.online-casinos-canada.occ</string>

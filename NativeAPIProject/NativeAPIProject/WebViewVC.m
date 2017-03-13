@@ -13,9 +13,11 @@
 #import "GlobalVars.h"
 #import "Tools.h"
 #import "CategoryVC.h"
+#import "DGActivityIndicatorView.h"
 
 @interface WebViewVC (){
     GlobalVars *globals;
+    PalconParser *destPP;
 }
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
@@ -30,6 +32,7 @@ static NSString * categoryID = @"categoryVC";
 @implementation WebViewVC{
     NSMutableDictionary *_tags2URLs;
     NavigationManager *_nav;
+    DGActivityIndicatorView *activityIndicatorView;
 
 }
 
@@ -71,6 +74,8 @@ static NSString * categoryID = @"categoryVC";
 }
 
 
+
+#warning feature - downloading pp twice
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     
     //open page from wysiwyg
@@ -86,11 +91,23 @@ static NSString * categoryID = @"categoryVC";
         return NO;
     }
     
+    NSLog(@"blaabloo %@",urlString);
     // if next page webview, load it here, otherwise open next page with already initialized destPP
-    PalconParser *destPP = [[PalconParser alloc] init];
-    [destPP initWithFullURL:urlString];
+    
+    if(!(destPP != nil && [[destPP pageURL] containsString:urlString])){
+        destPP = [[PalconParser alloc] init];
+        [destPP initWithFullURL:urlString];
+    }
     if( ! ([[destPP getPageType] isEqualToString:@"home-page"] || [[destPP getPageType] isEqualToString:@"brand-review"])){
-        return YES;
+        if([urlString containsString:@"?asset_origin=axiom"]){
+            return YES;
+        }else{
+            urlString = [NSString stringWithFormat:@"%@?asset_origin=axiom",urlString];
+            NSURL *url2 = [NSURL URLWithString:urlString];
+            NSURLRequest *request2 = [NSURLRequest requestWithURL:url2];
+            [_webView loadRequest:request2];
+            return NO;
+        }
     }
     else{
         //if url contains "online-casinoes-canada.ca" && url NOT contains "links", then it's app page.
@@ -121,18 +138,24 @@ static NSString * categoryID = @"categoryVC";
 }
 
 -(void) initWebView{
-    NSURL *url = [NSURL URLWithString:_pp.pageURL];
-    NSLog(@"Gonna load %@", _pp.pageURL);
+    NSString *urlString = _pp.pageURL;
+    if(![urlString containsString:@"?asset_origin=axiom"]){
+        urlString = [NSString stringWithFormat:@"%@?asset_origin=axiom",urlString];
+    }
+    NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *rq =[NSURLRequest requestWithURL:url];
     [self.webView loadRequest:rq];
 }
 
 
 -(void)initTabBar{
+    self.tabbarElements = [self.pp getTabBarElements];
+    if(self.tabbarElements == nil){
+        return;
+    }
     _tags2URLs = [[NSMutableDictionary alloc] init];
     NSMutableArray *tabBarArray;
     int i;
-    self.tabbarElements = [self.pp getTabBarElements];
     tabBarArray = [[NSMutableArray alloc] init];
     UITabBarItem *homeItem;
     UITabBarItem *menuItem;

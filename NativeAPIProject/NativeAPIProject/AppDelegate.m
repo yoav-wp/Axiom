@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <AppsFlyerTracker/AppsFlyerTracker.h>
 #import "GlobalVars.h"
+#import "InternetReachability.h"
 #import "MappingFinder.h"
 #import "NavigationManager.h"
 @import Firebase;
@@ -130,6 +131,11 @@
 
 //Remove and redownload the menu on startup
 -(void)removeAndDownloadMenu{
+    
+    if ([[InternetReachability reachabilityForInternetConnection]currentReachabilityStatus]==NotReachable)
+    {
+        return;
+    }
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];

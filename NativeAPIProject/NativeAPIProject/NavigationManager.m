@@ -42,7 +42,8 @@ static NSString * gameRevID = @"gameRevID";
     // Disallow interaction before file download
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallClipRotateMultiple tintColor:[UIColor redColor] size:100.0f];
-    activityIndicatorView.frame = CGRectMake(0.0f, 0.0f, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+    activityIndicatorView.frame = CGRectMake([UIScreen mainScreen].bounds.size.width * 0.5, [UIScreen mainScreen].bounds.size.height * 0.5, 0, 0);
+    
     [sourceVC.view addSubview:activityIndicatorView];
     [activityIndicatorView startAnimating];
     
@@ -62,6 +63,10 @@ static NSString * gameRevID = @"gameRevID";
                 
                 [destPP initWithFullURL:destURL];
                 [activityIndicatorView stopAnimating];
+                if(destPP == nil){
+                    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+                    return;
+                }
                 
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
                 

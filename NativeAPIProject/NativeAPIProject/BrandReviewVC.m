@@ -825,10 +825,14 @@
 }
 
 -(void)initTabBar{
+    
+    self.tabbarElements = [self.pp getTabBarElements];
+    if(self.tabbarElements == nil){
+        return;
+    }
     _tags2URLs = [[NSMutableDictionary alloc] init];
     NSMutableArray *tabBarArray;
     int i;
-    self.tabbarElements = [self.pp getTabBarElements];
     tabBarArray = [[NSMutableArray alloc] init];
     UITabBarItem *homeItem;
     UITabBarItem *menuItem;

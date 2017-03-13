@@ -9,6 +9,7 @@
 #import "PalconParser.h"
 #import "CJSONDeserializer.h"
 #import "GlobalVars.h"
+#import "InternetReachability.h"
 #import <UIKit/UIKit.h>
 
 @implementation PalconParser{
@@ -25,7 +26,14 @@
     NSLog(@"arranged url : %@",arrangedURL);
     _urlWithQueryString = arrangedURL;
     _pageURL = fullURL;
-    [self initDataDictionary];
+    if ([[InternetReachability reachabilityForInternetConnection]currentReachabilityStatus]==NotReachable)
+    {
+        _pageDataDictionary = nil;
+    }
+    else
+    {
+        [self initDataDictionary];
+    }
 }
 
 -(void)initDataDictionary{
@@ -34,7 +42,7 @@
     NSLog(@"pp - starting page download");
     NSData *theJSONData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_urlWithQueryString] options:NSDataReadingUncached error:&downloadError];
     _pageDataDictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:theJSONData error:&theError];
-    NSLog(@"pp - finished page download");
+    NSLog(@"pp - finished page download : %@",_pageDataDictionary);
 }
 
 -(NSString *)getPageType{
@@ -95,8 +103,7 @@
 
 -(NSString *)brandReviewGetAffiliateURL{
     NSString *appLink = [_pageDataDictionary valueForKey:@"brand_app_link"];
-//    if([[_pageDataDictionary valueForKey:@"override_brands_default_link"] containsString:@"1"] && appLink.length > 6){
-    if([[_pageDataDictionary valueForKey:@"override_brand_link"] containsString:@"check"] && appLink.length > 6){
+    if([_pageDataDictionary valueForKey:@"override_brands_default_link"]  != nil && [[_pageDataDictionary valueForKey:@"override_brands_default_link"] containsString:@"1"] && appLink.length > 6){
         return appLink;
     }
     return [_pageDataDictionary valueForKey:@"affiliate_url"];
@@ -116,12 +123,27 @@
                                       [_pageDataDictionary valueForKey:@"trans_website"],@"website_key",
                                       [_pageDataDictionary valueForKey:@"website"],@"website_value",
                                       [_pageDataDictionary valueForKey:@"trans_software"],@"software_key",
+                                      [_pageDataDictionary valueForKey:@"trans_payment_methods"],@"payment_key",
                                       [_pageDataDictionary valueForKey:@"trans_active_since"],@"active_since_key",
                                       [_pageDataDictionary valueForKey:@"year_established"],@"active_since_value",
                                       [_pageDataDictionary valueForKey:@"trans_support"],@"support_key",
                                       [_pageDataDictionary valueForKey:@"support_email"],@"support_value",
-                                      [_pageDataDictionary valueForKey:@"trans_payment_methods"],@"payment_key",
                                       nil];
+    
+    if([infosDict valueForKey:@"year_established"] == nil){
+        [infosDict setValue:@"" forKey:@"year_established"];
+    }
+    
+    if([infosDict valueForKey:@"website"] == nil){
+        [infosDict setValue:@"" forKey:@"website"];
+    }
+    
+    if([infosDict valueForKey:@"support_value"] == nil){
+        [infosDict setValue:@"" forKey:@"support_value"];
+    }
+    
+    
+    NSLog(@"gggggg %@",infosDict);
     return infosDict;
     
 }
@@ -190,20 +212,22 @@
     NSURL *url = [[NSURL URLWithString:globals.websiteURL] URLByAppendingPathComponent:@"/wp-content/plugins/wcms_frontend/wcms_ajax_handler.php"];
     url = [NSURL URLWithString:@"?action=get_native_app_general_settings" relativeToURL:url];
     NSError *theError = nil;
-    NSLog(@"starting tabbar download");
+    NSLog(@"starting banner download");
     NSData *theJSONData = [NSData dataWithContentsOfURL:url];
-    NSLog(@"finished tabbar download");
-    NSDictionary *tabbarDict = [[CJSONDeserializer deserializer] deserializeAsDictionary:theJSONData error:&theError];
-    return tabbarDict;
+    NSLog(@"finished banner download");
+    NSDictionary *bannerDict = [[CJSONDeserializer deserializer] deserializeAsDictionary:theJSONData error:&theError];
+    return bannerDict;
 }
 
 
 -(NSMutableArray *)getTabBarElements{
-    
+    if ([[InternetReachability reachabilityForInternetConnection]currentReachabilityStatus]==NotReachable)
+    {
+        return nil;
+    }
     NSURL *url = [[NSURL URLWithString:globals.websiteURL] URLByAppendingPathComponent:@"/wp-content/plugins/wcms_frontend/wcms_ajax_handler.php"];
     url = [NSURL URLWithString:@"?action=get_native_app_tab_bar" relativeToURL:url];
     
-//    url = [NSURL URLWithString:@"http://onlinecasinos.expert/tabbar.php"];
     NSError *theError = nil;
     NSLog(@"starting tabbar download");
     NSData *theJSONData = [NSData dataWithContentsOfURL:url];

@@ -19,6 +19,7 @@
 #import "Tools.h"
 #import "MappingFinder.h"
 #import "UIImageViewBorder.h"
+#import "InternetReachability.h"
 
 #define MAX_CAROUSEL_SIZE 10
 
@@ -26,7 +27,7 @@
     
     GlobalVars *globals;
     NSDictionary *brandsTable;
-    
+    InternetReachability *internetReachable;
     NSString *bannerAffLink;
 }
 
@@ -72,7 +73,6 @@ static NSString * brandRevID = @"brandRevID";
     
     self.pp = [[PalconParser alloc] init];
     _nav = [[NavigationManager alloc] init];
-    
     
     self.activeTab = 24;
     [self.pp initWithFullURL:globals.websiteURL];
@@ -131,6 +131,10 @@ static NSString * brandRevID = @"brandRevID";
     _GetBannerButton.layer.zPosition = 1;
     //new thread for banner
     
+    if ([[InternetReachability reachabilityForInternetConnection]currentReachabilityStatus]==NotReachable)
+    {
+        return;
+    }
     // Set Banner Labels clickable
     UITapGestureRecognizer *singleTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bannerClicked:)];
     UITapGestureRecognizer *singleTap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bannerClicked:)];
@@ -204,7 +208,7 @@ static NSString * brandRevID = @"brandRevID";
     
     //first image is a placeholder
     UIImageView *firstImgV  = [[UIImageView alloc]initWithFrame:CGRectMake(0 * scrollViewWidth, 0, scrollViewWidth, scrollViewHeight)];
-    [firstImgV setImage:[UIImage imageNamed:@"beting"]];
+    [firstImgV setImage:[UIImage imageNamed:@"slot"]];
     
     //for now - placeholder - no navigation link
     firstImgV.tag = 300;
@@ -227,10 +231,14 @@ static NSString * brandRevID = @"brandRevID";
 }
 
 -(void)initTabBar{
+    self.tabbarElements = [self.pp getTabBarElements];
+    if(self.tabbarElements == nil){
+        return;
+    }
     _tags2URLs = [[NSMutableDictionary alloc] init];
     NSMutableArray *tabBarArray;
     int i;
-    self.tabbarElements = [self.pp getTabBarElements];
+    
     tabBarArray = [[NSMutableArray alloc] init];
     UITabBarItem *homeItem;
     UITabBarItem *menuItem;

@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		066C1E5559895CDCC5BDCF5B /* libPods-NativeAPIProjectUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4170A1B5F4B09D684A67381A /* libPods-NativeAPIProjectUITests.a */; };
 		5416166D1E23C80900C5C658 /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5416166C1E23C80900C5C658 /* Montserrat-Regular.otf */; };
+		548D0A6F1E758463008FAFF0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 548D0A6E1E758463008FAFF0 /* GoogleService-Info.plist */; };
 		7773B1F0F1D1B74C28E4FF37 /* libPods-NativeAPIProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E253A927D2EB113502984E52 /* libPods-NativeAPIProject.a */; };
 		EB0F05221E09239800D11C3B /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0F05211E09239800D11C3B /* Tools.m */; };
 		EB12E1411DE33773009DB2FF /* GlobalVars.m in Sources */ = {isa = PBXBuildFile; fileRef = EB12E1401DE33773009DB2FF /* GlobalVars.m */; };
-		EB356D921E2E07E700CE43C1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB356D911E2E07E700CE43C1 /* GoogleService-Info.plist */; };
 		EB3ED7CE1E5ED693008765A4 /* UIImageViewBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = EB3ED7CD1E5ED693008765A4 /* UIImageViewBorder.m */; };
 		EB5752191D609DB300CF9565 /* CategoryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5752181D609DB300CF9565 /* CategoryVC.m */; };
 		EB6199101D5C9E2600E54823 /* menu_icons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EB61990F1D5C9E2600E54823 /* menu_icons.bundle */; };
@@ -22,6 +22,7 @@
 		EB7F73CA1DAF92050069A9E2 /* GameReviewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7F73C91DAF92050069A9E2 /* GameReviewVC.m */; };
 		EB8C6F8E1DDDA4EE00B441BE /* HomePageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C6F8C1DDDA4EE00B441BE /* HomePageTableViewCell.m */; };
 		EB8C6F8F1DDDA4EE00B441BE /* HomePageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB8C6F8D1DDDA4EE00B441BE /* HomePageTableViewCell.xib */; };
+		EBA4ED241E753B8C00DF0849 /* InternetReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = EBA4ED231E753B8C00DF0849 /* InternetReachability.m */; };
 		EBA9DD921D85578E005C5255 /* AccordionView.m in Sources */ = {isa = PBXBuildFile; fileRef = EBA9DD911D85578E005C5255 /* AccordionView.m */; };
 		EBAE718A1E1115F700AABC50 /* SplashScreenVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EBAE71891E1115F700AABC50 /* SplashScreenVC.m */; };
 		EBAFFCA61D5C99BB0021732B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EBAFFCA51D5C99BB0021732B /* main.m */; };
@@ -68,6 +69,7 @@
 		49455878607A39D3EE061712 /* Pods-NativeAPIProjectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeAPIProjectUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NativeAPIProjectUITests/Pods-NativeAPIProjectUITests.release.xcconfig"; sourceTree = "<group>"; };
 		4C92D3A1B9CA61923CB62F61 /* Pods-NativeAPIProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeAPIProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NativeAPIProject/Pods-NativeAPIProject.debug.xcconfig"; sourceTree = "<group>"; };
 		5416166C1E23C80900C5C658 /* Montserrat-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.otf"; sourceTree = "<group>"; };
+		548D0A6E1E758463008FAFF0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		598836C6CD440AD483913EF4 /* libPods-NativeAPIProjectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NativeAPIProjectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		932D3E00FFD455DAC8CC45C4 /* Pods-NativeAPIProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeAPIProjectTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NativeAPIProjectTests/Pods-NativeAPIProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B4D54F78130130F184A1D2CD /* Pods-NativeAPIProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeAPIProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-NativeAPIProject/Pods-NativeAPIProject.release.xcconfig"; sourceTree = "<group>"; };
@@ -76,7 +78,6 @@
 		EB0F05211E09239800D11C3B /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
 		EB12E13F1DE33773009DB2FF /* GlobalVars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalVars.h; sourceTree = "<group>"; };
 		EB12E1401DE33773009DB2FF /* GlobalVars.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalVars.m; sourceTree = "<group>"; };
-		EB356D911E2E07E700CE43C1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EB3ED7CC1E5ED693008765A4 /* UIImageViewBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageViewBorder.h; sourceTree = "<group>"; };
 		EB3ED7CD1E5ED693008765A4 /* UIImageViewBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageViewBorder.m; sourceTree = "<group>"; };
 		EB5752171D609DB300CF9565 /* CategoryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryVC.h; sourceTree = "<group>"; };
@@ -92,6 +93,8 @@
 		EB8C6F8B1DDDA4EE00B441BE /* HomePageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageTableViewCell.h; sourceTree = "<group>"; };
 		EB8C6F8C1DDDA4EE00B441BE /* HomePageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageTableViewCell.m; sourceTree = "<group>"; };
 		EB8C6F8D1DDDA4EE00B441BE /* HomePageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomePageTableViewCell.xib; sourceTree = "<group>"; };
+		EBA4ED221E753B8C00DF0849 /* InternetReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InternetReachability.h; sourceTree = "<group>"; };
+		EBA4ED231E753B8C00DF0849 /* InternetReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InternetReachability.m; sourceTree = "<group>"; };
 		EBA9DD901D85578E005C5255 /* AccordionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccordionView.h; sourceTree = "<group>"; };
 		EBA9DD911D85578E005C5255 /* AccordionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccordionView.m; sourceTree = "<group>"; };
 		EBAE71881E1115F700AABC50 /* SplashScreenVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashScreenVC.h; sourceTree = "<group>"; };
@@ -206,7 +209,7 @@
 		EBAFFC981D5C99BB0021732B = {
 			isa = PBXGroup;
 			children = (
-				EB356D911E2E07E700CE43C1 /* GoogleService-Info.plist */,
+				548D0A6E1E758463008FAFF0 /* GoogleService-Info.plist */,
 				EBAFFCA31D5C99BB0021732B /* NativeAPIProject */,
 				EBAFFCBD1D5C99BC0021732B /* NativeAPIProjectTests */,
 				EBAFFCC81D5C99BC0021732B /* NativeAPIProjectUITests */,
@@ -291,6 +294,8 @@
 				EBB3DCC41D61B67C003B93A0 /* NSDictionary_JSONExtensions.m */,
 				EBA9DD901D85578E005C5255 /* AccordionView.h */,
 				EBA9DD911D85578E005C5255 /* AccordionView.m */,
+				EBA4ED221E753B8C00DF0849 /* InternetReachability.h */,
+				EBA4ED231E753B8C00DF0849 /* InternetReachability.m */,
 			);
 			name = libs;
 			sourceTree = "<group>";
@@ -447,7 +452,7 @@
 								enabled = 1;
 							};
 							com.apple.SafariKeychain = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -489,13 +494,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB8C6F8F1DDDA4EE00B441BE /* HomePageTableViewCell.xib in Resources */,
+				548D0A6F1E758463008FAFF0 /* GoogleService-Info.plist in Resources */,
 				EBAFFCB41D5C99BB0021732B /* LaunchScreen.storyboard in Resources */,
 				EB6199101D5C9E2600E54823 /* menu_icons.bundle in Resources */,
 				EBAFFCB11D5C99BB0021732B /* Assets.xcassets in Resources */,
 				EBAFFCAF1D5C99BB0021732B /* Main.storyboard in Resources */,
 				EB6CDD241E2F524900BFE52C /* HomePageIpadTableViewCell.xib in Resources */,
 				5416166D1E23C80900C5C658 /* Montserrat-Regular.otf in Resources */,
-				EB356D921E2E07E700CE43C1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -665,6 +670,7 @@
 				EB3ED7CE1E5ED693008765A4 /* UIImageViewBorder.m in Sources */,
 				EBA9DD921D85578E005C5255 /* AccordionView.m in Sources */,
 				EBAFFCA91D5C99BB0021732B /* AppDelegate.m in Sources */,
+				EBA4ED241E753B8C00DF0849 /* InternetReachability.m in Sources */,
 				EBBA49391DA4E93500904C90 /* NavigationManager.m in Sources */,
 				EBB3DCB81D61AF3E003B93A0 /* PalconParser.m in Sources */,
 				EBAFFCA61D5C99BB0021732B /* main.m in Sources */,
@@ -828,7 +834,7 @@
 				CODE_SIGN_ENTITLEMENTS = NativeAPIProject/NativeAPIProject.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ory Weihs (YST38D84Q7)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = EVT9JW8JP3;
 				INFOPLIST_FILE = NativeAPIProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.online-casinos-canada.occ";
@@ -846,7 +852,7 @@
 				CODE_SIGN_ENTITLEMENTS = NativeAPIProject/NativeAPIProject.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = EVT9JW8JP3;
 				INFOPLIST_FILE = NativeAPIProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.online-casinos-canada.occ";
